@@ -1,0 +1,8 @@
+{
+  "include": [],
+  "references": [
+    { "path": "./tsconfig.configs.json" },
+    { "path": "./packages/api" },
+    { "path": "./packages/shikorism-interop" }
+  ]
+}

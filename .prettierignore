@@ -1,0 +1,5 @@
+/*
+!/lexicons/org/okazu-diary/
+!/packages/
+/packages/*/dist/
+/packages/api/src/client/

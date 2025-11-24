@@ -1,0 +1,27 @@
+{
+  "lexicon": 1,
+  "id": "org.okazu-diary.embed.external",
+  "defs": {
+    "main": {
+      "type": "object",
+      "required": ["uri"],
+      "properties": {
+        "uri": { "type": "string", "format": "uri" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "thumb": {
+          "type": "ref",
+          "ref": "#thumb"
+        }
+      }
+    },
+    "thumb": {
+      "type": "object",
+      "required": ["cid", "uri"],
+      "properties": {
+        "cid": { "type": "string", "format": "cid" },
+        "uri": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

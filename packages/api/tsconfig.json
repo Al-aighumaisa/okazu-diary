@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig/isomorphic.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "exactOptionalPropertyTypes": false
+  },
+  "include": ["./src"],
+  "exclude": ["./src/client"]
+}

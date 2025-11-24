@@ -1,0 +1,35 @@
+{
+  "lexicon": 1,
+  "id": "org.okazu-diary.feed.collection",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record representing a user-curated colleciton of materials.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["subject", "createdAt"],
+        "required": ["createdAt"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 64,
+            "minLength": 1,
+            "description": "Display name for the collection."
+          },
+          "description": {
+            "type": "string",
+            "maxGraphemes": 300,
+            "maxLength": 3000
+          },
+          "labels": {
+            "type": "union",
+            "description": "General-purpose self-label values primarily for consumption by generic AT clients. See the `labels` property of `org.okazu-diary.feed.entry` for details.",
+            "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Okazu Diary",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "packageManager": "pnpm@10.23.0+sha512.21c4e5698002ade97e4efe8b8b4a89a8de3c85a37919f957e7a0f30f38fbc5bbdd05980ffe29179b2fb6e6e691242e098d945d1601772cad0fef5fb6411e2a4b",
+  "scripts": {
+    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint . --ext .ts,.js,.tsx,.jsx",
+    "style:fix": "prettier --write .",
+    "style": "prettier --check .",
+    "verify": "pnpm --stream '/^verify:.+$/'",
+    "verify:style": "pnpm run style",
+    "verify:lint": "pnpm lint",
+    "verify:types": "tsc --build tsconfig.json",
+    "format": "pnpm style:fix",
+    "precodegen": "pnpm run --recursive --stream --filter '@atproto/lex-cli...' build --force",
+    "codegen": "pnpm run --sort --recursive --stream --parallel codegen",
+    "build": "pnpm run --sort --recursive --stream '/^(build|build:.+)$/'"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "eslint-config-prettier": "^10.1.8",
+    "multiformats": "^13.4.1",
+    "prettier": "^3.6.2",
+    "prettier-config-standard": "^7.0.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.47.0"
+  }
+}

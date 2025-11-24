@@ -1,0 +1,33 @@
+{
+  "name": "@okazu-diary/api",
+  "version": "0.0.0",
+  "license": "MIT OR Apache-2.0",
+  "description": "Client library for Okazu-Diary.org Lexicon.",
+  "author": {
+    "name": "مرزم اليَغميصاء",
+    "email": "al.aighumaisa@gmail.com"
+  },
+  "keywords": [
+    "atproto",
+    "okazu-diary.org"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Al-aighumaisa/okazu-diary.git",
+    "directory": "packages/api"
+  },
+  "main": "dist/index.js",
+  "exports": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "codegen": "find ../../lexicons -name '*.json' -exec lex gen-api --yes src/client {} +"
+  },
+  "dependencies": {
+    "@atproto/lexicon": "^0.5.1",
+    "@atproto/xrpc": "^0.7.5"
+  },
+  "devDependencies": {
+    "@atproto/lex-cli": "^0.9.6"
+  }
+}

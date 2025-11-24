@@ -1,0 +1,30 @@
+{
+  "name": "@okazu-diary/shikorism-interop",
+  "description": "Adapter for Okazu-Diary.org Lexicon types from/to Shikorism.net entities.",
+  "version": "0.0.0",
+  "license": "MIT OR Apache-2.0",
+  "author": {
+    "name": "مرزم اليَغميصاء",
+    "email": "al.aighumaisa@gmail.com"
+  },
+  "keywords": [
+    "atproto",
+    "okazu-diary.org"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Al-aighumaisa/okazu-diary.git",
+    "directory": "packages/shikorism-interop"
+  },
+  "main": "dist/index.js",
+  "exports": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.18.1",
+    "@okazu-diary/api": "workspace:^",
+    "csv-parse": "^6.1.0"
+  }
+}
