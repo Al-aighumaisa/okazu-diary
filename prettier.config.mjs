@@ -7,4 +7,5 @@ export default {
   .../** @type {Config} */ (prettierConfigStandard),
   trailingComma: 'all',
   semi: true,
+  jsxSingleQuote: false,
 };

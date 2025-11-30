@@ -1,5 +1,6 @@
 /*
 !/lexicons/org/okazu-diary/
 !/packages/
+**/*/.react-router/
 /packages/*/dist/
 /packages/api/src/client/

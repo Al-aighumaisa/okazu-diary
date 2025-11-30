@@ -1,11 +1,15 @@
 import js from '@eslint/js';
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
 import prettier from 'eslint-config-prettier/flat';
 import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals'
 import * as ts from 'typescript-eslint';
 
 /** @type {import('eslint').Linter.Config[]} */
 const config = defineConfig([
   globalIgnores([
+    '**/.react-router',
     '**/dist',
     '**/node_modules',
     '**/vendored',
@@ -54,12 +58,35 @@ const config = defineConfig([
           },
         },
       ],
+      '@typescript-eslint/restrict-template-expressions': [
+        'error',
+        {
+          allow: [
+            {
+              from: 'package',
+              package: 'multiformats',
+              name: 'CID',
+            },
+          ],
+        },
+      ],
       '@typescript-eslint/explicit-module-boundary-types': 'error',
     },
     languageOptions: {
       parserOptions: {
         projectService: true,
       },
+    },
+  },
+  {
+    files: ['packages/web/**/*.{ts,tsx}'],
+    extends: [
+      reactHooks.configs.flat.recommended,
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
     },
   },
   prettier,

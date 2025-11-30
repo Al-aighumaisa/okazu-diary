@@ -16,7 +16,6 @@
     "declarationMap": true,
     "inlineSources": true,
     "sourceMap": true,
-    "module": "CommonJS",
     "target": "ES2020"
   },
   "typeAcquisition": {

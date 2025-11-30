@@ -1,0 +1,35 @@
+{
+  "name": "@okazu-diary/web",
+  "description": "Single-user profile viewer for the Okazu-Diary.org Lexicon.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc --build --noEmit"
+  },
+  "dependencies": {
+    "@atproto/api": "^0.18.1",
+    "@atproto/identity": "^0.4.10",
+    "@atproto/xrpc": "^0.7.5",
+    "@okazu-diary/api": "workspace:^",
+    "@react-router/node": "^7.9.2",
+    "@react-router/serve": "^7.9.2",
+    "i18next": "^25.6.3",
+    "isbot": "^5.1.31",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.2"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.9.2",
+    "@tailwindcss/vite": "^4.1.13",
+    "@types/node": "^22",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "tailwindcss": "^4.1.13",
+    "vite": "^7.1.7",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
