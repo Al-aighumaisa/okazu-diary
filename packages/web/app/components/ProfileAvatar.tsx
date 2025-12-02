@@ -1,6 +1,8 @@
 import { BlobRef } from '@atproto/api';
 import type React from 'react';
 
+import * as config from '~/config';
+
 interface UserAvatarProps extends React.AriaAttributes {
   repo: string;
   blob?: BlobRef | undefined;
@@ -17,7 +19,7 @@ export default function UserAvatar({
     return (
       <img
         {...rest}
-        src={`https://cdn.bsky.app/img/avatar/plain/${repo}/${blob.ref}`}
+        src={`${config.bsky_cdn}/img/avatar/plain/${repo}/${blob.ref}`}
         width={size}
         height={size}
       />

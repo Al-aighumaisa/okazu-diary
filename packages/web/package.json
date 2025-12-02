@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "react-router dev",
+    "dev": "VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS='did:plc:txc5gws7latzcjmgpnqcogu3' VITE_OKAZU_DIARY_WEB_PLC='http://localhost:2587' node ./scripts/dev-env.js react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --build --noEmit"
   },
@@ -23,6 +23,10 @@
     "react-router": "^7.9.2"
   },
   "devDependencies": {
+    "@atproto/crypto": "^0.4.4",
+    "@atproto/dev-env": "^0.3.192",
+    "@atproto/xrpc-server": "^0.10.1",
+    "@did-plc/lib": "^0.0.4",
     "@react-router/dev": "^7.9.2",
     "@tailwindcss/vite": "^4.1.13",
     "@types/node": "^22",
