@@ -1,6 +1,5 @@
-import { DidResolver, MemoryCache, } from '@atproto/identity';
+import { DidResolver, MemoryCache } from '@atproto/identity';
 import * as config from '~/config';
-
 
 export const didResolver = new DidResolver({
   plcUrl: config.plc,

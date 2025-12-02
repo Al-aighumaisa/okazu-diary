@@ -57,7 +57,7 @@ function reducer(state: State, action: Action): State {
         return reducer(state, {
           type: 'okazu_diary_catch',
           error: result.error,
-          abort: action.abort
+          abort: action.abort,
         });
       }
     }

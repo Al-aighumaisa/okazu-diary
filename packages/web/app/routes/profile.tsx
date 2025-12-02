@@ -55,7 +55,9 @@ export async function clientLoader({
 
 export default function ProfilePage({
   loaderData: { did, client },
-}: { loaderData: LoaderData }): React.ReactNode {
+}: {
+  loaderData: LoaderData;
+}): React.ReactNode {
   return (
     <>
       <Profile did={did} client={client} />
