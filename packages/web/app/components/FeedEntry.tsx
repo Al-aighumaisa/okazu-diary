@@ -4,7 +4,7 @@ import {
   OrgOkazuDiaryEmbedRecord,
   OrgOkazuDiaryFeedDefs,
   OrgOkazuDiaryFeedEntry,
-} from 'node_modules/@okazu-diary/api';
+} from '@okazu-diary/api';
 import React, { useId } from 'react';
 
 interface ActorFeedProps {
@@ -69,30 +69,39 @@ function Subject({
       if (result.success) {
         return (
           <>
-            {(result.value.thumb ||
-              result.value.title ||
-              result.value.description) && (
-              <a href={result.value.uri}>
-                <figure>
-                  {result.value.thumb && (
-                    <img
-                      src={result.value.thumb.uri}
-                      aria-labelledby={result.value.title && titleId}
-                    />
-                  )}
-                  {(result.value.title || result.value.description) && (
-                    <figcaption>
-                      {result.value.title && (
-                        <cite id={titleId}>result.value.title</cite>
-                      )}
-                      {result.value.description && (
-                        <p>result.value.description</p>
-                      )}
-                    </figcaption>
-                  )}
-                </figure>
-              </a>
-            )}
+            {
+              // Using logical OR for consistency.
+              // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+              (result.value.thumb ||
+                // Meant to skip empty strings as well.
+                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                result.value.title ||
+                result.value.description) && (
+                <a href={result.value.uri}>
+                  <figure>
+                    {result.value.thumb && (
+                      <img
+                        src={result.value.thumb.uri}
+                        aria-labelledby={result.value.title && titleId}
+                      />
+                    )}
+                    {
+                      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+                      (result.value.title || result.value.description) && (
+                        <figcaption>
+                          {result.value.title && (
+                            <cite id={titleId}>result.value.title</cite>
+                          )}
+                          {result.value.description && (
+                            <p>result.value.description</p>
+                          )}
+                        </figcaption>
+                      )
+                    }
+                  </figure>
+                </a>
+              )
+            }
             <p>
               Link: <a href={result.value.uri}>{result.value.uri}</a>
             </p>

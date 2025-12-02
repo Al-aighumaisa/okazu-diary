@@ -1,4 +1,5 @@
 import { DidResolver, getHandle } from '@atproto/identity';
+import type React from 'react';
 import { Link, redirect } from 'react-router';
 
 import { allowed_dids } from '~/config';
@@ -14,35 +15,36 @@ const actors = await Promise.all(
   }),
 );
 const [actor, ...restActors] = actors;
+export const clientLoader =
+  actor && !restActors.length
+    ? (() => {
+        const location =
+          'handle' in actor ? `/@${actor.handle}` : `/${actor.did}`;
+        return function clientLoader() {
+          return redirect(location);
+        };
+      })()
+    : // eslint-disable-next-line @typescript-eslint/no-empty-function
+      function clientLoader() {};
 
-export default actor !== undefined && !restActors.length
-  ? (() => {
-      const location =
-        'handle' in actor ? `/@${actor.handle}` : `/${actor.did}`;
-      return function Home() {
-        throw redirect(location);
-      };
-    })()
-  : (() => {
-      const items = actors.map((actor) => {
-        const link =
-          'handle' in actor ? (
-            <Link lang="und" to={`/@${actor.handle}`}>
-              @{actor.handle}
-            </Link>
-          ) : (
-            <Link lang="zxx" to={`/${actor.did}`}>
-              {actor.did}
-            </Link>
-          );
-        return <li key={actor.did}>{link}</li>;
-      });
-      return function Home() {
-        return (
-          <main>
-            <h1>Okazu Diary</h1>
-            <ul>{items}</ul>
-          </main>
-        );
-      };
-    })();
+const items = actors.map((actor) => {
+  const link =
+    'handle' in actor ? (
+      <Link lang="und" to={`/@${actor.handle}`}>
+        @{actor.handle}
+      </Link>
+    ) : (
+      <Link lang="zxx" to={`/${actor.did}`}>
+        {actor.did}
+      </Link>
+    );
+  return <li key={actor.did}>{link}</li>;
+});
+export default function Home(): React.ReactNode {
+  return (
+    <main>
+      <h1>Okazu Diary</h1>
+      <ul>{items}</ul>
+    </main>
+  );
+}

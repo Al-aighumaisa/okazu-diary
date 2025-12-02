@@ -1,5 +1,5 @@
 import type { AtpBaseClient, ComAtprotoRepoListRecords } from '@atproto/api';
-import { OrgOkazuDiaryFeedEntry } from 'node_modules/@okazu-diary/api';
+import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import React, { useEffect, useState, type JSX } from 'react';
 import { Link } from 'react-router';
 

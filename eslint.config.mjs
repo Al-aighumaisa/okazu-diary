@@ -47,7 +47,8 @@ const config = defineConfig([
       '@typescript-eslint/no-unused-vars': [
         'error',
         {
-          'argsIgnorePattern': '^_',
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
         }
       ],
       '@typescript-eslint/prefer-nullish-coalescing': [
@@ -84,6 +85,16 @@ const config = defineConfig([
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
+    rules: {
+      '@typescript-eslint/only-throw-error': [
+        'error',
+        {
+          allow: [
+            { from: 'lib', name: 'Response' },
+          ],
+        },
+      ],
+    },
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,

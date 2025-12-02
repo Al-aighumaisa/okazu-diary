@@ -2,7 +2,9 @@
   "extends": "./tsconfig/node.json",
   "files": [
     "eslint.config.mjs",
-    "prettier.config.mjs"
+    "prettier.config.mjs",
+    "packages/web/react-router.config.ts",
+    "packages/web/vite.config.js"
   ],
   "compilerOptions": {
     "composite": true,

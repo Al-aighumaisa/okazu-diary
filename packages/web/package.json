@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS='did:plc:txc5gws7latzcjmgpnqcogu3' VITE_OKAZU_DIARY_WEB_PLC='http://localhost:2587' node ./scripts/dev-env.js react-router dev",
+    "dev": "VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS='did:plc:txc5gws7latzcjmgpnqcogu3' VITE_OKAZU_DIARY_WEB_PLC='http://localhost:2587' node ./scripts/dev-env.mjs react-router dev",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --build --noEmit"
   },

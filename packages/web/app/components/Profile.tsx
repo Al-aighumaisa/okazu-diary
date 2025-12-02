@@ -4,7 +4,7 @@ import {
   ComAtprotoRepoGetRecord,
 } from '@atproto/api';
 import { XRPCError } from '@atproto/xrpc';
-import { OrgOkazuDiaryActorProfile } from 'node_modules/@okazu-diary/api';
+import { OrgOkazuDiaryActorProfile } from '@okazu-diary/api';
 import React, { useEffect, useReducer } from 'react';
 
 import ProfileAvatar from './ProfileAvatar';

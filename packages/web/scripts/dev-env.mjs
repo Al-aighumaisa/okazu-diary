@@ -6,7 +6,7 @@ import { createServiceAuthHeaders } from '@atproto/xrpc-server';
 import * as plc from '@did-plc/lib';
 
 /** @import { ComAtprotoLabelDefs } from '@atproto/api' */
-/** @import { OrgOkazuDiaryActorProfile, OrgOkazuDiaryFeedEntry } from 'node_modules/@okazu-diary/api' */
+/** @import { OrgOkazuDiaryActorProfile, OrgOkazuDiaryFeedEntry } from '@okazu-diary/api' */
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
@@ -87,13 +87,13 @@ async function main() {
 
   /** @type {void} */
   const _ = await new Promise((resolve, reject) => {
-    child.addListener('close', (e) => {
-      process.exitCode = e.code;
+    child.addListener('close', (code) => {
+      process.exitCode = code;
       resolve();
     });
-    child.addListener('error', (e) => {
+    child.addListener('error', (err) => {
       process.exitCode = 1;
-      reject(e.err);
+      reject(err);
     });
   });
 
