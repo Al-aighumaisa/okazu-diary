@@ -17,6 +17,7 @@ export default function FeedEntry({ record }: ActorFeedProps): React.ReactNode {
       <header>
         <time dateTime={record.datetime}>{record.datetime}</time>
       </header>
+      <p>{record.note}</p>
       <Subjects subjects={record.subjects} />
       {record.tags?.length && (
         <ul>
