@@ -31,7 +31,7 @@ export default function ActorFeed({
     (async () => {
       const params: ComAtprotoRepoListRecords.QueryParams = {
         repo: did,
-        collection: 'org.okazu-diary.entry',
+        collection: 'org.okazu-diary.feed.entry',
       };
       if (cursor !== undefined) {
         params.cursor = cursor;
