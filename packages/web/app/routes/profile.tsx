@@ -1,12 +1,14 @@
 import { AtpBaseClient } from '@atproto/api';
 import { getHandle, getPds, HandleResolver } from '@atproto/identity';
 
-import ActorFeed from '~/components/ActorFeed';
+import FeedEntry from '~/components/FeedEntry';
 import Profile from '~/components/Profile';
 import { allowed_dids } from '~/config';
 import { didResolver } from '~/lib/atproto';
+import { useActorFeed } from '~/state/actorFeed';
 import { useProfile } from '~/state/profile';
 import type { Route } from './+types/profile';
+import { Link, useLocation } from 'react-router';
 
 interface LoaderData {
   did: string;
@@ -70,7 +72,53 @@ export default function ProfilePage({
 }: {
   loaderData: LoaderData;
 }): React.ReactNode {
+  const { search } = useLocation();
   const profileState = useProfile(did, client);
+
+  const query = new URLSearchParams(search);
+  const cursor = query.get('cursor');
+  const reverse = query.get('reverse') === '1';
+  const feedState = useActorFeed(did, client, cursor, reverse);
+
+  let prevPage, nextPage;
+  if (cursor) {
+    if (reverse) {
+      nextPage = `?cursor=${cursor}`;
+    } else {
+      prevPage = `?cursor=${cursor}&reverse=1`;
+    }
+  }
+
+  let feedContent;
+  switch (feedState.status) {
+    case 'pending':
+      feedContent = <p>Loading…</p>;
+      break;
+    case 'resolved':
+      feedContent = (
+        <ul>
+          {feedState.items.map((record) => (
+            <li key={record.cid}>
+              <FeedEntry record={record.value} />
+            </li>
+          ))}
+        </ul>
+      );
+      if (feedState.next) {
+        if (reverse) {
+          prevPage = `?cursor=${feedState.next}&reverse=1`;
+        } else {
+          nextPage = `?cursor=${feedState.next}`;
+        }
+      }
+      break;
+    case 'error':
+      feedContent = <p style={{ color: '#F00' }}>{`${feedState.error}`}</p>;
+      break;
+  }
+
+  const prevText = <span title="Previous page">«</span>;
+  const nextText = <span title="Next page">»</span>;
 
   return (
     <>
@@ -80,7 +128,23 @@ export default function ProfilePage({
           : 'Okazu Diary'}
       </title>
       <Profile did={did} profileState={profileState} />
-      <ActorFeed did={did} client={client} />
+      <main>{feedContent}</main>
+      <div>
+        {prevPage ? (
+          <Link to={prevPage} rel="prev">
+            {prevText}
+          </Link>
+        ) : (
+          prevText
+        )}{' '}
+        {nextPage ? (
+          <Link to={nextPage} rel="next">
+            {nextText}
+          </Link>
+        ) : (
+          nextText
+        )}
+      </div>
     </>
   );
 }
