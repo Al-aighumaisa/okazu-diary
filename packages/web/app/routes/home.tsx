@@ -42,9 +42,12 @@ const items = actors.map((actor) => {
 });
 export default function Home(): React.ReactNode {
   return (
-    <main>
-      <h1>Okazu Diary</h1>
-      <ul>{items}</ul>
-    </main>
+    <>
+      <title>Okazu Diary</title>
+      <main>
+        <h1>Okazu Diary</h1>
+        <ul>{items}</ul>
+      </main>
+    </>
   );
 }
