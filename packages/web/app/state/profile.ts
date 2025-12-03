@@ -14,9 +14,10 @@ export type State =
   | {
       status: 'pending';
       value: undefined | AppBskyActorProfile.Main | null;
+      error?: unknown;
     }
   | { status: 'resolved'; value: Profile }
-  | { status: 'error'; value: unknown };
+  | { status: 'error'; error: unknown };
 
 export interface Profile {
   displayName: string | undefined;
@@ -39,13 +40,18 @@ type Action =
     }
   | { type: 'od_catch'; error: unknown; abort: AbortController }
   | { type: 'bsky_resp'; response: ComAtprotoRepoGetRecord.Response }
-  | { type: 'bsky_catch' };
+  | { type: 'bsky_catch' }
+  | { type: 'reinit' };
 
-export function useProfile(did: string, client: AtpBaseClient): State {
+export function useProfile(
+  did: string,
+  client: AtpBaseClient,
+): [State, () => void] {
   const [state, dispatch] = useReducer(reducer, {
     status: 'pending',
     value: undefined,
   });
+  const [retryState, retry] = useReducer((x) => !x, false);
 
   useEffect(() => {
     const abort = new AbortController();
@@ -101,9 +107,15 @@ export function useProfile(did: string, client: AtpBaseClient): State {
     return () => {
       abort.abort();
     };
-  }, [did]);
+  }, [did, retryState]);
 
-  return state;
+  return [
+    state,
+    () => {
+      dispatch({ type: 'reinit' });
+      retry();
+    },
+  ];
 }
 
 function reducer(state: State, action: Action): State {
@@ -144,7 +156,7 @@ function reducer(state: State, action: Action): State {
       ) {
         console.log(action.error);
         action.abort.abort();
-        return { status: 'error', value: action.error };
+        return { status: 'error', error: action.error };
       }
       if (state.value) {
         // Fall back on bsky profile if already resolved.
@@ -161,7 +173,7 @@ function reducer(state: State, action: Action): State {
       } else {
         return {
           status: 'error',
-          value: new Error('Profile not found in repository'),
+          error: new Error('Profile not found in repository'),
         };
       }
     case 'bsky_resp':
@@ -206,13 +218,17 @@ function reducer(state: State, action: Action): State {
       if (state.value === null) {
         return {
           status: 'error',
-          value: new Error('Profile not found in repository'),
+          error: new Error('Profile not found in repository'),
         };
       }
       return {
         status: 'pending',
         value: null,
       };
+    case 'reinit': {
+      const error = state.status === 'error' ? state.error : null;
+      return { status: 'pending', value: undefined, error };
+    }
   }
 }
 

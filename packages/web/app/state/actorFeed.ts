@@ -1,9 +1,9 @@
 import type { AtpBaseClient, ComAtprotoRepoListRecords } from '@atproto/api';
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 
 export type State =
-  | { status: 'pending' }
+  | { status: 'pending'; error?: unknown }
   | {
       status: 'resolved';
       items: {
@@ -19,8 +19,11 @@ export function useActorFeed(
   client: AtpBaseClient,
   cursor: string | null,
   reverse: boolean,
-): State {
-  const [state, setState] = useState<State>({ status: 'pending' });
+): [State, () => void] {
+  const [state, setState] = useState<State>({
+    status: 'pending',
+  });
+  const [retryState, retry] = useReducer((x) => !x, true);
 
   useEffect(() => {
     const abort = new AbortController();
@@ -60,7 +63,14 @@ export function useActorFeed(
     });
 
     return () => abort.abort();
-  }, [did, cursor, reverse]);
+  }, [did, cursor, reverse, retryState]);
 
-  return state;
+  return [
+    state,
+    () => {
+      const error = state.status === 'error' ? state.error : null;
+      setState({ status: 'pending', error });
+      retry();
+    },
+  ];
 }

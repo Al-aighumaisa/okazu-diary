@@ -73,12 +73,12 @@ export default function ProfilePage({
   loaderData: LoaderData;
 }): React.ReactNode {
   const { search } = useLocation();
-  const profileState = useProfile(did, client);
+  const [profileState, retryProfile] = useProfile(did, client);
 
   const query = new URLSearchParams(search);
   const cursor = query.get('cursor');
   const reverse = query.get('reverse') === '1';
-  const feedState = useActorFeed(did, client, cursor, reverse);
+  const [feedState, retryFeed] = useActorFeed(did, client, cursor, reverse);
 
   let prevPage, nextPage;
   if (cursor) {
@@ -89,10 +89,24 @@ export default function ProfilePage({
     }
   }
 
-  let feedContent;
+  let feedContent, pending;
   switch (feedState.status) {
     case 'pending':
-      feedContent = <p>Loading…</p>;
+      if (!feedState.error) {
+        feedContent = <p>Loading…</p>;
+        break;
+      }
+      pending = true;
+    // Fall through
+    case 'error':
+      feedContent = (
+        <>
+          <p style={{ color: '#F00' }}>{`${feedState.error}`}</p>
+          <button onClick={retryFeed} disabled={pending}>
+            Retry
+          </button>
+        </>
+      );
       break;
     case 'resolved':
       feedContent = (
@@ -112,9 +126,6 @@ export default function ProfilePage({
         }
       }
       break;
-    case 'error':
-      feedContent = <p style={{ color: '#F00' }}>{`${feedState.error}`}</p>;
-      break;
   }
 
   const prevText = <span title="Previous page">«</span>;
@@ -127,7 +138,7 @@ export default function ProfilePage({
           ? `${profileState.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
           : 'Okazu Diary'}
       </title>
-      <Profile did={did} profileState={profileState} />
+      <Profile did={did} profileState={profileState} onRetry={retryProfile} />
       <main>{feedContent}</main>
       <div>
         {prevPage ? (
