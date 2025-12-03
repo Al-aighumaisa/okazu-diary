@@ -1,5 +1,6 @@
 import { spawn } from 'node:child_process';
 
+import { TID } from '@atproto/common-web';
 import { Secp256k1Keypair } from '@atproto/crypto';
 import { TestNetworkNoAppView } from '@atproto/dev-env';
 import { createServiceAuthHeaders } from '@atproto/xrpc-server';
@@ -17,6 +18,12 @@ async function main() {
   const { network, did, accessJwt } = await setupNetwork();
   const agent = network.pds.getClient();
 
+  let mockTime = Date.parse('2025-01-01T00:00:00Z');
+  function nextTID() {
+    mockTime += 42 * 42 * 42 * 42 * 42; // ~1.5 day
+    return TID.fromTime(mockTime * 1000, 1).toString();
+  }
+
   await agent.com.atproto.repo.applyWrites(
     {
       repo: did,
@@ -31,7 +38,7 @@ async function main() {
             displayName: 'bobby',
             description: 'hi im bob',
             website: 'https://bob.test',
-            createdAt: new Date().toISOString(),
+            createdAt: new Date(mockTime).toISOString(),
           },
         },
         ...Array(100)
@@ -39,10 +46,11 @@ async function main() {
           .map((_, i) => ({
             $type: /** @type {const} */ ('com.atproto.repo.applyWrites#create'),
             collection: 'org.okazu-diary.feed.entry',
+            rkey: nextTID(),
             /** @type {OrgOkazuDiaryFeedEntry.Main} */
             value: {
               $type: 'org.okazu-diary.feed.entry',
-              datetime: new Date().toISOString(),
+              datetime: new Date(mockTime).toISOString(),
               note: `Placeholder to trigger pagination (${i})`,
               /** @type {ComAtprotoLabelDefs.SelfLabels} */
               labels: {
@@ -56,10 +64,11 @@ async function main() {
         {
           $type: 'com.atproto.repo.applyWrites#create',
           collection: 'org.okazu-diary.feed.entry',
+          rkey: nextTID(),
           /** @type {OrgOkazuDiaryFeedEntry.Main} */
           value: {
             $type: 'org.okazu-diary.feed.entry',
-            datetime: new Date().toISOString(),
+            datetime: new Date(mockTime).toISOString(),
             subjects: [],
             tags: [{ value: 'tag-1' }, { value: 'tag-2' }],
             note: '',

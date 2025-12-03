@@ -23,6 +23,7 @@
     "react-router": "^7.9.2"
   },
   "devDependencies": {
+    "@atproto/common-web": "^0.4.6",
     "@atproto/crypto": "^0.4.4",
     "@atproto/dev-env": "^0.3.192",
     "@atproto/xrpc-server": "^0.10.1",
