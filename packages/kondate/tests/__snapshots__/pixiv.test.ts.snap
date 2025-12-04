@@ -1,0 +1,1511 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot html-description (5385135) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2009-07-29T15:10:00+00:00",
+  "datePublished": "2009-07-29T15:10:00+00:00",
+  "description": "pixivプレミアムでは、お気に入りユーザーをグループ分けして、グループ毎に表示する事ができます。<br />お気に入りユーザー新着イラストでは、このように表示されます。<br /><br /><span style="color:#fe3a20;">※この画像は、2009年07月30日時点の物なので、現在の物とは若干異なります。</span>",
+  "identifier": "5385135",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2009/07/30/00/10/05/5385135_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1565,
+        "width": 1050,
+      },
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "pixivプレミアム",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "お気に入りユーザーのグループ分け1",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": "https://i.pximg.net/img-original/img/2009/07/30/00/10/05/5385135_p0.jpg",
+      "page": undefined,
+      "pageCount": 1,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/5385135",
+}
+`;
+
+exports[`resolve snapshot illust-genai (98686026) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2022/06/01/16/43/11/22811538_b6bea160239ea43e7096c31a17ef56c3_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "Henry_Townshend",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/6847449",
+    },
+  ],
+  "dateModified": "2022-05-29T06:55:00+00:00",
+  "datePublished": "2022-05-29T06:55:00+00:00",
+  "description": "<br /> I didn&#39;t want to forget",
+  "identifier": "98686026",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2022/05/29/15/55/22/98686026_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1664,
+        "width": 1664,
+      },
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "AI生成",
+      },
+    },
+    {
+      "name": {
+        "textValue": "Midjourney",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "Art",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "星",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "海色",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "海",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "海色",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 2,
+      "illustType": 0,
+      "originalImage": "https://i.pximg.net/img-original/img/2022/05/29/15/55/22/98686026_p0.jpg",
+      "page": undefined,
+      "pageCount": 1,
+      "sl": 2,
+      "userAccount": "zxc970512",
+      "userId": "6847449",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/98686026",
+}
+`;
+
+exports[`resolve snapshot illust-multi-r18 (73814313) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2019-03-22T09:00:00+00:00",
+  "datePublished": "2019-03-22T09:00:00+00:00",
+  "description": "pixiv事務局です。<br />2019年3月22日(金)、LOVE xxx BOYS pixivより<br /><strong>『めめしいアクとあざといスウ』琢磨</strong><br /><strong>『いたずらされちゃう系男子』夏川あらた</strong><br />が発売しました。ぜひご覧ください。<br /><br /><strong>めめしいアクとあざといスウ</strong><br />めんどくさいの大嫌い男子が、最強にめんどくさい男にロックオンされちゃった——!?<br />愛が重すぎる泣き虫イケメン×あざと可愛いイマドキ男子のパニックラブコメディ❤︎<br /><br />■pixivコミック　<a href="https://comic.pixiv.net/works/4480" target="_blank">https://comic.pixiv.net/works/4480</a><br />■Amazon　<a href="/jump.php?https%3A%2F%2Fwww.amazon.co.jp%2Fo%2FASIN%2F4344844262%2Fpixiv-comic-22" target="_blank">https://www.amazon.co.jp/o/ASIN/4344844262/pixiv-comic-22</a><br /><br /><strong>いたずらされちゃう系男子</strong><br />コワモテな先輩・灰田×無防備な後輩・犬塚<br />寝たら起きない犬塚にHなイタズラしちゃいます!?<br /><br />■pixivコミック　<a href="https://comic.pixiv.net/works/4086" target="_blank">https://comic.pixiv.net/works/4086</a><br />■Amazon　<a href="/jump.php?https%3A%2F%2Fwww.amazon.co.jp%2Fo%2FASIN%2F4344844254%2Fpixiv-comic-22" target="_blank">https://www.amazon.co.jp/o/ASIN/4344844254/pixiv-comic-22</a><br /><br />■LOVE xxx BOYS pixiv HP　<a href="/jump.php?https%3A%2F%2Flovexxxboys.pr-pixiv.net%2F" target="_blank">https://lovexxxboys.pr-pixiv.net/</a>",
+  "identifier": "73814313",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 800,
+        "width": 750,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p4_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p5_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p6_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p7_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p8_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p9_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p10_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p11_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p12_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p13_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p14_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p15_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p16_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p17_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p18_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p19_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p20_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p21_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p22_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p23_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p24_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p25_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p26_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p27_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p28_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p29_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p30_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p31_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p32_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2019/03/22/18/00/05/73814313_p33_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "R-18",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "pixivコミック",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "LOVExxxBOYSpixiv",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "めめしいアクとあざといスウ",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "いたずらされちゃう系男子",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "LOVE xxx BOYS pixiv 3月コミックス発売情報",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": undefined,
+      "page": undefined,
+      "pageCount": 34,
+      "sl": 6,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 1,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/73814313",
+}
+`;
+
+exports[`resolve snapshot illust-multi-sensitive (66086550) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2017-11-29T04:16:00+00:00",
+  "datePublished": "2017-11-29T04:16:00+00:00",
+  "description": "pixiv事務局です。<br />2017年11月29日（水）、pixivのマンガレーベルMANGA pixivにて<br />『Neverending Nightmares（ネバーエンディングナイトメア）』<br />（作画：加藤片 / 原作：Matt Gilgenbach / 原作協力：SUNPLANT）の<br />プロローグと第一話が公開となりました。ぜひご覧ください。<br /><br />－－－－－－－－－－－－－－－－－－－－－－－－<br />『Neverending Nightmares』<br /><br />かつて精神の病に苦しんでいたゲーム開発者が、自ら感じていた感覚や恐怖に着想を得て製作されたホラーゲーム『Neverending Nightmares』、待望のコミカライズ！！！<br /><br />幼女を刺殺する悪夢を見た主人公のトーマスが、恐怖におののき目を覚ますと、知らない部屋にいた。混乱する彼の前に、妹のガビィだと名のる女性が現れトーマスを落ち着かせようするが、彼女は突如異形の姿になり…。<br /><br />次々襲いかかる不可解な現象…。<br />幾度も繰り返される悪夢…。抜け出せない世界…。<br />トーマスは現実へ戻るため、怪異の潜む館を彷徨う――<br /><br />◆pixivコミック（日本語版）<br /><a href="https://comic.pixiv.net/works/4235" target="_blank">https://comic.pixiv.net/works/4235</a><br /><br />◆ pixiv<br /> (English) <a href="https://www.pixiv.net/user/14792128/series/23906" target="_blank">https://www.pixiv.net/user/14792128/series/23906</a><br /> (简体中文) <a href="https://www.pixiv.net/user/14792128/series/23907" target="_blank">https://www.pixiv.net/user/14792128/series/23907</a><br /> (繁體中文) <a href="https://www.pixiv.net/user/14792128/series/23910" target="_blank">https://www.pixiv.net/user/14792128/series/23910</a><br />－－－－－－－－－－－－－－－－－－－－－－－－<br /><br />◆MANGA pixiv　<a href="https://www.pixiv.net/special/MANGApixiv/" target="_blank">https://www.pixiv.net/special/MANGApixiv/</a>",
+  "identifier": "66086550",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 550,
+        "width": 750,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p4_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p5_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p6_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p7_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2017/11/29/13/16/15/66086550_p8_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "Neverending_Nightmares",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "pixivコミック",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "ホラー",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "R-15",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "シスコン",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "nudity",
+    },
+  ],
+  "name": {
+    "textValue": "『Neverending Nightmares』第一話公開",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": undefined,
+      "page": undefined,
+      "pageCount": 9,
+      "sl": 4,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/66086550",
+}
+`;
+
+exports[`resolve snapshot illust-single-sfw (1580459) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2008-09-10T08:47:00+00:00",
+  "datePublished": "2008-09-10T08:47:00+00:00",
+  "description": "2008年9月10日でpixivはサービス開始1周年を迎えます。<br />そこで、pixiv1周年記念企画として、pixivというサービスを擬人化したキャラクター「ピクシブたん」を大募集！<br />皆さんが考える「ピクシブたん」をイラストにしてみませんか？ <br /><br />Special Thanks:「みんなでピクシブたん描こうぜ！」<strong><a href="https://www.pixiv.net/artworks/14567">illust/14567</a></strong><br />「pixivお誕生日」 <strong><a href="https://www.pixiv.net/artworks/1469262">illust/1469262</a></strong> <br />ピクシブたん　→　<a href="/jump.php?http%3A%2F%2Ftinyurl.com%2F6yx3f5" target="_blank">http://tinyurl.com/6yx3f5</a>",
+  "identifier": "1580459",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2008/09/10/17/47/18/1580459_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 711,
+        "width": 749,
+      },
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "ピクシブたん",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "企画",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "企画主",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "企画目録",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "【企画】ピクシブたんを描こう！",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": "https://i.pximg.net/img-original/img/2008/09/10/17/47/18/1580459_p0.jpg",
+      "page": undefined,
+      "pageCount": 1,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/1580459",
+}
+`;
+
+exports[`resolve snapshot illust-updated (34231632) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2013-03-14T04:50:00+00:00",
+  "datePublished": "2013-03-14T02:42:00+00:00",
+  "description": "pixiv事務局です。<br /><br />3月14日より、PSP用リズムアクションゲーム『Megpoid the Music#』の発売を記念して、GUMIイラストコンテストを開催します。<br /><br />【開催期間】<br /><span style="color:#fe3a20;"><s>3月14日(木)～4月15日(月)23：59まで</s><br />応募受付は終了いたしました。たくさんのご応募ありがとうございます！</span><br />受賞作品を発表いたしました。<strong><a href="https://www.pixiv.net/info.php?id=1610">info.php?id=1610</a></strong><br /><br />【参加方法】<br />VOCALOIDメグッポイドのキャラクター「GUMI」を自由にお描きください。<br />投稿タグ：<span style="color:#fe3a20;">GUMIイラストコンテスト</span><br /><br />【投稿形式】<br />WEB投稿画像サイズ:投稿時のサイズは自由です。<br />ただし、受賞者の方は「3508pixel × 2480pixel、解像度300dpi以上（A4判　タテヨコ自由）」で作品のデータのご提出をお願いいたします。<br /><br />投稿数：1点以上複数作品の投稿可能(ただし、同じ作品を複数投稿することはできません)。<br /><br />【選考方法】<br />コンテスト投稿作品については、厳正なる審査の後、優秀作品を決定します。<br />最優秀作品には、『Megpoid the Music#』とGUMIグッズをプレゼントするほか、正規ライセンス商品のデザインとしての採用も予定しています。<br /><br />※詳細は必ず応募要項をお読み下さい。<br />皆さまからのご応募お待ちしております。<br /><br />◆作品一覧ページ  <a href="http://www.pixiv.net/contest/gumi.php" target="_blank">http://www.pixiv.net/contest/gumi.php</a><br />◆応募要項  <a href="http://www.pixiv.net/contest/gumi_terms.php" target="_blank">http://www.pixiv.net/contest/gumi_terms.php</a><br />◆『Megpoid the Music#』オフィシャルウェブサイト <a href="/jump.php?http%3A%2F%2Fwww.asgard-japan.com%2Fparaphray%2Fmeg%2F" target="_blank">http://www.asgard-japan.com/paraphray/meg/</a>",
+  "identifier": "34231632",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2013/03/14/13/50/26/34231632_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 694,
+        "width": 970,
+      },
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "公式企画",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "GUMIイラストコンテスト",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "GUMIイラストコンテスト",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": "https://i.pximg.net/img-original/img/2013/03/14/13/50/26/34231632_p0.jpg",
+      "page": undefined,
+      "pageCount": 1,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/34231632",
+}
+`;
+
+exports[`resolve snapshot image-response (60114898) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2019/08/06/15/49/45/16104414_460a455887c4acc49e2bec27cc0c15af_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "せをはやみ",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/87168",
+    },
+  ],
+  "dateModified": "2016-11-26T06:46:00+00:00",
+  "datePublished": "2016-11-26T06:46:00+00:00",
+  "description": "第１話→〈<strong><a href="https://www.pixiv.net/artworks/59927165">illust/59927165</a></strong>〉<br />続き→〈<strong><a href="https://www.pixiv.net/artworks/60280826">illust/60280826</a></strong>〉<br /><br />女子会特有の、話が脱線するのを繰り返しながらまったりする感じを目指した日常マンガです。<br />2010年前後(コンビニの生ハムをおやつにするのが流行った時代)くらいの<br />等身大の学生をイメージしています。<br /><br />メリーゴーランドは今年の初めになくなってしまったみたいですね。残念です。。。<br /><br />BOOTHにて加筆修正して再編集したものを販売中です。<a href="https://booth.pm/ja/items/1533383" target="_blank">https://booth.pm/ja/items/1533383</a>",
+  "identifier": "60114898",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1020,
+        "width": 720,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p4_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/26/15/46/02/60114898_p5_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": [
+    {
+      "creator": [
+        {
+          "name": {
+            "textValue": "せをはやみ",
+          },
+          "type": "Person",
+        },
+      ],
+      "image": [
+        {
+          "contentUrl": "https://i.pximg.net/c/150x150/img-master/img/2016/11/13/11/36/05/59927165_p0_master1200.jpg",
+          "encodingFormat": "image/jpeg",
+        },
+      ],
+      "name": {
+        "textValue": "今日も のらりくらり (1話)",
+      },
+      "type": "VisualArtwork",
+      "url": "https://www.pixiv.net/artworks/59927165",
+    },
+  ],
+  "isPartOf": {
+    "name": {
+      "textValue": "今日ものらりくらり",
+    },
+    "url": "https://www.pixiv.net/user/87168/series/8",
+  },
+  "keywords": [
+    {
+      "name": {
+        "textValue": "漫画",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "オリジナル",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "女の子",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "創作",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "女子高生",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "JK",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "百合",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "パフェ",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "女子会",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "アホの子",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "今日も のらりくらり (2話)",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 1,
+      "originalImage": "https://i.pximg.net/img-original/img/2016/11/26/15/46/02/60114898_p0.jpg",
+      "page": undefined,
+      "pageCount": 6,
+      "sl": 2,
+      "userAccount": "hayami_sewo",
+      "userId": "87168",
+      "xRestrict": 0,
+    },
+  },
+  "type": "ComicStory",
+  "url": "https://www.pixiv.net/artworks/60114898",
+}
+`;
+
+exports[`resolve snapshot manga (46267137) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2014-09-30T04:09:00+00:00",
+  "datePublished": "2014-09-30T04:09:00+00:00",
+  "description": "pixiv事務局です。<br /><br />pixivに投稿された作品をより快適にご覧いただくために、イラスト・漫画投稿機能の仕様を変更しました。<br />これまで複数の画像をアップロードする時には、漫画の投稿機能をご利用いただいておりましたが、イラスト投稿でも複数の画像をアップロードできるようになりました。<br /><br />■作品投稿時の変更点<br />・イラスト投稿・漫画投稿ページのデザインを変更<br />画像を複数選択してアップロードできるようになりました。<br /><br />・「ブック形式」機能を追加<br />見開き表示を利用する際に、綴じ方向を簡単に設定できるようになりました。<br />ブック形式のサンプル<br /><strong><a href="https://www.pixiv.net/artworks/46271807">illust/46271807</a></strong><br /><br />■閲覧時の変更点<br />・作品サムネイルの見た目を変更<br /><br />また、今回の仕様変更に伴い、作品編集時に作品の種類を「イラスト」または「漫画」に分類することができるようになりました。<br />作品を正確に分類していただくことで、検索やランキングで作品の形式を識別しやすくなります。<br /><br />投稿者・閲覧者ともに、より便利にpixivをご利用いただくため、作品投稿の際にはぜひ、イラスト・漫画の分類にご協力いただければ幸いです。<br />今後ともpixivをよろしくお願いいたします。",
+  "identifier": "46267137",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/13/09/04/46267137_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 600,
+        "width": 600,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/13/09/04/46267137_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/13/09/04/46267137_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/13/09/04/46267137_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "漫画",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "イラストまとめ",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "元に戻して",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "不便",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "なにこれひどい",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "要改善",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "イベントなんぞやってるヒマがあるなら改悪したUI直して",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "糞改悪",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "イラスト・漫画の仕様を変更しました",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 1,
+      "originalImage": "https://i.pximg.net/img-original/img/2014/09/30/13/09/04/46267137_p0.png",
+      "page": undefined,
+      "pageCount": 4,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "ComicStory",
+  "url": "https://www.pixiv.net/artworks/46267137",
+}
+`;
+
+exports[`resolve snapshot manga-book (46271807) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2014-09-30T11:27:00+00:00",
+  "datePublished": "2014-09-30T11:27:00+00:00",
+  "description": "ブック形式で投稿すると、このようになります。<br /><br />ブック形式について詳しくはこちら <a href="http://help.pixiv.net/189/" target="_blank">http://help.pixiv.net/189/</a>",
+  "identifier": "46271807",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1366,
+        "width": 968,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p4_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p5_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p6_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p7_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p8_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p9_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p10_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p11_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p12_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p13_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p14_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p15_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p16_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p17_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p18_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/09/30/20/27/24/46271807_p19_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "ピクシブたん",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "見開き",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "ブック形式のサンプル",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 0,
+      "originalImage": "https://i.pximg.net/img-original/img/2014/09/30/20/27/24/46271807_p0.jpg",
+      "page": undefined,
+      "pageCount": 20,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/46271807",
+}
+`;
+
+exports[`resolve snapshot series (60103962) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2018/01/17/13/27/18/13704279_b44b8e2e9915bcc54f7abd507708428c_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "りんごくらぶ🍎C105新刊",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/1560534",
+    },
+  ],
+  "dateModified": "2016-11-25T12:00:00+00:00",
+  "datePublished": "2016-11-25T12:00:00+00:00",
+  "description": "<strong><a href="https://twitter.com/000apple" target="_blank">twitter/000apple</a></strong>に毎週金曜に上げてるオリジナル漫画。１１月分まとめ。最初のは１０月だけど。<br /><br />お話に３日キャラデザに３日くらいの割合で時間がかかってます。",
+  "identifier": "60103962",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/25/21/00/02/60103962_p0_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1482,
+        "width": 999,
+      },
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/25/21/00/02/60103962_p1_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/25/21/00/02/60103962_p2_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/25/21/00/02/60103962_p3_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2016/11/25/21/00/02/60103962_p4_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": undefined,
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": {
+    "name": {
+      "textValue": "週刊りんごくらぶ",
+    },
+    "url": "https://www.pixiv.net/user/1560534/series/4",
+  },
+  "keywords": [
+    {
+      "name": {
+        "textValue": "漫画",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "オリジナル",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "週刊りんごくらぶ",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "鈍感系男子・積極的女子",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "恋の病",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "週刊りんごくらぶ１１月号",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 1,
+      "originalImage": "https://i.pximg.net/img-original/img/2016/11/25/21/00/02/60103962_p0.jpg",
+      "page": undefined,
+      "pageCount": 5,
+      "sl": 2,
+      "userAccount": "apple0",
+      "userId": "1560534",
+      "xRestrict": 0,
+    },
+  },
+  "type": "ComicStory",
+  "url": "https://www.pixiv.net/artworks/60103962",
+}
+`;
+
+exports[`resolve snapshot ugoira (44298467) 1`] = `
+{
+  "creator": [
+    {
+      "image": {
+        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "encodingFormat": "image/jpeg",
+      },
+      "name": {
+        "textValue": "pixiv事務局",
+      },
+      "type": "Person",
+      "url": "https://www.pixiv.net/users/11",
+    },
+  ],
+  "dateModified": "2014-06-25T05:30:00+00:00",
+  "datePublished": "2014-06-25T05:30:00+00:00",
+  "description": "pixiv事務局です。<br /><br />うごくイラストが投稿できる『うごイラ』をリリースしました。<br /><br />『うごイラ』で投稿するイラストは1イラストごとに表示時間（フレーム時間）を設定することができます。<br /><strong>PNG形式、JPEG形式のイラストをうごかすことができる</strong>ので、従来のアニメーションGIFよりも高画質で色彩豊かなうごくイラストを投稿できます。<br /><br />それぞれのイラストに表示時間を設定することで、イラストをアニメのように表示することができます。（※画像のフォーマット（拡張子）、画像サイズをそろえる必要があります。）クリックすることで再生、一時停止も可能です。<br /><br />『うごイラ』、アニメーションGIFは以下URLから投稿できます。　<br /><a href="http://www.pixiv.net/ugoira_upload.php" target="_blank">http://www.pixiv.net/ugoira_upload.php</a><br /><br />あなたが創作したオリジナルのキャラ、思い描くワンシーンを『うごイラ』で動かしてみましょう。<br /><br />今後ともpixivをよろしくお願いいたします。",
+  "identifier": "44298467",
+  "image": [
+    {
+      "contentUrl": "https://i.pixiv.cat/img-master/img/2014/06/25/14/30/22/44298467_master1200.jpg",
+      "encodingFormat": "image/jpeg",
+      "ratio": {
+        "height": 1080,
+        "width": 1920,
+      },
+    },
+  ],
+  "isBasedOn": undefined,
+  "isPartOf": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "うごイラ",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": true,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "うごくイラスト",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+    {
+      "name": {
+        "textValue": "はじめました",
+      },
+      "resolver": {
+        "pixiv": {
+          "locked": false,
+        },
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": {
+    "textValue": "うごイラはじめました",
+  },
+  "resolver": {
+    "pixivArtwork": {
+      "aiType": 0,
+      "illustType": 2,
+      "originalImage": "https://i.pximg.net/img-original/img/2014/06/25/14/30/22/44298467_ugoira0.jpg",
+      "page": undefined,
+      "pageCount": 1,
+      "sl": 2,
+      "userAccount": "pixiv",
+      "userId": "11",
+      "xRestrict": 0,
+    },
+  },
+  "type": "VisualArtwork",
+  "url": "https://www.pixiv.net/artworks/44298467",
+}
+`;

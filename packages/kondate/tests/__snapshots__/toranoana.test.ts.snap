@@ -1,0 +1,157 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot generic 1`] = `
+{
+  "creator": [
+    {
+      "name": {
+        "textValue": "辰巳出版",
+      },
+      "type": "Organization",
+      "url": undefined,
+    },
+    {
+      "name": {
+        "textValue": "キクチミロ",
+      },
+      "type": "Person",
+      "url": "https://ecs.toranoana.jp/tora/ec/app/catalog/list?searchActorName=%E3%82%AD%E3%82%AF%E3%83%81%E3%83%9F%E3%83%AD",
+    },
+  ],
+  "description": "辰巳出版「絶滅危機動物ファイル サナのいきものひみつノート」を買うなら、とらのあな全年齢向け通販！11,000円以上で送料当社負担。とらのあなのお店でも受け取りが可能です。",
+  "identifier": "200012706343",
+  "image": [
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/20/0012/70/63/200012706343-1p.jpg",
+    },
+  ],
+  "keywords": [],
+  "name": {
+    "textValue": "絶滅危機動物ファイル サナのいきものひみつノート",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://ecs.toranoana.jp/tora/ec/item/200012706343/",
+      "description": "辰巳出版「絶滅危機動物ファイル サナのいきものひみつノート」を買うなら、とらのあな全年齢向け通販！11,000円以上で送料当社負担。とらのあなのお店でも受け取りが可能です。",
+      "og": {
+        "image": [
+          {
+            "url": "https://ecdnimg.toranoana.jp/ec/img/20/0012/70/63/200012706343-1p.jpg",
+          },
+        ],
+        "title": "絶滅危機動物ファイル サナのいきものひみつノート",
+      },
+      "title": "絶滅危機動物ファイル サナのいきものひみつノート [辰巳出版(キクチミロ)] - とらのあな全年齢向け通販",
+    },
+  },
+  "url": "https://ecs.toranoana.jp/tora/ec/item/200012706343/",
+}
+`;
+
+exports[`resolve snapshot generic-on-r18-floor 1`] = `
+{
+  "creator": [
+    {
+      "name": {
+        "textValue": "KADOKAWA",
+      },
+      "type": "Organization",
+      "url": undefined,
+    },
+    {
+      "name": {
+        "textValue": "フライ/漫画 けものフレンズプロジェクト/企画・原案",
+      },
+      "type": "Person",
+      "url": "https://ecs.toranoana.jp/tora/ec/app/catalog/list?searchActorName=%E3%83%95%E3%83%A9%E3%82%A4%2F%E6%BC%AB%E7%94%BB+%E3%81%91%E3%82%82%E3%81%AE%E3%83%95%E3%83%AC%E3%83%B3%E3%82%BA%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88%2F%E4%BC%81%E7%94%BB%E3%83%BB%E5%8E%9F%E6%A1%88",
+    },
+  ],
+  "description": "「けものフレンズ」が コミックに! ある不思議な現象で動物たちがヒトと同じように言葉が話せる女の子の姿になった、「アニマルガール」が暮らす「ジャパリパーク」。 そこに立派な飼育員を目指しやってきた菜々",
+  "identifier": "200011723832",
+  "image": [
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/20/0011/72/38/200011723832-1p.jpg",
+    },
+  ],
+  "keywords": [],
+  "name": {
+    "textValue": "けものフレンズ ようこそジャパリパークへ! 1",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://ecs.toranoana.jp/tora/ec/item/200011723832/",
+      "description": "「けものフレンズ」が コミックに! ある不思議な現象で動物たちがヒトと同じように言葉が話せる女の子の姿になった、「アニマルガール」が暮らす「ジャパリパーク」。 そこに立派な飼育員を目指しやってきた菜々",
+      "og": {
+        "image": [
+          {
+            "url": "https://ecdnimg.toranoana.jp/ec/img/20/0011/72/38/200011723832-1p.jpg",
+          },
+        ],
+        "title": "けものフレンズ ようこそジャパリパークへ! 1",
+      },
+      "title": "けものフレンズ ようこそジャパリパークへ! 1 [KADOKAWA(フライ)] - とらのあな全年齢向け通販",
+    },
+  },
+  "url": "https://ecs.toranoana.jp/tora/ec/item/200011723832/",
+}
+`;
+
+exports[`resolve snapshot r18 1`] = `
+{
+  "creator": [
+    {
+      "name": {
+        "textValue": "五月惣菜店",
+      },
+      "type": "Organization",
+      "url": "https://ec.toranoana.jp/tora_r/ec/cot/circle/NUPAEC6P8474dE61d687/all/",
+    },
+    {
+      "name": {
+        "textValue": "五月うなぎ",
+      },
+      "type": "Person",
+      "url": "https://ec.toranoana.jp/tora_r/ec/app/catalog/list?searchActorName=%E4%BA%94%E6%9C%88%E3%81%86%E3%81%AA%E3%81%8E",
+    },
+  ],
+  "description": "すっご～い！えっろ～い！と。 思わず心で叫んでしまうエロ可愛いフルカラーイラスト集！ サークル【五月惣菜店】がお贈りする“COMIC1☆13”作品。 [けものフレンズ]本『FENNEECCHIE』をご",
+  "identifier": "040030634030",
+  "image": [
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/04/0030/63/40/040030634030-1p.jpg",
+    },
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/04/0030/63/40/040030634030-2p.jpg",
+    },
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/04/0030/63/40/040030634030-3p.jpg",
+    },
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/04/0030/63/40/040030634030-4p.jpg",
+    },
+    {
+      "contentUrl": "https://ecdnimg.toranoana.jp/ec/img/04/0030/63/40/040030634030-5p.jpg",
+    },
+  ],
+  "keywords": [],
+  "name": {
+    "textValue": "FENNEECCHIE",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://ec.toranoana.jp/tora_r/ec/item/040030634030/",
+      "description": "すっご～い！えっろ～い！と。 思わず心で叫んでしまうエロ可愛いフルカラーイラスト集！ サークル【五月惣菜店】がお贈りする“COMIC1☆13”作品。 [けものフレンズ]本『FENNEECCHIE』をご",
+      "og": {
+        "image": [
+          {
+            "url": "https://cdn-contents.toranoana.jp/ec/lp_assets/images/ogp.jpg",
+          },
+        ],
+        "title": "FENNEECCHIE",
+      },
+      "title": "FENNEECCHIE [五月惣菜店(五月うなぎ)] けものフレンズ - 同人誌のとらのあな成年向け通販",
+    },
+  },
+  "url": "https://ec.toranoana.jp/tora_r/ec/item/040030634030/",
+}
+`;

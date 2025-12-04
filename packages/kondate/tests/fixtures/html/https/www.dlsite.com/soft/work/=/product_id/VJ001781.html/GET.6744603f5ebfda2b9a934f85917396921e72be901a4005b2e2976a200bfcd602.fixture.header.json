@@ -1,0 +1,28 @@
+{
+  "headers": {
+    "cache-control": "max-age=60",
+    "cdn-cache-control": "max-age=3600, stale-while-revalidate=3600",
+    "cf-cache-status": "MISS",
+    "cf-ray": "9b3bd2c27a496889-NRT",
+    "connection": "keep-alive",
+    "content-encoding": "br",
+    "content-security-policy": "frame-ancestors 'self'",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Thu, 25 Dec 2025 22:37:29 GMT",
+    "expires": "Thu, 25 Dec 2025 22:38:29 GMT",
+    "last-modified": "Thu, 25 Dec 2025 22:37:29 GMT",
+    "p3p": "CP=\"CAO CUR ADM DEV PSA PSD IVAi IVDi OUR\"",
+    "server": "cloudflare",
+    "strict-transport-security": "max-age=31536000; preload",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding,User-Agent",
+    "x-frame-options": "SAMEORIGIN",
+    "x-geo-country-code": "JP",
+    "x-xrds-location": "https://www.dlsite.com/eisys/blog/server.xrds"
+  },
+  "setCookie": [],
+  "redirected": false,
+  "status": 200,
+  "statusText": "OK",
+  "url": "https://www.dlsite.com/soft/work/=/product_id/VJ001781.html"
+}

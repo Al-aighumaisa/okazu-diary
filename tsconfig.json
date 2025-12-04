@@ -3,6 +3,7 @@
   "references": [
     { "path": "./tsconfig.configs.json" },
     { "path": "./packages/api" },
+    { "path": "./packages/kondate" },
     { "path": "./packages/shikorism-interop" },
     { "path": "./packages/web" }
   ]

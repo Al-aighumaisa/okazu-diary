@@ -1,0 +1,34 @@
+{
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "no-store, no-cache, must-revalidate, private",
+    "cf-cache-status": "DYNAMIC",
+    "cf-ray": "9b33c8e14f88fcc7-NRT",
+    "connection": "keep-alive",
+    "content-encoding": "br",
+    "content-type": "text/html; charset=UTF-8",
+    "date": "Wed, 24 Dec 2025 23:12:38 GMT",
+    "expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "pragma": "no-cache",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=6jloRTV0H4d5f%2BPrwchAEg9SGDE9LdXBgzzcFuSO%2BjvB9vRVZ%2FPrGE1W%2BY0eH4%2B10%2FtX1o7SpN%2FllUdOWTqDq%2FqpmaWYnHwXztgGZ7gnGzCDpoQ%3D\"}]}",
+    "server": "cloudflare",
+    "set-cookie": "NIJIEIJIEID=62568989026866c437e51848e176cc3e; expires=Tue, 24 Mar 2026 23:12:38 GMT; Max-Age=7776000; path=/; domain=.nijie.info; HttpOnly; SameSite=Lax",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding",
+    "via": "1.1 px02.nijie.info (Varnish/7.7)",
+    "x-emod": "p",
+    "x-sb": "ws02, px02",
+    "x-t1": "A=0.001 T=179.999 G=3600.000 U=true HP=false HM=false CNT=0",
+    "x-t2": "A=0.000 T=-0.000 G=7200.000 U=true UC= HP=false HM=false",
+    "x-varnish": "486153790, 1191141518"
+  },
+  "setCookie": [
+    "NIJIEIJIEID=62568989026866c437e51848e176cc3e; expires=Tue, 24 Mar 2026 23:12:38 GMT; Max-Age=7776000; path=/; domain=.nijie.info; HttpOnly; SameSite=Lax",
+    "NIJIEIJIEID=62568989026866c437e51848e176cc3e; expires=Tue, 24 Mar 2026 23:12:38 GMT; Max-Age=7776000; path=/; domain=.nijie.info; HttpOnly; SameSite=Lax"
+  ],
+  "redirected": false,
+  "status": 200,
+  "statusText": "OK",
+  "url": "https://nijie.info/view.php?id=575706"
+}

@@ -1,0 +1,43 @@
+{
+  "name": "@okazu-diary/kondate",
+  "version": "0.0.0",
+  "license": "MIT OR Apache-2.0",
+  "description": "Rich snippet extractor with a focus on mature contents.",
+  "author": {
+    "name": "مرزم اليَغميصاء",
+    "email": "al.aighumaisa@gmail.com"
+  },
+  "keywords": [],
+  "homepage": "https://github.com/Al-aighumaisa/okazu-diary/tree/packages/kondate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Al-aighumaisa/okazu-diary.git",
+    "directory": "packages/kondate"
+  },
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "pnpm run prebuild && tsc --build tsconfig.json",
+    "prebuild": "node ./scripts/prebuild.mjs",
+    "test": "pnpm run prebuild && jest"
+  },
+  "dependencies": {
+    "@atproto/syntax": "^0.4.2",
+    "content-disposition": "^1.0.1",
+    "http-link-header": "^1.1.3",
+    "jsdom": "^27.0.0",
+    "json-ast": "^2.1.7",
+    "jsonld": "^9.0.0",
+    "tough-cookie": "^6.0.0",
+    "zod": "^4.1.13"
+  },
+  "devDependencies": {
+    "@types/content-disposition": "^0.5.9",
+    "@types/http-link-header": "^1.0.7",
+    "@types/jsdom": "^27.0.0",
+    "@types/jsonld": "^1.5.15",
+    "jest": "^30.2.0",
+    "jest-extended": "^7.0.0"
+  }
+}

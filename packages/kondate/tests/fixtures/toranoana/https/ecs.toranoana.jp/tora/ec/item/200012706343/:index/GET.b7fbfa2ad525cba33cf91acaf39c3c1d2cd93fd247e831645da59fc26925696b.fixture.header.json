@@ -1,0 +1,34 @@
+{
+  "headers": {
+    "cache-control": "no-store, no-cache, must-revalidate",
+    "connection": "keep-alive",
+    "content-encoding": "gzip",
+    "content-security-policy": "default-src 'self' *.toranoana.jp *.fantia.jp fantia.jp; img-src 'self' blob: data: * *.toranoana.jp *.toranoana.shop tsukurunomori.co.jp *.googletagmanager.com *.fantia.jp fantia.jp *.google-analytics.com *.google.com ct.pinterest.com; script-src 'unsafe-inline' 'unsafe-eval' 'self' *.toranoana.jp *.toranoana.shop *.google.com *.googletagmanager.com *.clarity.ms *.google-analytics.com *.fantia.jp d.line-scdn.net karte.io d2gyc6a6aulhmk.cloudfront.net r4.snva.jp scdn.line-apps.com *.googleadservices.com *.ads-twitter.com *.doubleclick.net *.appirits.com *.ebis.ne.jp *.googleapis.com *.gstatic.com *.googlesyndication.com *.microsofttranslator.com *.google.co.jp *.twitter.com asset.c-rings.net *.treasuredata.com j.c-rings.net *.fraudprevention.jp *.datadoghq-browser-agent.com *.facebook.net *.googleanalytics.com *.googleoptimize.com *.im-apps.net *.shutto-translation.com *.buyee.jp *.myeeglobal.com s.pinimg.com *.mercari.com e.eagle-insight.com browser-http-intake.logs.datadoghq.com *.amplitude.com promolayer.io *.promolayer.io *.fanp.me cdn.omakase.ai omakase.ai; style-src 'unsafe-inline' 'self' *.toranoana.jp *.fontawesome.com *.googleapis.com *.googleapis.com *.fantia.jp *.google.com *.shutto-translation.com *.buyee.jp *.myeeglobal.com; font-src 'self' *.toranoana.jp *.fontawesome.com data: *.googleapis.com *.gstatic.com; connect-src 'self' *.toranoana.jp *.clarity.ms *.fantia.jp *.google-analytics.com *.google.co.jp *.googletagmanager.com *.googleapis.com *.gstatic.com *.google.com *.twitter.com *.doubleclick.net *.microsofttranslator.com *.microsoft.com j.c-rings.net *.veritrans.co.jp *.ebis.ne.jp ebis.ne.jp *.fraudprevention.jp *.datadoghq.com *.im-apps.net *.shutto-translation.com *.googlesyndication.com *.buyee.jp *.myeeglobal.com ct.pinterest.com *.mercari.com e.eagle-insight.com browser-http-intake.logs.datadoghq.com *.amplitude.com *.promolayer.io *.omakase.ai api.vapi.ai *.daily.co wss://*.daily.co; object-src 'self' *.toranoana.jp *.youtube.com; media-src 'self' *.toranoana.jp *.youtube.com; frame-src 'self' *.toranoana.jp *.google.com *.gstatic.com *.googletagmanager.com *.youtube.com *.googlesyndication.com *.doubleclick.net *.fraudprevention.jp *.im-apps.net *.facebook.com *.buyee.jp *.myeeglobal.com ct.pinterest.com; report-uri /ec/his/ContentSecurityPolicyReporter",
+    "content-type": "text/html;charset=UTF-8",
+    "date": "Thu, 25 Dec 2025 16:15:13 GMT",
+    "expires": "Wed, 31 Dec 1969 23:59:59 GMT",
+    "pragma": "no-cache",
+    "server": "nginx",
+    "set-cookie": "language=0; Domain=.toranoana.jp; Expires=Fri, 25 Dec 2026 16:15:12 GMT; Path=/; secure; SameSite=Lax; Secure",
+    "strict-transport-security": "max-age=63072000; preload",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-toraresponse": "F",
+    "x-xss-protection": "1; mode=block"
+  },
+  "setCookie": [
+    "WS-ID=bCM13r-xF5vnZueR0QPy0XvLmeNLqUur7npwXH527U46WKwtWOh-HN5TkQKk8qDj; Expires=Thu, 01 Jan 2026 16:15:12 GMT; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "USER-ID=248dfd57f4; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "TSESSIONID=D0FCDE98A5F5304982EE7B32DAA3B678; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "WS_CART=\"\"; Expires=Sat, 24 Jan 2026 16:15:12 GMT; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "WS_CART_SYNC=4672f2e20a; Expires=Sat, 24 Jan 2026 16:15:12 GMT; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "APP-ID=zBB7XCw8VruJlWHH2WUT4mncaBG2cUydSRC454NzGGPZaAiOiyBgQSvpjDeERWPbQH-0WShCk4A3EPLeHPiT3UE8gWPeE4Td; Path=/; secure; SameSite=Lax; Secure; HttpOnly",
+    "language=0; Domain=.toranoana.jp; Expires=Fri, 25 Dec 2026 16:15:12 GMT; Path=/; secure; SameSite=Lax; Secure"
+  ],
+  "redirected": false,
+  "status": 200,
+  "statusText": "",
+  "url": "https://ecs.toranoana.jp/tora/ec/item/200012706343/"
+}

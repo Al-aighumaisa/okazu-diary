@@ -1,3 +1,18 @@
 [submodule "atproto"]
 	path = vendored/atproto
 	url = https://github.com/bluesky-social/atproto.git
+[submodule "activitystreams"]
+	path = vendored/activitystreams
+	url = https://github.com/w3c/activitystreams.git
+[submodule "web-payments.org"]
+	path = vendored/web-payments.org
+	url = https://github.com/web-payments/web-payments.org.git
+[submodule "security-vocab"]
+	path = vendored/security-vocab
+	url = https://github.com/w3c-ccg/security-vocab.git
+[submodule "miscellany"]
+	path = vendored/miscellany
+	url = https://github.com/swicg/miscellany.git
+[submodule "schemaorg"]
+	path = vendored/schemaorg
+	url = https://github.com/schemaorg/schemaorg.git

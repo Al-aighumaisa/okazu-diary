@@ -19,7 +19,12 @@ const config = defineConfig([
     name: 'js',
     extends: [js.configs.recommended],
     rules: {
-      'prefer-const': 'warn',
+      'prefer-const': [
+        'error',
+        {
+          destructuring: 'all',
+        },
+      ],
       eqeqeq: [
         'error',
         'always',
@@ -54,15 +59,14 @@ const config = defineConfig([
       '@typescript-eslint/prefer-nullish-coalescing': [
         'error',
         {
-          ignorePrimitives: {
-            boolean: true,
-          },
+          ignorePrimitives: true,
         },
       ],
       '@typescript-eslint/restrict-template-expressions': [
         'error',
         {
           allow: [
+            { from: 'lib', name: 'URL' },
             {
               from: 'package',
               package: 'multiformats',
@@ -77,6 +81,13 @@ const config = defineConfig([
       parserOptions: {
         projectService: true,
       },
+    },
+  },
+  {
+    files: ['packages/*/tests/**/*.ts'],
+    rules: {
+      // `expect.*(): any` is prevalent here.
+      '@typescript-eslint/no-unsafe-assignment': 'off',
     },
   },
   {

@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot for posterity 1`] = `
+{
+  "audio": undefined,
+  "creator": [],
+  "dateModified": undefined,
+  "datePublished": "2025-10-01T15:40:48.257Z",
+  "description": "WAFFLES",
+  "image": [
+    {
+      "contentUrl": "https://cdn.bsky.app/img/avatar/plain/did:plc:oky5czdrnfjpqslsw2a5iclo/bafkreihidru2xruxdxlvvcixc7lbgoudzicjbrdgacdhdhxyfw4yut4nfq@jpeg",
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [],
+  "name": {
+    "textValue": "Jay 🦋 (@jay.bsky.team)",
+  },
+  "resolver": {
+    "at": {
+      "uri": "at://jay.bsky.team/app.bsky.feed.post/3m25esnq4t22y",
+    },
+    "html": {
+      "canonical": "https://bsky.app/profile/jay.bsky.team/post/3m25esnq4t22y",
+      "description": "WAFFLES",
+      "og": {
+        "image": [
+          {
+            "url": "https://cdn.bsky.app/img/avatar/plain/did:plc:oky5czdrnfjpqslsw2a5iclo/bafkreihidru2xruxdxlvvcixc7lbgoudzicjbrdgacdhdhxyfw4yut4nfq@jpeg",
+          },
+        ],
+        "title": "Jay 🦋 (@jay.bsky.team)",
+      },
+      "title": "@jay.bsky.team on Bluesky",
+    },
+    "schemaOrg": {
+      "@context": "https://schema.org/",
+      "@type": "DiscussionForumPosting",
+      "author": {
+        "@type": "Person",
+        "alternateName": "@jay.bsky.team",
+        "name": "Jay 🦋",
+        "url": "https://bsky.app/profile/jay.bsky.team",
+      },
+      "datePublished": "2025-10-01T15:40:48.257Z",
+      "interactionStatistic": [
+        {
+          "@type": "InteractionCounter",
+          "interactionType": "https://schema.org/LikeAction",
+          "userInteractionCount": 536,
+        },
+        {
+          "@type": "InteractionCounter",
+          "interactionType": "https://schema.org/CommentAction",
+          "userInteractionCount": 1779,
+        },
+        {
+          "@type": "InteractionCounter",
+          "interactionType": "https://schema.org/ShareAction",
+          "userInteractionCount": 1352,
+        },
+      ],
+      "text": "WAFFLES",
+    },
+  },
+  "type": "DiscussionForumPosting",
+  "url": "https://bsky.app/profile/jay.bsky.team/post/3m25esnq4t22y",
+  "video": undefined,
+}
+`;

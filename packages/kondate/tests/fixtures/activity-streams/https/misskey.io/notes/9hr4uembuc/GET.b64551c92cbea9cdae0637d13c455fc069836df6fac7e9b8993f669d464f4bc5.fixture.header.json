@@ -1,0 +1,37 @@
+{
+  "headers": {
+    "access-control-allow-headers": "Accept",
+    "access-control-allow-methods": "GET, OPTIONS",
+    "access-control-allow-origin": "*",
+    "access-control-expose-headers": "Vary",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "public, max-age=14400",
+    "cf-cache-status": "EXPIRED",
+    "cf-ray": "9b3bd2c79cb36889-NRT",
+    "connection": "keep-alive",
+    "content-encoding": "br",
+    "content-type": "application/ld+json; profile=\"https://www.w3.org/ns/activitystreams\"; charset=utf-8",
+    "date": "Thu, 25 Dec 2025 22:37:30 GMT",
+    "expect-ct": "max-age=86400, enforce",
+    "expires": "Fri, 26 Dec 2025 02:37:30 GMT",
+    "last-modified": "Thu, 25 Dec 2025 22:37:30 GMT",
+    "referrer-policy": "same-origin",
+    "server": "cloudflare",
+    "set-cookie": "_cfuvid=8Z4ARbVHxCrRovXklFVKVdzcpDJbSByYAEOfpYiKShY-1766702250243-0.0.1.1-604800000; path=/; domain=.misskey.io; HttpOnly; Secure; SameSite=None",
+    "strict-transport-security": "max-age=2592000; includeSubDomains; preload",
+    "transfer-encoding": "chunked",
+    "vary": "Accept, Accept-Encoding",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-worker-host": "replica-744689b9dc-6kq2j",
+    "x-xss-protection": "1; mode=block"
+  },
+  "setCookie": [
+    "__cf_bm=c7Ms7ZEq2SELtKmpusP.hVcE.8dz3DCZEtJ7ie3Z74Q-1766702250-1.0.1.1-cklW0iZQX7WDon7WGLnLlzILTWrHsgv9kbHpuWChnzknmiVEymhO55LAnp5ADnhEYkC8p2kgKr47F3QFbh_9ugfYD0muw8ULzKlVhnN9sts; path=/; expires=Thu, 25-Dec-25 23:07:30 GMT; domain=.misskey.io; HttpOnly; Secure; SameSite=None",
+    "_cfuvid=8Z4ARbVHxCrRovXklFVKVdzcpDJbSByYAEOfpYiKShY-1766702250243-0.0.1.1-604800000; path=/; domain=.misskey.io; HttpOnly; Secure; SameSite=None"
+  ],
+  "redirected": false,
+  "status": 200,
+  "statusText": "OK",
+  "url": "https://misskey.io/notes/9hr4uembuc"
+}

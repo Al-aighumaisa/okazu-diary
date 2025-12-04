@@ -1,0 +1,30 @@
+{
+  "headers": {
+    "accept-ranges": "bytes",
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "cache-control": "no-store",
+    "content-encoding": "gzip",
+    "content-type": "text/html",
+    "date": "Wed, 31 Dec 2025 09:17:20 GMT",
+    "etag": "\"89868ad87629f0ae1110bcf86a91f84c\"",
+    "expires": "Thu, 31 Dec 2026 09:17:20 GMT",
+    "last-modified": "Fri, 26 Dec 2025 03:48:22 GMT",
+    "server": "openresty",
+    "strict-transport-security": "max-age=63072000",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding, User-Agent",
+    "via": "1.1 google",
+    "x-goog-generation": "1766720902018087",
+    "x-goog-hash": "crc32c=aCNDVw==, md5=iYaK2HYp8K4RELz4apH4TA==",
+    "x-goog-metageneration": "1",
+    "x-goog-storage-class": "REGIONAL",
+    "x-goog-stored-content-encoding": "gzip",
+    "x-goog-stored-content-length": "3136",
+    "x-guploader-uploadid": "AHVrFxNmUZCYcxcaU9EANzXd8Nly5TrM6lZ2hfetsM7QQOhvawoycJPw5VusZTHWtUwidA5wOEduPjA"
+  },
+  "setCookie": [],
+  "redirected": false,
+  "status": 404,
+  "statusText": "Not Found",
+  "url": "https://video.dmm.co.jp/unknown/content/?id=72leha29001"
+}

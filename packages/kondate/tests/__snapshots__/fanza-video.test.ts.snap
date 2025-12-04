@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot anime/72leha29001 1`] = `
+{
+  "brand": {
+    "name": {
+      "textValue": "れもんは〜と",
+    },
+    "url": "https://video.dmm.co.jp/anime/list/?label=227",
+  },
+  "creator": [
+    {
+      "name": {
+        "textValue": "れもんは〜と",
+      },
+      "type": "Organization",
+      "url": "https://video.dmm.co.jp/anime/list/?maker=40058",
+    },
+  ],
+  "description": "魔法世界「エヴァ グリーン」の女王ツユハの使命により何者かに奪われた突然変異体の種を奪回する為に人間界に降りてきたナツキ。ちはやはナツキの使命に協力し、魔法戦士になる決心をする…。",
+  "identifier": "72leha29001",
+  "inLanguage": "ja-JP",
+  "keywords": [
+    {
+      "name": {
+        "textValue": "巨乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ミニ系",
+      },
+    },
+    {
+      "name": {
+        "textValue": "コスプレ",
+      },
+    },
+  ],
+  "name": {
+    "textValue": "まじかるカナン VOL.1 「登場！深紅の魔法戦士カーマイン◆」",
+  },
+}
+`;
+
+exports[`resolve snapshot cinema/306ac1003 1`] = `
+{
+  "brand": undefined,
+  "creator": [
+    {
+      "name": {
+        "textValue": "A CAMP",
+      },
+      "type": "Organization",
+      "url": "https://video.dmm.co.jp/cinema/list/?maker=40155",
+    },
+    {
+      "image": {
+        "contentUrl": "https://awsimgsrc.dmm.co.jp/pics_dig/mono/actjpgs/sawaki_mayumi.jpg",
+      },
+      "name": {
+        "phoneticText": "さわきまゆみ",
+        "textValue": "沢木まゆみ",
+      },
+      "type": "Person",
+      "url": "https://video.dmm.co.jp/cinema/list/?actress=2168",
+    },
+  ],
+  "description": "退屈な日々に悶々としている若き人妻と、真実の愛を探す男子○校生の禁断の愛。出会い系サイトで出会った2人は、貪るように互いの体を求め合い、そして意外な結末を迎えるのであった！ある事件を元に作られたエロティック実録モノ！",
+  "identifier": "306ac1003",
+  "inLanguage": "ja-JP",
+  "keywords": [
+    {
+      "name": {
+        "textValue": "人妻・主婦",
+      },
+    },
+    {
+      "name": {
+        "textValue": "Vシネマ",
+      },
+    },
+  ],
+  "name": {
+    "textValue": "実録出合い系サイトの性",
+  },
+}
+`;
+
+exports[`resolve snapshot unknown/72leha29001 1`] = `
+{
+  "description": undefined,
+  "resolver": {
+    "html": {
+      "robots": "noindex",
+      "title": "",
+    },
+  },
+  "url": undefined,
+}
+`;

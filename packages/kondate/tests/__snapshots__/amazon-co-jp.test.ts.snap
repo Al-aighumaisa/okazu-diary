@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot 404 1`] = `
+{
+  "response": {
+    "headers": Headers {},
+    "status": 404,
+  },
+  "value": {
+    "description": undefined,
+    "identifier": "404404404",
+    "labels": undefined,
+    "name": {
+      "textValue": "ページが見つかりません",
+    },
+    "resolver": {
+      "html": {
+        "title": "ページが見つかりません",
+      },
+    },
+    "url": "https://www.amazon.co.jp/dp/404404404",
+  },
+}
+`;
+
+exports[`resolve snapshot adult 1`] = `
+{
+  "description": "【Amazon.co.jp 限定】ペペローション 435mlがスタンダードストアでいつでもお買い得。当日お急ぎ便対象商品は、当日お届け可能です。アマゾン配送商品は、通常配送無料（一部除く）。",
+  "identifier": "B00LE7TO0K",
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "Amazon | 【Amazon.co.jp 限定】ペペローション 435ml | ペペ | スタンダード",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.amazon.co.jp/%E3%83%9A%E3%83%9A-%E3%83%9A%E3%83%9A%E3%83%AD%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3-435ml/dp/B00LE7TO0K",
+      "description": "【Amazon.co.jp 限定】ペペローション 435mlがスタンダードストアでいつでもお買い得。当日お急ぎ便対象商品は、当日お届け可能です。アマゾン配送商品は、通常配送無料（一部除く）。",
+      "title": "Amazon | 【Amazon.co.jp 限定】ペペローション 435ml | ペペ | スタンダード",
+    },
+  },
+  "url": "https://www.amazon.co.jp/dp/B00LE7TO0K",
+}
+`;
+
+exports[`resolve snapshot general-clean-url 1`] = `
+{
+  "description": "Amazon.co.jp: 【Amazon.co.jp限定】けものフレンズ2 第1巻 ( 全巻購入特典:「ミニけものフレンズアワー2」#5・#6収録DVD&描き下ろし全巻収納BOX引換シリアルコード付※シリアル特典期限切れ※ ) [Blu-ray] : 尾崎由香, 本宮佳奈, 小野早稀, 石川由依, 小池理子, 内田彩, 佐々木未来, 根本流風, 田村響華, 相羽あいな, 木村隆一: DVD",
+  "identifier": "B07PDLJV5W",
+  "labels": undefined,
+  "name": {
+    "textValue": "Amazon.co.jp: 【Amazon.co.jp限定】けものフレンズ2 第1巻 ( 全巻購入特典:「ミニけものフレンズアワー2」#5・#6収録DVD&描き下ろし全巻収納BOX引換シリアルコード付※シリアル特典期限切れ※ ) [Blu-ray] : 尾崎由香, 本宮佳奈, 小野早稀, 石川由依, 小池理子, 内田彩, 佐々木未来, 根本流風, 田村響華, 相羽あいな, 木村隆一: DVD",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.amazon.co.jp/%E3%80%90Amazon-co-jp%E9%99%90%E5%AE%9A%E3%80%91%E3%81%91%E3%82%82%E3%81%AE%E3%83%95%E3%83%AC%E3%83%B3%E3%82%BA2-%E7%AC%AC1%E5%B7%BB-%E5%85%A8%E5%B7%BB%E8%B3%BC%E5%85%A5%E7%89%B9%E5%85%B8-%E3%80%8C%E3%83%9F%E3%83%8B%E3%81%91%E3%82%82%E3%81%AE%E3%83%95%E3%83%AC%E3%83%B3%E3%82%BA%E3%82%A2%E3%83%AF%E3%83%BC2%E3%80%8D-%E6%8F%8F%E3%81%8D%E4%B8%8B%E3%82%8D%E3%81%97%E5%85%A8%E5%B7%BB%E5%8F%8E%E7%B4%8DBOX%E5%BC%95%E6%8F%9B%E3%82%B7%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%B3%E3%83%BC%E3%83%89%E4%BB%98/dp/B07PDLJV5W",
+      "description": "Amazon.co.jp: 【Amazon.co.jp限定】けものフレンズ2 第1巻 ( 全巻購入特典:「ミニけものフレンズアワー2」#5・#6収録DVD&描き下ろし全巻収納BOX引換シリアルコード付※シリアル特典期限切れ※ ) [Blu-ray] : 尾崎由香, 本宮佳奈, 小野早稀, 石川由依, 小池理子, 内田彩, 佐々木未来, 根本流風, 田村響華, 相羽あいな, 木村隆一: DVD",
+      "title": "Amazon.co.jp: 【Amazon.co.jp限定】けものフレンズ2 第1巻 ( 全巻購入特典:「ミニけものフレンズアワー2」#5・#6収録DVD&描き下ろし全巻収納BOX引換シリアルコード付※シリアル特典期限切れ※ ) [Blu-ray] : 尾崎由香, 本宮佳奈, 小野早稀, 石川由依, 小池理子, 内田彩, 佐々木未来, 根本流風, 田村響華, 相羽あいな, 木村隆一: DVD",
+    },
+  },
+  "url": "https://www.amazon.co.jp/dp/B07PDLJV5W",
+}
+`;
+
+exports[`resolve snapshot general-dirty-url 1`] = `
+{
+  "description": "Amazon.co.jp: けものフレンズBD付オフィシャルガイドブック 1-6巻セット : けものフレンズプロジェクトA: 本",
+  "identifier": "B07KZ4MVLJ",
+  "labels": undefined,
+  "name": {
+    "textValue": "Amazon.co.jp: けものフレンズBD付オフィシャルガイドブック 1-6巻セット : けものフレンズプロジェクトA: 本",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.amazon.co.jp/%E3%81%91%E3%82%82%E3%81%AE%E3%83%95%E3%83%AC%E3%83%B3%E3%82%BABD%E4%BB%98%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B7%E3%83%A3%E3%83%AB%E3%82%AC%E3%82%A4%E3%83%89%E3%83%96%E3%83%83%E3%82%AF-1-6%E5%B7%BB%E3%82%BB%E3%83%83%E3%83%88-%E3%81%91%E3%82%82%E3%81%AE%E3%83%95%E3%83%AC%E3%83%B3%E3%82%BA%E3%83%97%E3%83%AD%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88A/dp/B07KZ4MVLJ",
+      "description": "Amazon.co.jp: けものフレンズBD付オフィシャルガイドブック 1-6巻セット : けものフレンズプロジェクトA: 本",
+      "title": "Amazon.co.jp: けものフレンズBD付オフィシャルガイドブック 1-6巻セット : けものフレンズプロジェクトA: 本",
+    },
+  },
+  "url": "https://www.amazon.co.jp/dp/B07KZ4MVLJ",
+}
+`;

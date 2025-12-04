@@ -2,5 +2,8 @@
 !/lexicons/org/okazu-diary/
 !/packages/
 **/*/.react-router/
+**/fixtures/
 /packages/*/dist/
 /packages/api/src/client/
+/packages/kondate/src/consts/package.ts
+/packages/kondate/src/resolvers/generic/json-ld/contexts/*.json

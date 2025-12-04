@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`extract snapshot DLsite home 1`] = `
+{
+  "description": "オリジナル猫耳ファンタジー、読みごたえあるオリジナルストーリーです。「DLsite 同人」は同人誌・同人ゲーム・同人ボイス・ASMRのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+  "image": [
+    {
+      "contentUrl": "https://img.dlsite.jp/modpub/images2/work/doujin/RJ002000/RJ001016_img_main.jpg",
+    },
+  ],
+  "name": {
+    "textValue": "虹の架け橋 [情報企画RG] | DLsite",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.dlsite.com/home/work/=/product_id/RJ001016.html",
+      "description": "オリジナル猫耳ファンタジー、読みごたえあるオリジナルストーリーです。「DLsite 同人」は同人誌・同人ゲーム・同人ボイス・ASMRのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+      "og": {
+        "image": [
+          {
+            "url": "https://img.dlsite.jp/modpub/images2/work/doujin/RJ002000/RJ001016_img_main.jpg",
+          },
+        ],
+        "title": "虹の架け橋 [情報企画RG] | DLsite",
+      },
+      "title": "虹の架け橋 [情報企画RG] | DLsite 同人",
+    },
+  },
+  "url": "https://www.dlsite.com/home/work/=/product_id/RJ001016.html",
+}
+`;
+
+exports[`extract snapshot DLsite maniax 1`] = `
+{
+  "description": "悠路によるオリジナルCG集第6弾。商業誌に掲載しましたCG+未発表CGを収録。「DLsite 同人 - R18」は同人誌・同人ゲーム・同人ボイス・ASMRのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+  "image": [
+    {
+      "contentUrl": "https://img.dlsite.jp/modpub/images2/work/doujin/RJ002000/RJ001305_img_main.jpg",
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "Mona-Riza [NAGKO] | DLsite",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.dlsite.com/maniax/work/=/product_id/RJ001305.html",
+      "description": "悠路によるオリジナルCG集第6弾。商業誌に掲載しましたCG+未発表CGを収録。「DLsite 同人 - R18」は同人誌・同人ゲーム・同人ボイス・ASMRのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+      "og": {
+        "image": [
+          {
+            "url": "https://img.dlsite.jp/modpub/images2/work/doujin/RJ002000/RJ001305_img_main.jpg",
+          },
+        ],
+        "title": "Mona-Riza [NAGKO] | DLsite",
+      },
+      "rating": "adult",
+      "title": "Mona-Riza [NAGKO] | DLsite 同人 - R18",
+    },
+  },
+  "url": "https://www.dlsite.com/maniax/work/=/product_id/RJ001305.html",
+}
+`;
+
+exports[`extract snapshot DLsite pro 1`] = `
+{
+  "description": "※講師/妹/学園アイドル、純愛/陵○/学園生活<br>可愛いキャラクター達を貴方の思いのままに!「DLsite 美少女ゲーム」はエロゲー・エロアニメ・アダルトアニメのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+  "image": [
+    {
+      "contentUrl": "https://img.dlsite.jp/modpub/images2/work/professional/VJ002000/VJ001001_img_main.jpg",
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "まいむ～フルボイス版～ [Sage] | DLsite",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.dlsite.com/pro/work/=/product_id/VJ001001.html",
+      "description": "※講師/妹/学園アイドル、純愛/陵○/学園生活<br>可愛いキャラクター達を貴方の思いのままに!「DLsite 美少女ゲーム」はエロゲー・エロアニメ・アダルトアニメのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+      "og": {
+        "image": [
+          {
+            "url": "https://img.dlsite.jp/modpub/images2/work/professional/VJ002000/VJ001001_img_main.jpg",
+          },
+        ],
+        "title": "まいむ～フルボイス版～ [Sage] | DLsite",
+      },
+      "rating": "adult",
+      "title": "まいむ～フルボイス版～ [Sage] | DLsite 美少女ゲーム - R18",
+    },
+  },
+  "url": "https://www.dlsite.com/pro/work/=/product_id/VJ001001.html",
+}
+`;
+
+exports[`extract snapshot DLsite soft 1`] = `
+{
+  "description": "そこには静寂と闇が支配していた…。この静寂を破りたくて、俺は口を大きく開けた。夜の冷たい空気が口の中を震わせる。それでも。果てしない夜の中で、俺は一人、叫び声をあげた…。「DLsite PCソフト」はPCゲーム・PCソフトのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+  "image": [
+    {
+      "contentUrl": "https://img.dlsite.jp/modpub/images2/work/professional/VJ002000/VJ001781_img_main.jpg",
+    },
+  ],
+  "name": {
+    "textValue": "静寂の風（全年齢対象） [MARINE] | DLsite",
+  },
+  "resolver": {
+    "html": {
+      "canonical": "https://www.dlsite.com/soft/work/=/product_id/VJ001781.html",
+      "description": "そこには静寂と闇が支配していた…。この静寂を破りたくて、俺は口を大きく開けた。夜の冷たい空気が口の中を震わせる。それでも。果てしない夜の中で、俺は一人、叫び声をあげた…。「DLsite PCソフト」はPCゲーム・PCソフトのダウンロードショップ。お気に入りの作品をすぐダウンロードできてすぐ楽しめる！毎日更新しているのであなたが探している作品にきっと出会えます。国内最大級の二次元総合ダウンロードショップ「DLsite」！",
+      "og": {
+        "image": [
+          {
+            "url": "https://img.dlsite.jp/modpub/images2/work/professional/VJ002000/VJ001781_img_main.jpg",
+          },
+        ],
+        "title": "静寂の風（全年齢対象） [MARINE] | DLsite",
+      },
+      "title": "【68%OFF】静寂の風（全年齢対象） [MARINE] | DLsite PCソフト",
+    },
+  },
+  "url": "https://www.dlsite.com/soft/work/=/product_id/VJ001781.html",
+}
+`;

@@ -2,10 +2,12 @@
   "extends": "./tsconfig/node.json",
   "files": [
     "eslint.config.mjs",
+    "jest.config.mjs",
     "prettier.config.mjs",
     "packages/web/react-router.config.ts",
     "packages/web/vite.config.js"
   ],
+  "include": ["packages/*/jest.config.mjs"],
   "compilerOptions": {
     "composite": true,
     "module": "node18",

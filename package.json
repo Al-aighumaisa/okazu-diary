@@ -20,16 +20,20 @@
     "format": "pnpm style:fix",
     "precodegen": "pnpm run --recursive --stream --filter '@atproto/lex-cli...' build --force",
     "codegen": "pnpm run --sort --recursive --stream --parallel codegen",
-    "build": "pnpm run --sort --recursive --stream '/^(build|build:.+)$/'"
+    "build": "pnpm run --sort --recursive --stream '/^(build|build:.+)$/'",
+    "test": "pnpm --recursive test"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@swc/jest": "^0.2.39",
+    "@types/jest": "^30.0.0",
     "@types/node": "^24.10.1",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "multiformats": "^13.4.1",
     "prettier": "^3.6.2",
     "prettier-config-standard": "^7.0.0",

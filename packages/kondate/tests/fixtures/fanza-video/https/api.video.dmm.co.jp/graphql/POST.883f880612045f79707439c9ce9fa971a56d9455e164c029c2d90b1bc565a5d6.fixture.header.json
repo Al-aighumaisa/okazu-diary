@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000",
+    "content-encoding": "gzip",
+    "content-type": "application/graphql-response+json",
+    "date": "Thu, 25 Dec 2025 22:37:28 GMT",
+    "transfer-encoding": "chunked",
+    "vary": "Accept-Encoding",
+    "via": "1.1 google"
+  },
+  "setCookie": [],
+  "redirected": false,
+  "status": 200,
+  "statusText": "OK",
+  "url": "https://api.video.dmm.co.jp/graphql"
+}

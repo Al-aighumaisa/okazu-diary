@@ -1,0 +1,578 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot animation 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+      "image": undefined,
+      "type": "Person",
+      "url": "https://nijie.info/members.php?id=65899",
+    },
+  ],
+  "dateModified": "Wed Aug 23 01:47:04 2023",
+  "datePublished": "Tue Aug 22 01:24:16 2023",
+  "description": "ｳﾐﾈｺとﾎｯｷｮｸｷﾞﾂﾈとｺﾞｼﾝｷﾞｭｳｻﾏ
+MP4投稿できるんですねﾆｼﾞｴ
+※2枚目以降見れないとの声がありましたので順番入れ替えました",
+  "identifier": "575706",
+  "image": [
+    {
+      "contentUrl": "https://pic.nijie.net/__s4__/d7b0ddb673fe5030dcc8e3b5a0beb6297c860b148107d30f0eae340bf4005ee6af3731748cc8572e3167bcf07b42f0f43163ab74878d5ac2d13b4e4edb19952da296f832c7b9b01d5638787839a3721cab9947f5d73913b4e0c4b3e1.gif",
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "おっぱい",
+      },
+    },
+    {
+      "name": {
+        "textValue": "パイズリ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "騎乗位",
+      },
+    },
+    {
+      "name": {
+        "textValue": "巨乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "乳吸い",
+      },
+    },
+    {
+      "name": {
+        "textValue": "けものフレンズ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "GIF",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ウミネコ(けものフレンズ)",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ゴシンギュウサマ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ホッキョクギツネ(けものフレンズ)",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "動かしたものまとめ",
+  },
+  "resolver": {
+    "schemaOrg": {
+      "@context": "https://schema.org/",
+      "@type": "ImageObject",
+      "author": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "contentLocation": "Japan",
+      "copyrightHolder": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "copyrightYear": "2023",
+      "creator": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "dateModified": "Wed Aug 23 01:47:04 2023",
+      "datePublished": "Tue Aug 22 01:24:16 2023",
+      "description": "ｳﾐﾈｺとﾎｯｷｮｸｷﾞﾂﾈとｺﾞｼﾝｷﾞｭｳｻﾏ
+MP4投稿できるんですねﾆｼﾞｴ
+※2枚目以降見れないとの声がありましたので順番入れ替えました",
+      "editor": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "genre": "Image",
+      "height": 90,
+      "interactionCount": "6047 UserPlays, 2 UserComments",
+      "name": "動かしたものまとめ",
+      "text": "ｳﾐﾈｺとﾎｯｷｮｸｷﾞﾂﾈとｺﾞｼﾝｷﾞｭｳｻﾏ
+MP4投稿できるんですねﾆｼﾞｴ
+※2枚目以降見れないとの声がありましたので順番入れ替えました",
+      "thumbnailUrl": "https://pic.nijie.net/__s4__/d7b0ddb673fe5030dcc8e3b5a0beb6297c860b148107d30f0eae340bf4005ee6af3731748cc8572e3167bcf07b42f0f43163ab74878d5ac2d13b4e4edb19952da296f832c7b9b01d5638787839a3721cab9947f5d73913b4e0c4b3e1.gif",
+      "uploadDate": "Tue Aug 22 01:24:16 2023",
+      "width": 160,
+    },
+  },
+  "type": "ImageObject",
+  "url": undefined,
+  "video": undefined,
+}
+`;
+
+exports[`resolve snapshot multiple 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+      "image": undefined,
+      "type": "Person",
+      "url": "https://nijie.info/members.php?id=65899",
+    },
+  ],
+  "dateModified": "Sun Sep  4 01:01:57 2022",
+  "datePublished": "Sun Sep  4 01:01:57 2022",
+  "description": "結構溜まってたので二つに分けます",
+  "identifier": "507755",
+  "image": [
+    {
+      "contentUrl": "https://pic.nijie.net/__s4__/d7b6d9e623a90d67da9eebeea0bee52cd9ebbb34d17ec77432208345df10be8152ec158f12008cf26607d5d1b538b4014c8d897942873e4c9d306feb8b872748bfa6900064982eb9737a5a889cfd883189b8932272f45865c54a9a49.jpg",
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "おっぱい",
+      },
+    },
+    {
+      "name": {
+        "textValue": "中出し",
+      },
+    },
+    {
+      "name": {
+        "textValue": "母乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "巨乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "けものフレンズ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "アライグマ",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "Twitterまとめたの８月その１",
+  },
+  "resolver": {
+    "schemaOrg": {
+      "@context": "https://schema.org/",
+      "@type": "ImageObject",
+      "author": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "contentLocation": "Japan",
+      "copyrightHolder": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "copyrightYear": "2022",
+      "creator": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "dateModified": "Sun Sep  4 01:01:57 2022",
+      "datePublished": "Sun Sep  4 01:01:57 2022",
+      "description": "結構溜まってたので二つに分けます",
+      "editor": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "genre": "Image",
+      "height": 90,
+      "interactionCount": "8945 UserPlays, 1 UserComments",
+      "name": "Twitterまとめたの８月その１",
+      "text": "結構溜まってたので二つに分けます",
+      "thumbnailUrl": "https://pic.nijie.net/__s4__/d7b6d9e623a90d67da9eebeea0bee52cd9ebbb34d17ec77432208345df10be8152ec158f12008cf26607d5d1b538b4014c8d897942873e4c9d306feb8b872748bfa6900064982eb9737a5a889cfd883189b8932272f45865c54a9a49.jpg",
+      "uploadDate": "Sun Sep  4 01:01:57 2022",
+      "width": 160,
+    },
+  },
+  "type": "ImageObject",
+  "url": undefined,
+  "video": undefined,
+}
+`;
+
+exports[`resolve snapshot page 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+      "image": undefined,
+      "type": "Person",
+      "url": "https://nijie.info/members.php?id=65899",
+    },
+  ],
+  "dateModified": "Sun May 25 23:58:08 2025",
+  "datePublished": "Sun May 25 23:58:08 2025",
+  "description": "もっと表情のバリエーションほしい",
+  "identifier": "689855",
+  "image": [
+    {
+      "contentUrl": "https://pic.nijie.net/__s4__/d7e185e270fc0b628e98b0b8a3edea7fbe5fec92367740065e4726c8872872c562c8be92808db41ce6092da390e351e6ac2694f6df992e7c023a35083612ea34e307a6d70468334f99c4f392700ba60de39757ac166c4fc06f6c1699.jpg",
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "おっぱい",
+      },
+    },
+    {
+      "name": {
+        "textValue": "パイズリ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "中出し",
+      },
+    },
+    {
+      "name": {
+        "textValue": "爆乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "フェラ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "全裸",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ぶっかけ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "母乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "噴乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "騎乗位",
+      },
+    },
+    {
+      "name": {
+        "textValue": "溢れ精液",
+      },
+    },
+    {
+      "name": {
+        "textValue": "巨乳",
+      },
+    },
+    {
+      "name": {
+        "textValue": "乳揉み",
+      },
+    },
+    {
+      "name": {
+        "textValue": "乳首責め",
+      },
+    },
+    {
+      "name": {
+        "textValue": "巨乳輪",
+      },
+    },
+    {
+      "name": {
+        "textValue": "立ちバック",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ずらし挿入",
+      },
+    },
+    {
+      "name": {
+        "textValue": "目がハート",
+      },
+    },
+    {
+      "name": {
+        "textValue": "絶頂",
+      },
+    },
+    {
+      "name": {
+        "textValue": "乳首舐め",
+      },
+    },
+    {
+      "name": {
+        "textValue": "鷲掴み",
+      },
+    },
+    {
+      "name": {
+        "textValue": "着衣SEX",
+      },
+    },
+    {
+      "name": {
+        "textValue": "快楽",
+      },
+    },
+    {
+      "name": {
+        "textValue": "けものフレンズ",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "えっくすまとめたの１５",
+  },
+  "resolver": {
+    "schemaOrg": {
+      "@context": "https://schema.org/",
+      "@type": "ImageObject",
+      "author": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "contentLocation": "Japan",
+      "copyrightHolder": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "copyrightYear": "2025",
+      "creator": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "dateModified": "Sun May 25 23:58:08 2025",
+      "datePublished": "Sun May 25 23:58:08 2025",
+      "description": "もっと表情のバリエーションほしい",
+      "editor": {
+        "@type": "Person",
+        "description": "おっぱいや擬人化が好き
+今は大体けもシコ",
+        "image": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+        "name": "搾り課す",
+        "sameAs": "https://nijie.info/members.php?id=65899",
+      },
+      "genre": "Image",
+      "height": 90,
+      "interactionCount": "17122 UserPlays, 6 UserComments",
+      "name": "えっくすまとめたの１５",
+      "text": "もっと表情のバリエーションほしい",
+      "thumbnailUrl": "https://pic.nijie.net/__s4__/d7e185e270fc0b628e98b0b8a3edea7fbe5fec92367740065e4726c8872872c562c8be92808db41ce6092da390e351e6ac2694f6df992e7c023a35083612ea34e307a6d70468334f99c4f392700ba60de39757ac166c4fc06f6c1699.jpg",
+      "uploadDate": "Sun May 25 23:58:08 2025",
+      "width": 160,
+    },
+  },
+  "type": "ImageObject",
+  "url": undefined,
+  "video": undefined,
+}
+`;
+
+exports[`resolve snapshot single 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "らくがきとか",
+      "image": undefined,
+      "type": "Person",
+      "url": "https://nijie.info/members.php?id=2768",
+    },
+  ],
+  "dateModified": "Sat Aug 31 17:15:22 2019",
+  "datePublished": "Sat Mar 25 19:31:19 2017",
+  "description": "フェネックちゃんの気怠げな声で囁かれながら射精したかった",
+  "identifier": "208118",
+  "image": [
+    {
+      "contentUrl": "https://pic.nijie.net/__s4__/d7b7ddb170ae5b6289c9b0b4a6bbb57ecedb32cac7e8a317ee35b7f2e3015ec0ea09ef5315d24ac1f21cdf094889978f70249408ba6e8c4f8c0fa2bc0842a4006726c608d09321a743f99fda0cee5b3f4193af1d069af96910e5e3a6.png",
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "手コキ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "女責め",
+      },
+    },
+    {
+      "name": {
+        "textValue": "けものフレンズ",
+      },
+    },
+    {
+      "name": {
+        "textValue": "フェネック",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "フェネックちゃん",
+  },
+  "resolver": {
+    "schemaOrg": {
+      "@context": "https://schema.org/",
+      "@type": "ImageObject",
+      "author": {
+        "@type": "Person",
+        "description": "らくがきとか",
+        "image": "https://pic.nijie.net/__s4__/d7e3d8b577ac5c328fc4b2bef7bdf02bc2295b5df402157f54444a9670646b2736017c9b6cb83ea822f196082dd5dd508c2f5c04ac8ae0d565ba3d95055046f6fb6e2c19004fd7539c634b7e76c8b3467d838a9b38060096f7c37972.gif",
+        "name": "五月うなぎ",
+        "sameAs": "https://nijie.info/members.php?id=2768",
+      },
+      "contentLocation": "Japan",
+      "copyrightHolder": {
+        "@type": "Person",
+        "description": "らくがきとか",
+        "image": "https://pic.nijie.net/__s4__/d7e3d8b577ac5c328fc4b2bef7bdf02bc2295b5df402157f54444a9670646b2736017c9b6cb83ea822f196082dd5dd508c2f5c04ac8ae0d565ba3d95055046f6fb6e2c19004fd7539c634b7e76c8b3467d838a9b38060096f7c37972.gif",
+        "name": "五月うなぎ",
+        "sameAs": "https://nijie.info/members.php?id=2768",
+      },
+      "copyrightYear": "2019",
+      "creator": {
+        "@type": "Person",
+        "description": "らくがきとか",
+        "image": "https://pic.nijie.net/__s4__/d7e3d8b577ac5c328fc4b2bef7bdf02bc2295b5df402157f54444a9670646b2736017c9b6cb83ea822f196082dd5dd508c2f5c04ac8ae0d565ba3d95055046f6fb6e2c19004fd7539c634b7e76c8b3467d838a9b38060096f7c37972.gif",
+        "name": "五月うなぎ",
+        "sameAs": "https://nijie.info/members.php?id=2768",
+      },
+      "dateModified": "Sat Aug 31 17:15:22 2019",
+      "datePublished": "Sat Mar 25 19:31:19 2017",
+      "description": "フェネックちゃんの気怠げな声で囁かれながら射精したかった",
+      "editor": {
+        "@type": "Person",
+        "description": "らくがきとか",
+        "image": "https://pic.nijie.net/__s4__/d7e3d8b577ac5c328fc4b2bef7bdf02bc2295b5df402157f54444a9670646b2736017c9b6cb83ea822f196082dd5dd508c2f5c04ac8ae0d565ba3d95055046f6fb6e2c19004fd7539c634b7e76c8b3467d838a9b38060096f7c37972.gif",
+        "name": "五月うなぎ",
+        "sameAs": "https://nijie.info/members.php?id=2768",
+      },
+      "genre": "Image",
+      "height": 90,
+      "interactionCount": "50332 UserPlays, 15 UserComments",
+      "name": "フェネックちゃん",
+      "text": "フェネックちゃんの気怠げな声で囁かれながら射精したかった",
+      "thumbnailUrl": "https://pic.nijie.net/__s4__/d7b7ddb170ae5b6289c9b0b4a6bbb57ecedb32cac7e8a317ee35b7f2e3015ec0ea09ef5315d24ac1f21cdf094889978f70249408ba6e8c4f8c0fa2bc0842a4006726c608d09321a743f99fda0cee5b3f4193af1d069af96910e5e3a6.png",
+      "uploadDate": "Sat Mar 25 19:31:19 2017",
+      "width": 160,
+    },
+  },
+  "type": "ImageObject",
+  "url": undefined,
+  "video": undefined,
+}
+`;

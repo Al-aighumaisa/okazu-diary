@@ -1,0 +1,265 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot generic 1`] = `
+{
+  "creator": [
+    {
+      "name": {
+        "textValue": "PERSONAL COLOR",
+      },
+      "type": "Organization",
+      "url": "https://www.melonbooks.co.jp/circle/index.php?circle_id=6535",
+    },
+    {
+      "name": {
+        "textValue": "桜庭友紀",
+      },
+      "type": "Person",
+      "url": "https://www.melonbooks.co.jp/search/search.php?name=%E6%A1%9C%E5%BA%AD%E5%8F%8B%E7%B4%80&text_type=author",
+    },
+  ],
+  "datePublished": "2008-06-15+09:00",
+  "description": "幼女と少女 in 守矢はPERSONAL COLOR 桜庭友紀の作品です。通販、予約は業界最速のメロンブックスにお任せ！",
+  "identifier": "15780",
+  "image": [
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723.jpg",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723a.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723b.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723c.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723d.jpg&sp=1",
+    },
+  ],
+  "keywords": [
+    {
+      "name": {
+        "textValue": "東方Project",
+      },
+    },
+    {
+      "name": {
+        "textValue": "サンシャインクリエイション40",
+      },
+    },
+    {
+      "name": {
+        "textValue": "大東方祭",
+      },
+    },
+    {
+      "name": {
+        "textValue": "東方メロン2022",
+      },
+    },
+    {
+      "name": {
+        "textValue": "【コミケ作品再販&超発掘フェア】",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ジャンルピックアップ2(一般同人誌)",
+      },
+    },
+    {
+      "name": {
+        "textValue": "博麗神社例大祭20回記念3大応援フェア",
+      },
+    },
+    {
+      "name": {
+        "textValue": "博麗神社例大祭20回記念3大応援フェア【フェア対象作品】",
+      },
+    },
+    {
+      "name": {
+        "textValue": "東方メロン2023秋",
+      },
+    },
+    {
+      "name": {
+        "textValue": "秋の同人ポイントプレゼントキャンペーン",
+      },
+    },
+    {
+      "name": {
+        "textValue": "C105当選サークル特集",
+      },
+    },
+    {
+      "name": {
+        "textValue": "ブルアカ大応援企画2025_参加作家特集",
+      },
+    },
+    {
+      "name": {
+        "textValue": "touhou-melon-2025-spring",
+      },
+    },
+    {
+      "name": {
+        "textValue": "コミックマーケット106当選サークル特集",
+      },
+    },
+    {
+      "name": {
+        "textValue": "pointCP-dojin-genre-1013",
+      },
+    },
+  ],
+  "name": {
+    "textValue": "幼女と少女 in 守矢（PERSONAL COLOR）の通販・購入はメロンブックス",
+  },
+  "resolver": {
+    "html": {
+      "author": "メロンブックス",
+      "canonical": "https://www.melonbooks.co.jp/detail/detail.php?product_id=15780",
+      "description": "幼女と少女 in 守矢はPERSONAL COLOR 桜庭友紀の作品です。通販、予約は業界最速のメロンブックスにお任せ！",
+      "keywords": [
+        "幼女と少女 in 守矢",
+        "同人誌",
+        "同人ゲーム",
+        "マンガ",
+        "コミック",
+        "コミックス",
+        "同人グッズ",
+        "通販",
+        "メロンブックス",
+      ],
+      "og": {
+        "image": [
+          {
+            "url": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001014723.jpg&width=300&width=300",
+          },
+        ],
+        "title": "幼女と少女 in 守矢（PERSONAL COLOR）の通販・購入はメロンブックス",
+      },
+      "title": "幼女と少女 in 守矢 通販 - メロンブックス",
+    },
+  },
+  "url": "https://www.melonbooks.co.jp/detail/detail.php?product_id=15780",
+}
+`;
+
+exports[`resolve snapshot r18 1`] = `
+{
+  "creator": [
+    {
+      "name": {
+        "textValue": "DA HOOTCH",
+      },
+      "type": "Organization",
+      "url": "https://www.melonbooks.co.jp/circle/index.php?circle_id=2511",
+    },
+    {
+      "name": {
+        "textValue": "新堂エル",
+      },
+      "type": "Person",
+      "url": "https://www.melonbooks.co.jp/search/search.php?name=%E6%96%B0%E5%A0%82%E3%82%A8%E3%83%AB&text_type=author",
+    },
+  ],
+  "datePublished": "2008-12-30+09:00",
+  "description": "FFTのアグリアス異種●本です。内容は触手、モンスター、貫通、妊娠、産卵、アヘ顔など。 属性合えば是非。",
+  "identifier": "15782",
+  "image": [
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347.jpg",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347a.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347b.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347c.jpg&sp=1",
+    },
+    {
+      "contentUrl": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347d.jpg&sp=1",
+    },
+  ],
+  "keywords": [
+    {
+      "name": {
+        "textValue": "触手",
+      },
+    },
+    {
+      "name": {
+        "textValue": "コミックマーケット75",
+      },
+    },
+    {
+      "name": {
+        "textValue": "アグリアス",
+      },
+    },
+    {
+      "name": {
+        "textValue": "サークルコメント付き",
+      },
+    },
+    {
+      "name": {
+        "textValue": "【コミケ作品再販&超発掘フェア】",
+      },
+    },
+    {
+      "name": {
+        "textValue": "C105当選サークル特集",
+      },
+    },
+    {
+      "name": {
+        "textValue": "コミックマーケット106当選サークル特集",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": {
+    "textValue": "不幸騎士（DA HOOTCH）の通販・購入はメロンブックス",
+  },
+  "resolver": {
+    "html": {
+      "author": "メロンブックス",
+      "canonical": "https://www.melonbooks.co.jp/detail/detail.php?product_id=15782",
+      "description": "不幸騎士はDA HOOTCH 新堂エルの作品です。通販、予約は業界最速のメロンブックスにお任せ！",
+      "keywords": [
+        "不幸騎士",
+        "同人誌",
+        "同人ゲーム",
+        "マンガ",
+        "コミック",
+        "コミックス",
+        "同人グッズ",
+        "通販",
+        "メロンブックス",
+      ],
+      "og": {
+        "image": [
+          {
+            "url": "https://melonbooks.akamaized.net/user_data/packages/resize_image.php?image=212001019347.jpg&width=300&width=300&c=1",
+          },
+        ],
+        "title": "不幸騎士（DA HOOTCH）の通販・購入はメロンブックス",
+      },
+      "rating": "adult",
+      "title": "不幸騎士 通販 - メロンブックス",
+    },
+  },
+  "url": "https://www.melonbooks.co.jp/detail/detail.php?product_id=15782",
+}
+`;

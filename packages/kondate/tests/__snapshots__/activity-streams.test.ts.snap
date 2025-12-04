@@ -1,0 +1,740 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`resolve snapshot mastodon-html-url 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "<p>A free, open-source decentralised social network to connect with your friends and others, anywhere.</p><p>This is the primary account for the overall Mastodon project.</p><p>For technical software updates, follow <span class="h-card" translate="no"><a href="https://mastodon.social/@MastodonEngineering" class="u-url mention">@<span>MastodonEngineering</span></a></span></p><p>For news and updates on the Mastodon servers we operate (like this one!), follow <span class="h-card" translate="no"><a href="https://mastodon.social/@staff" class="u-url mention">@<span>staff</span></a></span></p>",
+      "name": {
+        "textValue": "Mastodon",
+      },
+      "type": "Person",
+      "url": "https://mastodon.social/@Mastodon",
+    },
+  ],
+  "dateModified": undefined,
+  "datePublished": "2017-05-07T19:17:36Z",
+  "description": "<p>This is not even my final form. </p><p>Official account of the Mastodon project. News, releases, announcements. All in micro-blog form!</p><p>🎺  Toot toot! 🎺 </p><p>Spread the news, it&#39;s legit, <span class="h-card" translate="no"><a href="https://mastodon.social/@maloki" class="u-url mention">@<span>maloki</span></a></span>  and <span class="h-card" translate="no"><a href="https://mastodon.social/@Gargron" class="u-url mention">@<span>Gargron</span></a></span> boost to prove it!</p><p>Microblog (in 5 parts) inc. soon!</p>",
+  "image": undefined,
+  "inLanguage": "en",
+  "keywords": [],
+  "labels": undefined,
+  "name": undefined,
+  "resolver": {
+    "activityStreams": {
+      "actor": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "as:manuallyApprovesFollowers": false,
+        "attachment": [
+          {
+            "http://schema.org#value": "<a href="https://joinmastodon.org" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="">joinmastodon.org</span><span class="invisible"></span></a>",
+            "name": "Homepage",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://github.com/mastodon" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="">github.com/mastodon</span><span class="invisible"></span></a>",
+            "name": "Source Code",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://blog.joinmastodon.org" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="">blog.joinmastodon.org</span><span class="invisible"></span></a>",
+            "name": "Blog",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://joinmastodon.org/sponsors#donate" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="ellipsis">joinmastodon.org/sponsors#dona</span><span class="invisible">te</span></a>",
+            "name": "Donate",
+            "type": "http://schema.org#PropertyValue",
+          },
+        ],
+        "endpoints": {
+          "sharedInbox": "https://mastodon.social/inbox",
+        },
+        "followers": "https://mastodon.social/users/Mastodon/followers",
+        "following": "https://mastodon.social/users/Mastodon/following",
+        "http://joinmastodon.org/ns#attributionDomains": [
+          {
+            "id": "blog.joinmastodon.org",
+          },
+          {
+            "id": "joinmastodon.org",
+          },
+        ],
+        "http://joinmastodon.org/ns#discoverable": true,
+        "http://joinmastodon.org/ns#featured": {
+          "id": "https://mastodon.social/users/Mastodon/collections/featured",
+        },
+        "http://joinmastodon.org/ns#featuredTags": {
+          "id": "https://mastodon.social/users/Mastodon/collections/tags",
+        },
+        "http://joinmastodon.org/ns#indexable": true,
+        "http://joinmastodon.org/ns#memorial": false,
+        "icon": {
+          "mediaType": "image/png",
+          "type": "Image",
+          "url": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
+        },
+        "id": "https://mastodon.social/users/Mastodon",
+        "image": {
+          "mediaType": "image/png",
+          "type": "Image",
+          "url": "https://files.mastodon.social/accounts/headers/000/013/179/original/1375be116fbe0f1d.png",
+        },
+        "inbox": "https://mastodon.social/users/Mastodon/inbox",
+        "name": "Mastodon",
+        "outbox": "https://mastodon.social/users/Mastodon/outbox",
+        "preferredUsername": "Mastodon",
+        "publicKey": {
+          "id": "https://mastodon.social/users/Mastodon#main-key",
+          "owner": "https://mastodon.social/users/Mastodon",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtpNfuGPl/WTnSq3dTurF
+MRelAIdvGVkO/VKYZJvIleYA27/YTnpmlY2g+0az4xEhOBtVNA1cTpS63CdXRyNz
+cH/GZtzxkdxN91vZSw0JVy+wG34dzwcq1KWFDz9D/5Tqf16KUJH+TDTlxdOBds91
+IZg+TTkiT+xfnSiC5SLMnn1dTzCW9P0yNJxpn37z7p6pEs63X1wstEEX1qGDUQTO
+1JICpKDjuQZMlioAAA5KG25tg2f+zKlv5M/NI33DblquyJ7TYvIpDN8hsFCRjuvA
+mjtKz/1XIRvQkeKND3UkqX8s6qTGyNOjcT86qt9BqYHYGuppjpRG/QNGoKYalio1
+wwIDAQAB
+-----END PUBLIC KEY-----
+",
+        },
+        "published": "2016-11-23T00:00:00Z",
+        "summary": "<p>A free, open-source decentralised social network to connect with your friends and others, anywhere.</p><p>This is the primary account for the overall Mastodon project.</p><p>For technical software updates, follow <span class="h-card" translate="no"><a href="https://mastodon.social/@MastodonEngineering" class="u-url mention">@<span>MastodonEngineering</span></a></span></p><p>For news and updates on the Mastodon servers we operate (like this one!), follow <span class="h-card" translate="no"><a href="https://mastodon.social/@staff" class="u-url mention">@<span>staff</span></a></span></p>",
+        "tag": [],
+        "type": "Person",
+        "url": "https://mastodon.social/@Mastodon",
+      },
+      "object": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "as:sensitive": false,
+        "attachment": [],
+        "attributedTo": "https://mastodon.social/users/Mastodon",
+        "cc": [
+          "https://mastodon.social/users/Mastodon/followers",
+          "https://mastodon.social/users/maloki",
+          "https://mastodon.social/users/Gargron",
+        ],
+        "content": "<p>This is not even my final form. </p><p>Official account of the Mastodon project. News, releases, announcements. All in micro-blog form!</p><p>🎺  Toot toot! 🎺 </p><p>Spread the news, it&#39;s legit, <span class="h-card" translate="no"><a href="https://mastodon.social/@maloki" class="u-url mention">@<span>maloki</span></a></span>  and <span class="h-card" translate="no"><a href="https://mastodon.social/@Gargron" class="u-url mention">@<span>Gargron</span></a></span> boost to prove it!</p><p>Microblog (in 5 parts) inc. soon!</p>",
+        "contentMap": {
+          "en": "<p>This is not even my final form. </p><p>Official account of the Mastodon project. News, releases, announcements. All in micro-blog form!</p><p>🎺  Toot toot! 🎺 </p><p>Spread the news, it&#39;s legit, <span class="h-card" translate="no"><a href="https://mastodon.social/@maloki" class="u-url mention">@<span>maloki</span></a></span>  and <span class="h-card" translate="no"><a href="https://mastodon.social/@Gargron" class="u-url mention">@<span>Gargron</span></a></span> boost to prove it!</p><p>Microblog (in 5 parts) inc. soon!</p>",
+        },
+        "http://ostatus.org#atomUri": "tag:mastodon.social,2017-05-07:objectId=5258563:objectType=Status",
+        "https://gotosocial.org/ns#interactionPolicy": {
+          "https://gotosocial.org/ns#canQuote": {
+            "https://gotosocial.org/ns#automaticApproval": {
+              "id": "https://mastodon.social/users/Mastodon",
+            },
+          },
+        },
+        "id": "https://mastodon.social/users/Mastodon/statuses/5258563",
+        "likes": {
+          "id": "https://mastodon.social/users/Mastodon/statuses/5258563/likes",
+          "totalItems": 80,
+          "type": "Collection",
+        },
+        "published": "2017-05-07T19:17:36Z",
+        "replies": {
+          "first": {
+            "items": [],
+            "next": "https://mastodon.social/users/Mastodon/statuses/5258563/replies?only_other_accounts=true&page=true",
+            "partOf": "https://mastodon.social/users/Mastodon/statuses/5258563/replies",
+            "type": "CollectionPage",
+          },
+          "id": "https://mastodon.social/users/Mastodon/statuses/5258563/replies",
+          "type": "Collection",
+        },
+        "shares": {
+          "id": "https://mastodon.social/users/Mastodon/statuses/5258563/shares",
+          "totalItems": 132,
+          "type": "Collection",
+        },
+        "tag": [
+          {
+            "href": "https://mastodon.social/users/maloki",
+            "name": "@maloki",
+            "type": "Mention",
+          },
+          {
+            "href": "https://mastodon.social/users/Gargron",
+            "name": "@Gargron",
+            "type": "Mention",
+          },
+        ],
+        "to": "as:Public",
+        "type": "Note",
+        "url": "https://mastodon.social/@Mastodon/5258563",
+      },
+    },
+  },
+  "url": "https://mastodon.social/@Mastodon/5258563",
+  "video": undefined,
+}
+`;
+
+exports[`resolve snapshot mastodon-safe-medium 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "<p>Executive Strategy &amp; Product Advisor, Founder of <span class="h-card" translate="no"><a href="https://mastodon.social/@Mastodon" class="u-url mention">@<span>Mastodon</span></a></span>. Film photography, prog metal, Dota 2. Likes all things analog.</p>",
+      "name": {
+        "textValue": "Eugen Rochko",
+      },
+      "type": "Person",
+      "url": "https://mastodon.social/@Gargron",
+    },
+  ],
+  "dateModified": undefined,
+  "datePublished": "2025-05-24T11:03:10Z",
+  "description": "<p>Here&#39;s another one. Croatia.</p><p>📷 Pentax KX<br />🎞️ Fuji Superia X-tra 400<br />🔭 Pentax M 50mm/1.7<br />⚗️ Spieker Film Lab</p><p><a href="https://mastodon.social/tags/BelieveInFilm" class="mention hashtag" rel="tag">#<span>BelieveInFilm</span></a> <a href="https://mastodon.social/tags/FilmPhotography" class="mention hashtag" rel="tag">#<span>FilmPhotography</span></a> <a href="https://mastodon.social/tags/AnalogPhotography" class="mention hashtag" rel="tag">#<span>AnalogPhotography</span></a> <a href="https://mastodon.social/tags/35mm" class="mention hashtag" rel="tag">#<span>35mm</span></a> <a href="https://mastodon.social/tags/Croatia" class="mention hashtag" rel="tag">#<span>Croatia</span></a></p>",
+  "image": [
+    {
+      "contentUrl": "https://files.mastodon.social/media_attachments/files/114/562/461/375/011/149/original/0178bec4e9a50d70.jpg",
+      "encodingFormat": "image/jpeg",
+      "labels": undefined,
+      "name": {
+        "textValue": "A seagull is posing on top of a triangular rock in the turqouise Mediterranian water, framed by a cloud behind him.",
+      },
+      "ratio": {
+        "height": 3536,
+        "width": 2345,
+      },
+    },
+  ],
+  "inLanguage": "en",
+  "keywords": [
+    {
+      "name": {
+        "textValue": "#believeinfilm",
+      },
+    },
+    {
+      "name": {
+        "textValue": "#filmphotography",
+      },
+    },
+    {
+      "name": {
+        "textValue": "#analogphotography",
+      },
+    },
+    {
+      "name": {
+        "textValue": "#35mm",
+      },
+    },
+    {
+      "name": {
+        "textValue": "#croatia",
+      },
+    },
+  ],
+  "labels": undefined,
+  "name": undefined,
+  "resolver": {
+    "activityStreams": {
+      "actor": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "as:manuallyApprovesFollowers": false,
+        "attachment": [
+          {
+            "http://schema.org#value": "<a href="https://github.com/Gargron" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="">github.com/Gargron</span><span class="invisible"></span></a>",
+            "name": "GitHub",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://eugenrochko.com" target="_blank" rel="nofollow noopener me" translate="no"><span class="invisible">https://</span><span class="">eugenrochko.com</span><span class="invisible"></span></a>",
+            "name": "Portfolio",
+            "type": "http://schema.org#PropertyValue",
+          },
+        ],
+        "endpoints": {
+          "sharedInbox": "https://mastodon.social/inbox",
+        },
+        "followers": "https://mastodon.social/users/Gargron/followers",
+        "following": "https://mastodon.social/users/Gargron/following",
+        "http://joinmastodon.org/ns#attributionDomains": [
+          {
+            "id": "eugenrochko.com",
+          },
+          {
+            "id": "joinmastodon.org",
+          },
+        ],
+        "http://joinmastodon.org/ns#discoverable": true,
+        "http://joinmastodon.org/ns#featured": {
+          "id": "https://mastodon.social/users/Gargron/collections/featured",
+        },
+        "http://joinmastodon.org/ns#featuredTags": {
+          "id": "https://mastodon.social/users/Gargron/collections/tags",
+        },
+        "http://joinmastodon.org/ns#indexable": true,
+        "http://joinmastodon.org/ns#memorial": false,
+        "icon": {
+          "mediaType": "image/png",
+          "type": "Image",
+          "url": "https://files.mastodon.social/accounts/avatars/000/000/001/original/a0a49d80c3de5f75.png",
+        },
+        "id": "https://mastodon.social/users/Gargron",
+        "image": {
+          "mediaType": "image/jpeg",
+          "type": "Image",
+          "url": "https://files.mastodon.social/accounts/headers/000/000/001/original/d13e4417706a5fec.jpg",
+        },
+        "inbox": "https://mastodon.social/users/Gargron/inbox",
+        "name": "Eugen Rochko",
+        "outbox": "https://mastodon.social/users/Gargron/outbox",
+        "preferredUsername": "Gargron",
+        "publicKey": {
+          "id": "https://mastodon.social/users/Gargron#main-key",
+          "owner": "https://mastodon.social/users/Gargron",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvXc4vkECU2/CeuSo1wtn
+Foim94Ne1jBMYxTZ9wm2YTdJq1oiZKif06I2fOqDzY/4q/S9uccrE9Bkajv1dnkO
+Vm31QjWlhVpSKynVxEWjVBO5Ienue8gND0xvHIuXf87o61poqjEoepvsQFElA5ym
+ovljWGSA/jpj7ozygUZhCXtaS2W5AD5tnBQUpcO0lhItYPYTjnmzcc4y2NbJV8hz
+2s2G8qKv8fyimE23gY1XrPJg+cRF+g4PqFXujjlJ7MihD9oqtLGxbu7o1cifTn3x
+BfIdPythWu5b4cujNsB3m3awJjVmx+MHQ9SugkSIYXV0Ina77cTNS0M2PYiH1PFR
+TwIDAQAB
+-----END PUBLIC KEY-----
+",
+        },
+        "published": "2016-03-16T00:00:00Z",
+        "summary": "<p>Executive Strategy &amp; Product Advisor, Founder of <span class="h-card" translate="no"><a href="https://mastodon.social/@Mastodon" class="u-url mention">@<span>Mastodon</span></a></span>. Film photography, prog metal, Dota 2. Likes all things analog.</p>",
+        "tag": [],
+        "type": "Person",
+        "url": "https://mastodon.social/@Gargron",
+      },
+      "object": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "as:sensitive": false,
+        "attachment": {
+          "height": 3536,
+          "http://joinmastodon.org/ns#blurhash": "UiIrQqt7SPR*?woeRjazkWoeV@oeD*oeR-az",
+          "http://joinmastodon.org/ns#focalPoint": {
+            "@list": [
+              -0,
+              0.18,
+            ],
+          },
+          "mediaType": "image/jpeg",
+          "name": "A seagull is posing on top of a triangular rock in the turqouise Mediterranian water, framed by a cloud behind him.",
+          "type": "Document",
+          "url": "https://files.mastodon.social/media_attachments/files/114/562/461/375/011/149/original/0178bec4e9a50d70.jpg",
+          "width": 2345,
+        },
+        "attributedTo": "https://mastodon.social/users/Gargron",
+        "cc": "https://mastodon.social/users/Gargron/followers",
+        "content": "<p>Here&#39;s another one. Croatia.</p><p>📷 Pentax KX<br />🎞️ Fuji Superia X-tra 400<br />🔭 Pentax M 50mm/1.7<br />⚗️ Spieker Film Lab</p><p><a href="https://mastodon.social/tags/BelieveInFilm" class="mention hashtag" rel="tag">#<span>BelieveInFilm</span></a> <a href="https://mastodon.social/tags/FilmPhotography" class="mention hashtag" rel="tag">#<span>FilmPhotography</span></a> <a href="https://mastodon.social/tags/AnalogPhotography" class="mention hashtag" rel="tag">#<span>AnalogPhotography</span></a> <a href="https://mastodon.social/tags/35mm" class="mention hashtag" rel="tag">#<span>35mm</span></a> <a href="https://mastodon.social/tags/Croatia" class="mention hashtag" rel="tag">#<span>Croatia</span></a></p>",
+        "contentMap": {
+          "en": "<p>Here&#39;s another one. Croatia.</p><p>📷 Pentax KX<br />🎞️ Fuji Superia X-tra 400<br />🔭 Pentax M 50mm/1.7<br />⚗️ Spieker Film Lab</p><p><a href="https://mastodon.social/tags/BelieveInFilm" class="mention hashtag" rel="tag">#<span>BelieveInFilm</span></a> <a href="https://mastodon.social/tags/FilmPhotography" class="mention hashtag" rel="tag">#<span>FilmPhotography</span></a> <a href="https://mastodon.social/tags/AnalogPhotography" class="mention hashtag" rel="tag">#<span>AnalogPhotography</span></a> <a href="https://mastodon.social/tags/35mm" class="mention hashtag" rel="tag">#<span>35mm</span></a> <a href="https://mastodon.social/tags/Croatia" class="mention hashtag" rel="tag">#<span>Croatia</span></a></p>",
+        },
+        "http://ostatus.org#atomUri": "https://mastodon.social/users/Gargron/statuses/114562471720867464",
+        "http://ostatus.org#conversation": "tag:mastodon.social,2025-05-24:objectId=1005258795:objectType=Conversation",
+        "https://gotosocial.org/ns#interactionPolicy": {
+          "https://gotosocial.org/ns#canQuote": {
+            "https://gotosocial.org/ns#automaticApproval": {
+              "id": "https://mastodon.social/users/Gargron",
+            },
+          },
+        },
+        "id": "https://mastodon.social/users/Gargron/statuses/114562471720867464",
+        "likes": {
+          "id": "https://mastodon.social/users/Gargron/statuses/114562471720867464/likes",
+          "totalItems": 379,
+          "type": "Collection",
+        },
+        "published": "2025-05-24T11:03:10Z",
+        "replies": {
+          "first": {
+            "items": [],
+            "next": "https://mastodon.social/users/Gargron/statuses/114562471720867464/replies?only_other_accounts=true&page=true",
+            "partOf": "https://mastodon.social/users/Gargron/statuses/114562471720867464/replies",
+            "type": "CollectionPage",
+          },
+          "id": "https://mastodon.social/users/Gargron/statuses/114562471720867464/replies",
+          "type": "Collection",
+        },
+        "shares": {
+          "id": "https://mastodon.social/users/Gargron/statuses/114562471720867464/shares",
+          "totalItems": 78,
+          "type": "Collection",
+        },
+        "tag": [
+          {
+            "href": "https://mastodon.social/tags/believeinfilm",
+            "name": "#believeinfilm",
+            "type": "Hashtag",
+          },
+          {
+            "href": "https://mastodon.social/tags/filmphotography",
+            "name": "#filmphotography",
+            "type": "Hashtag",
+          },
+          {
+            "href": "https://mastodon.social/tags/analogphotography",
+            "name": "#analogphotography",
+            "type": "Hashtag",
+          },
+          {
+            "href": "https://mastodon.social/tags/35mm",
+            "name": "#35mm",
+            "type": "Hashtag",
+          },
+          {
+            "href": "https://mastodon.social/tags/croatia",
+            "name": "#croatia",
+            "type": "Hashtag",
+          },
+        ],
+        "to": "as:Public",
+        "type": "Note",
+        "url": "https://mastodon.social/@Gargron/114562471720867464",
+      },
+    },
+  },
+  "url": "https://mastodon.social/@Gargron/114562471720867464",
+  "video": undefined,
+}
+`;
+
+exports[`resolve snapshot misskey-safe-and-sensitive-media 1`] = `
+{
+  "audio": undefined,
+  "creator": [
+    {
+      "description": "<p>いくしーでぇっす！</p>",
+      "name": {
+        "textValue": "Ixy（いくしー）",
+      },
+      "type": "Person",
+      "url": "https://misskey.io/@ixy",
+    },
+  ],
+  "dateModified": undefined,
+  "datePublished": "2023-07-29T05:25:00.419Z",
+  "description": "<p>例の村上さん <a href="https://misskey.io/tags/村上アート" rel="tag">#村上アート</a></p>",
+  "image": [
+    {
+      "contentUrl": "https://media.misskeyusercontent.com/io/6ad4663d-11a0-4d10-8ebe-d2d2b61915c5.webp",
+      "encodingFormat": "image/webp",
+      "labels": undefined,
+      "name": undefined,
+      "ratio": undefined,
+    },
+    {
+      "contentUrl": "https://media.misskeyusercontent.com/io/10ed8e23-c649-445a-aa2c-8e572350c9ef.webp?sensitive=true",
+      "encodingFormat": "image/webp",
+      "labels": [
+        {
+          "val": "sexual",
+        },
+      ],
+      "name": undefined,
+      "ratio": undefined,
+    },
+  ],
+  "inLanguage": undefined,
+  "keywords": [
+    {
+      "name": {
+        "textValue": "#村上アート",
+      },
+    },
+  ],
+  "labels": [
+    {
+      "val": "sexual",
+    },
+  ],
+  "name": undefined,
+  "resolver": {
+    "activityStreams": {
+      "actor": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "alsoKnownAs": "https://misskey.io/users/9bpemdns40",
+        "as:manuallyApprovesFollowers": false,
+        "attachment": [
+          {
+            "http://schema.org#value": "<a href="https://twitter.com/Ixy" rel="me nofollow noopener" target="_blank">https://twitter.com/Ixy</a>",
+            "name": "Twitter:twitter:",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://www.youtube.com/@ixy" rel="me nofollow noopener" target="_blank">https://www.youtube.com/@ixy</a>",
+            "name": "YouTube:youtube:",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://www.dlsite.com/maniax/circle/profile/=/maker_id/RG50544.html" rel="me nofollow noopener" target="_blank">https://www.dlsite.com/maniax/circle/profile/=/maker_id/RG50544.html</a>",
+            "name": "DLsite:dlsite:",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://ci-en.dlsite.com/creator/5868" rel="me nofollow noopener" target="_blank">https://ci-en.dlsite.com/creator/5868</a>",
+            "name": "Ci-en(18禁)注意",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://ixy.fanbox.cc/" rel="me nofollow noopener" target="_blank">https://ixy.fanbox.cc/</a>",
+            "name": "FANBOX(18禁)注意",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="http://fantia.jp/fanclubs/17187" rel="me nofollow noopener" target="_blank">http://fantia.jp/fanclubs/17187</a>│",
+            "name": "Fantia(18禁)注意",
+            "type": "http://schema.org#PropertyValue",
+          },
+          {
+            "http://schema.org#value": "<a href="https://ixy.blog.jp/" rel="me nofollow noopener" target="_blank">https://ixy.blog.jp/</a>",
+            "name": "お絵かき情報ブログ（健全）",
+            "type": "http://schema.org#PropertyValue",
+          },
+        ],
+        "endpoints": {
+          "sharedInbox": "https://misskey.io/inbox",
+        },
+        "followers": "https://misskey.io/users/9basm36lnq/followers",
+        "following": "https://misskey.io/users/9basm36lnq/following",
+        "http://joinmastodon.org/ns#discoverable": true,
+        "http://joinmastodon.org/ns#featured": "https://misskey.io/users/9basm36lnq/collections/featured",
+        "https://misskey-hub.net/ns#_misskey_requireSigninToViewContents": false,
+        "https://misskey-hub.net/ns#_misskey_summary": "いくしーでぇっす！",
+        "https://misskey-hub.net/ns#isCat": false,
+        "icon": {
+          "as:sensitive": false,
+          "type": "Image",
+          "url": "https://media.misskeyusercontent.com/io/4d3bc962-189d-4ea5-8417-f622daa6d5d1.png",
+        },
+        "id": "https://misskey.io/users/9basm36lnq",
+        "image": {
+          "as:sensitive": false,
+          "type": "Image",
+          "url": "https://media.misskeyusercontent.com/io/827f7204-499d-4dc9-b388-9afa25a5e187.png",
+        },
+        "inbox": "https://misskey.io/users/9basm36lnq/inbox",
+        "name": "Ixy（いくしー）",
+        "outbox": "https://misskey.io/users/9basm36lnq/outbox",
+        "preferredUsername": "ixy",
+        "publicKey": {
+          "id": "https://misskey.io/users/9basm36lnq#main-key",
+          "owner": "https://misskey.io/users/9basm36lnq",
+          "publicKeyPem": "-----BEGIN PUBLIC KEY-----
+MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAy+jnEQlgJkapl52BG8rI
+dN2wyIQa07a4QqORLS+djO4mTLo7laklQe2JgnzihxObkk5Ro6CNZArPifxDAyTw
+dIXFzDFXpbMl4eZ6bxwbscXaTLwytX2d7icPX7W3SsMFMUTXlPjfGEcVtGfQNVEh
+y6vK0KxP0Z0HnA1gPf1h+rlYkW5VCaAgGhyIV+dOIG2MI4KGmIcTS+p33l/6snjX
+4YVkoqDGgGxXwDz/gHE1R3CWSJBlqgfaBpxx5JodCCicEjH9/HlBa17JNPPVzolz
+UyGUE7ZYPfslFLKwPRl4G6amb99k1weGXWsVa8oKb9W/U+6SaP55JCabNiKmgUVQ
+XKlSyhRSXbc5izpqj9cSqGgFV9A2no621zVL1goQbpKTAJgwkHCEw7SPU2MO75nT
+9/OEZb2b394DPiFLHwnB9LxNtrhz1BCYw0w/wsfWM5TSiclqswaVHwDogy/scxYP
+sy7hgDAfxVR+HTVCBK2xiye53IIIV5Dyogry9kmg5FaQm3ZvtyMTauzhjmJDc4mN
+HAFmsgIQ8buoRMovJl7AQ6SSp6dB2awyb8VCZJ40ROQwrfENIb0vQCLV1imSmOdx
+IrYFVNBI2O8oubEEYTInNV1BMtU6FlDfFIBJ2v6DKEOvmYAluzBA1zbdGpmXBODU
+G7YC6QdKurR669bkIxbxtb8CAwEAAQ==
+-----END PUBLIC KEY-----
+",
+          "type": "CryptographicKey",
+        },
+        "sharedInbox": "https://misskey.io/inbox",
+        "summary": "<p>いくしーでぇっす！</p>",
+        "tag": [
+          {
+            "https://misskey-hub.net/ns#_misskey_license": {},
+            "icon": {
+              "mediaType": "image/png",
+              "type": "Image",
+              "url": "https://media.misskeyusercontent.com/emoji/twitter.png",
+            },
+            "id": "https://misskey.io/emojis/twitter",
+            "name": ":twitter:",
+            "type": "http://joinmastodon.org/ns#Emoji",
+            "updated": "2022-01-27T03:03:11.668Z",
+          },
+          {
+            "https://misskey-hub.net/ns#_misskey_license": {},
+            "icon": {
+              "mediaType": "image/png",
+              "type": "Image",
+              "url": "https://media.misskeyusercontent.com/emoji/youtube.png",
+            },
+            "id": "https://misskey.io/emojis/youtube",
+            "name": ":youtube:",
+            "type": "http://joinmastodon.org/ns#Emoji",
+            "updated": "2022-01-27T03:03:34.693Z",
+          },
+          {
+            "https://misskey-hub.net/ns#_misskey_license": {},
+            "icon": {
+              "mediaType": "image/png",
+              "type": "Image",
+              "url": "https://media.misskeyusercontent.com/emoji/dlsite.png",
+            },
+            "id": "https://misskey.io/emojis/dlsite",
+            "name": ":dlsite:",
+            "type": "http://joinmastodon.org/ns#Emoji",
+            "updated": "2022-01-27T03:06:27.623Z",
+          },
+        ],
+        "type": "Person",
+        "url": "https://misskey.io/@ixy",
+        "vcard:Address": "ウユニ塩湖",
+        "vcard:bday": "0007-12-05",
+      },
+      "object": {
+        "@context": [
+          {
+            "Hashtag": "as:Hashtag",
+            "as": "https://www.w3.org/ns/activitystreams#",
+            "manuallyApprovesFollowers": {
+              "@id": "as:manuallyApprovesFollowers",
+              "@type": "xsd:boolean",
+            },
+            "movedTo": {
+              "@id": "as:movedTo",
+              "@type": "@id",
+            },
+            "sensitive": {
+              "@id": "as:sensitive",
+              "@type": "xsd:boolean",
+            },
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+          },
+          "https://w3id.org/security/v1",
+          "https://www.w3.org/ns/activitystreams",
+        ],
+        "as:sensitive": true,
+        "attachment": [
+          {
+            "as:sensitive": false,
+            "mediaType": "image/webp",
+            "type": "Document",
+            "url": "https://media.misskeyusercontent.com/io/6ad4663d-11a0-4d10-8ebe-d2d2b61915c5.webp",
+          },
+          {
+            "as:sensitive": true,
+            "mediaType": "image/webp",
+            "type": "Document",
+            "url": "https://media.misskeyusercontent.com/io/10ed8e23-c649-445a-aa2c-8e572350c9ef.webp?sensitive=true",
+          },
+        ],
+        "attributedTo": "https://misskey.io/users/9basm36lnq",
+        "cc": "https://misskey.io/users/9basm36lnq/followers",
+        "content": "<p>例の村上さん <a href="https://misskey.io/tags/村上アート" rel="tag">#村上アート</a></p>",
+        "id": "https://misskey.io/notes/9hr4uembuc",
+        "published": "2023-07-29T05:25:00.419Z",
+        "tag": {
+          "href": "https://misskey.io/tags/%E6%9D%91%E4%B8%8A%E3%82%A2%E3%83%BC%E3%83%88",
+          "name": "#村上アート",
+          "type": "Hashtag",
+        },
+        "to": "as:Public",
+        "type": "Note",
+      },
+    },
+  },
+  "url": "https://misskey.io/notes/9hr4uembuc",
+  "video": undefined,
+}
+`;

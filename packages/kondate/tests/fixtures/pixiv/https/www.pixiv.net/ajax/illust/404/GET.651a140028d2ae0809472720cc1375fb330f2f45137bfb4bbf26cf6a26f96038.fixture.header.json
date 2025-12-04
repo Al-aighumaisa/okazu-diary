@@ -1,0 +1,31 @@
+{
+  "headers": {
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cache-control": "no-store, no-cache, must-revalidate",
+    "cf-cache-status": "DYNAMIC",
+    "cf-ray": "9b3bd2c38adc6889-NRT",
+    "connection": "keep-alive",
+    "content-length": "37",
+    "content-type": "application/json; charset=utf-8",
+    "date": "Thu, 25 Dec 2025 22:37:29 GMT",
+    "expires": "Thu, 19 Nov 1981 08:52:00 GMT",
+    "pragma": "no-cache",
+    "server": "cloudflare",
+    "set-cookie": "_cfuvid=HXZsrPqe6wqUqqpQnUCW_6QmYuft2hheCRiMS8X1NiE-1766702249553-0.0.1.1-604800000; path=/; domain=.pixiv.net; HttpOnly; Secure; SameSite=None",
+    "strict-transport-security": "max-age=31536000",
+    "vary": "x-user-id",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN"
+  },
+  "setCookie": [
+    "PHPSESSID=fa9f8e2c11831ae496360e07ab57d873; expires=Thu, 25 Dec 2025 23:37:29 GMT; Max-Age=3600; path=/; domain=.pixiv.net; secure; HttpOnly",
+    "cc1=2025-12-26%2007%3A37%3A29; expires=Fri, 26 Dec 2025 22:37:29 GMT; Max-Age=86400; path=/; domain=.pixiv.net; secure; HttpOnly",
+    "PHPSESSID=fa9f8e2c11831ae496360e07ab57d873; expires=Thu, 25 Dec 2025 23:37:29 GMT; Max-Age=3600; path=/; domain=.pixiv.net; secure; HttpOnly",
+    "__cf_bm=DgckhGmlUSLnpo1oDvPPaKlzf98FYQksSs_YtcOb6.Q-1766702249-1.0.1.1-VylG8BdI0SdAQ.5pqXauiiVD7p12nkiGu3kimgsNt9.Nsy2nsXceg3TUyGkdCwfHsWudXcNipFjG7HBpDTCL96h.03fA0f7jZhMf.FsL2Uo3YE5XEcngF4kQ9N8iY2MX; path=/; expires=Thu, 25-Dec-25 23:07:29 GMT; domain=.pixiv.net; HttpOnly; Secure; SameSite=None",
+    "_cfuvid=HXZsrPqe6wqUqqpQnUCW_6QmYuft2hheCRiMS8X1NiE-1766702249553-0.0.1.1-604800000; path=/; domain=.pixiv.net; HttpOnly; Secure; SameSite=None"
+  ],
+  "redirected": false,
+  "status": 404,
+  "statusText": "Not Found",
+  "url": "https://www.pixiv.net/ajax/illust/404"
+}
