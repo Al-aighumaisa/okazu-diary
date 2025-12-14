@@ -34,7 +34,7 @@ export function validateMain<V>(v: V) {
 
 export interface Thumb {
   $type?: 'org.okazu-diary.embed.external#thumb'
-  cid: string
+  cid?: string
   uri: string
 }
 

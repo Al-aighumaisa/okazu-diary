@@ -16,15 +16,20 @@
     "url": "https://github.com/Al-aighumaisa/okazu-diary.git",
     "directory": "packages/shikorism-interop"
   },
-  "main": "dist/index.js",
-  "exports": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.js",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --build tsconfig.json"
   },
   "dependencies": {
     "@atproto/api": "^0.18.1",
+    "@atproto/did": "^0.2.3",
+    "@atproto/identity": "^0.4.10",
+    "@atproto/lex-cbor": "^0.0.3",
+    "@atproto/repo": "^0.8.12",
     "@okazu-diary/api": "workspace:^",
-    "csv-parse": "^6.1.0"
+    "@okazu-diary/kondate": "workspace:^",
+    "p-limit": "^7.2.0"
   }
 }

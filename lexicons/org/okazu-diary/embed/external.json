@@ -17,7 +17,7 @@
     },
     "thumb": {
       "type": "object",
-      "required": ["cid", "uri"],
+      "required": ["uri"],
       "properties": {
         "cid": { "type": "string", "format": "cid" },
         "uri": { "type": "string", "format": "uri" }

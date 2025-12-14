@@ -683,7 +683,7 @@ export const schemaDict = {
       },
       thumb: {
         type: 'object',
-        required: ['cid', 'uri'],
+        required: ['uri'],
         properties: {
           cid: {
             type: 'string',
