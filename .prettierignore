@@ -3,6 +3,7 @@
 !/packages/
 **/*/.react-router/
 **/fixtures/
+/packages/*/build/
 /packages/*/dist/
 /packages/api/src/client/
 /packages/kondate/src/consts/package.ts

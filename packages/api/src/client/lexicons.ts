@@ -657,67 +657,111 @@ export const schemaDict = {
       },
     },
   },
-  OrgOkazuDiaryEmbedExternal: {
+  OrgOkazuDiaryFeedEntry: {
     lexicon: 1,
-    id: 'org.okazu-diary.embed.external',
+    id: 'org.okazu-diary.feed.entry',
     defs: {
       main: {
-        type: 'object',
-        required: ['uri'],
-        properties: {
-          uri: {
-            type: 'string',
-            format: 'uri',
-          },
-          title: {
-            type: 'string',
-          },
-          description: {
-            type: 'string',
-          },
-          thumb: {
-            type: 'ref',
-            ref: 'lex:org.okazu-diary.embed.external#thumb',
-          },
-        },
-      },
-      thumb: {
-        type: 'object',
-        required: ['uri'],
-        properties: {
-          cid: {
-            type: 'string',
-            format: 'cid',
-          },
-          uri: {
-            type: 'string',
-            format: 'uri',
+        type: 'record',
+        description: 'A diary entry to record a self-gratification activity.',
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['datetime'],
+          properties: {
+            datetime: {
+              type: 'string',
+              description:
+                'User-defined date and time associated with the activity, typically the datetime of the climax of the activity or simply of the record creation. The string format must satisfy all the requirements of the `datetime` format from the Lexicon language, except the requirement of whole seconds precision, but the datetime must at least specify up to the day (e.g. valid: `4545-07-21Z`, `1919-04-05T04:05+09:00`, invalid: `1919Z`). This is a subset of ISO 8601-1:2019 datetime format, but not RFC 3339 (whose time format requires whole seconds precision).',
+            },
+            subjects: {
+              type: 'array',
+              description:
+                'References to `org.okazu-diary.material.external` records associated with the activity. Leave the array empty if it is known that there is no applicable material. Omit the property if the materials are uncertain. Although this property uses a `strongRef` to make a reference to an external repository reliable to some extent, it is recommended that you copy the record to your own repository if you want to reference a record from another repository.',
+              maxLength: 16,
+              items: {
+                type: 'ref',
+                ref: 'lex:com.atproto.repo.strongRef',
+              },
+            },
+            tags: {
+              type: 'array',
+              description: 'User-specified tags for the activity.',
+              maxLength: 64,
+              items: {
+                type: 'ref',
+                ref: 'lex:org.okazu-diary.material.defs#tag',
+              },
+            },
+            note: {
+              type: 'string',
+              description: 'Remarks on the activity.',
+              maxLength: 5000,
+              maxGraphemes: 500,
+            },
+            labels: {
+              type: 'union',
+              description:
+                'Self-label values for this post. Effectively content warnings for the note and tags.',
+              refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            hadHiatus: {
+              type: 'boolean',
+              default: false,
+              description:
+                'If `true`, indicates that there may have been unrecorded activities since the last entry, so that the data in the meantime are not reliable for statistical purposes.',
+            },
+            visibility: {
+              type: 'string',
+              default: 'public',
+              description:
+                'Indicates the intended audience of the entry. A `public` entry (default) is fully public. An `unlisted` entry should not be listed in public profile feeds.',
+              knownValues: ['public', 'unlisted'],
+            },
+            via: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description:
+                'Reference to another `org.okazu-diary.feed.entry` record or an `org.okazu-diary.material.collectionItem` record from this entry is derived.',
+            },
           },
         },
       },
     },
   },
-  OrgOkazuDiaryEmbedRecord: {
+  OrgOkazuDiaryFeedLike: {
     lexicon: 1,
-    id: 'org.okazu-diary.embed.record',
-    description:
-      'A representation of a record embedded in a diary entry record (eg. a Bluesky post).',
+    id: 'org.okazu-diary.feed.like',
     defs: {
       main: {
-        type: 'object',
-        required: ['record'],
-        properties: {
-          record: {
-            type: 'ref',
-            ref: 'lex:com.atproto.repo.strongRef',
+        type: 'record',
+        description:
+          "Record declaring a 'like' of a piece of subject activity.",
+        key: 'tid',
+        record: {
+          type: 'object',
+          required: ['subject', 'createdAt'],
+          properties: {
+            subject: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+            via: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+            },
           },
         },
       },
     },
   },
-  OrgOkazuDiaryFeedCollection: {
+  OrgOkazuDiaryMaterialCollection: {
     lexicon: 1,
-    id: 'org.okazu-diary.feed.collection',
+    id: 'org.okazu-diary.material.collection',
     defs: {
       main: {
         type: 'record',
@@ -754,9 +798,9 @@ export const schemaDict = {
       },
     },
   },
-  OrgOkazuDiaryFeedCollectionItem: {
+  OrgOkazuDiaryMaterialCollectionItem: {
     lexicon: 1,
-    id: 'org.okazu-diary.feed.collectionItem',
+    id: 'org.okazu-diary.material.collectionItem',
     defs: {
       main: {
         type: 'record',
@@ -765,7 +809,7 @@ export const schemaDict = {
         key: 'tid',
         record: {
           type: 'object',
-          required: ['subjects', 'collection', 'createdAt'],
+          required: ['collection', 'subjects', 'createdAt'],
           properties: {
             collection: {
               type: 'string',
@@ -776,34 +820,25 @@ export const schemaDict = {
             subjects: {
               type: 'array',
               description:
-                'The material or set of materials to be included in the collection.',
+                'Reference(s) to a material or set of materials (`org.okazu-diary.material.external`) to be included in the collection.',
               minLength: 1,
               maxLength: 16,
               items: {
-                type: 'ref',
-                ref: 'lex:org.okazu-diary.feed.defs#subject',
+                type: 'string',
+                format: 'at-uri',
               },
             },
-            tags: {
-              type: 'array',
-              description: 'User-specified tags for the collection item.',
-              maxLength: 64,
-              items: {
-                type: 'ref',
-                ref: 'lex:org.okazu-diary.feed.defs#tag',
-              },
-            },
-            labels: {
-              type: 'union',
-              description:
-                'General-purpose self-label values primarily for consumption by generic AT clients. See the `labels` property of `org.okazu-diary.feed.entry` for details.',
-              refs: ['lex:com.atproto.label.defs#selfLabels'],
+            note: {
+              type: 'string',
+              description: 'Remarks on the collection item.',
+              maxLength: 5000,
+              maxGraphemes: 500,
             },
             via: {
               type: 'ref',
               ref: 'lex:com.atproto.repo.strongRef',
               description:
-                'Reference to an `org.okazu-diary.feed.entry` record or an `org.okazu-diary.feed.collectionItem` of another collection whose `subjects` this collection item is derived from.',
+                'Reference to an `org.okazu-diary.feed.entry` record or an `org.okazu-diary.material.collectionItem` of another collection from which this collection item is derived.',
             },
             createdAt: {
               type: 'string',
@@ -814,31 +849,10 @@ export const schemaDict = {
       },
     },
   },
-  OrgOkazuDiaryFeedDefs: {
+  OrgOkazuDiaryMaterialDefs: {
     lexicon: 1,
-    id: 'org.okazu-diary.feed.defs',
+    id: 'org.okazu-diary.material.defs',
     defs: {
-      subject: {
-        type: 'object',
-        description:
-          'A descriptor of a material used to help self-gratification.',
-        required: ['value'],
-        properties: {
-          value: {
-            type: 'union',
-            refs: [
-              'lex:org.okazu-diary.embed.external',
-              'lex:org.okazu-diary.embed.record',
-            ],
-          },
-          labels: {
-            type: 'union',
-            description:
-              'User-specified self-label values for the material. The Lexicon by its nature assumes the material to be possibly sensitive by default, so the explicit label values are intended to signal that a warning should be put on the material even for the Okazu-Diary.org application users who are willing to see mature contents in general.',
-            refs: ['lex:com.atproto.label.defs#selfLabels'],
-          },
-        },
-      },
       tag: {
         type: 'object',
         required: ['value'],
@@ -852,103 +866,86 @@ export const schemaDict = {
       },
     },
   },
-  OrgOkazuDiaryFeedEntry: {
+  OrgOkazuDiaryMaterialExternal: {
     lexicon: 1,
-    id: 'org.okazu-diary.feed.entry',
+    id: 'org.okazu-diary.material.external',
     defs: {
       main: {
         type: 'record',
-        description: 'A diary entry to record a self-gratification activity.',
+        description: 'A descriptor of a pornographic material.',
         key: 'tid',
         record: {
           type: 'object',
-          required: ['datetime'],
           properties: {
-            datetime: {
+            uri: {
+              type: 'string',
+              format: 'uri',
+              description:
+                'URI of the material, typically an HTTP(S) URL. If the URL is of a Web interface for an AT resource (such as a `bsky.app` URL), the record should also include the `record` property referencing the AT resource.',
+            },
+            record: {
+              type: 'ref',
+              ref: 'lex:com.atproto.repo.strongRef',
+              description:
+                'Reference to a record representing the material, such as a Bluesky post.',
+            },
+            title: {
               type: 'string',
               description:
-                'User-defined date and time associated with the activity, typically the datetime of the climax of the activity or simply of the record creation. The string format must satisfy all the requirements of the `datetime` format from the Lexicon language, except the requirement of whole seconds precision, but the datetime must at least specify up to the day (e.g. valid: `4545-07-21Z`, `1919-04-05T04:05+09:00`, invalid: `1919Z`). This is a subset of ISO 8601-1:2019 datetime format, but not RFC 3339 (whose time format requires whole seconds precision).',
+                "Title of the material, typically taken from the material's HTML `<title>` element.",
             },
-            subjects: {
-              type: 'array',
+            description: {
+              type: 'string',
               description:
-                'Materials used for gratification. Leave the array empty if it is known that there is no applicable material. Omit the property if the materials are uncertain.',
-              maxLength: 16,
-              items: {
-                type: 'ref',
-                ref: 'lex:org.okazu-diary.feed.defs#subject',
-              },
+                "Description of the material, typically taken from the material's HTML metadata.",
+            },
+            thumb: {
+              type: 'ref',
+              ref: 'lex:org.okazu-diary.material.external#thumb',
+              description:
+                "Link to a thumbnail of the material, typically taken from the material's HTML metadata.",
             },
             tags: {
               type: 'array',
-              description: 'User-specified tags for the entry.',
+              description: 'User-specified tags for the material.',
               maxLength: 64,
               items: {
                 type: 'ref',
-                ref: 'lex:org.okazu-diary.feed.defs#tag',
+                ref: 'lex:org.okazu-diary.material.defs#tag',
               },
-            },
-            note: {
-              type: 'string',
-              description: 'Remarks on the activity.',
-              maxLength: 5000,
-              maxGraphemes: 500,
             },
             labels: {
               type: 'union',
               description:
-                'General-purpose self-label values primarily for consumption by generic AT clients who may not expect the sensitive nature of this Lexicon. Publishers of this record are strongly recommended to always include at least one of the protocol-global label values; namely, `porn`, `sexual`, `graphic-media`, and `nudity`, unless the subjects, tags, and the note are all known to be safe by themselves. It is the safest to unconditionally include the `sexual` value, which has the `adultOnly` semantics, but it is acceptable to use a stronger (`porn`/`graphic-media`) or more moderate (`nudity`) value instead if the user decides so. To put warnings on the subject even for explicit users of the Okazu-Diary.org application, put self-labels in the `labels` property value of individual `subject` values as well.',
+                'User-specified self-label values for the material. While the Lexicon by its nature assumes the material to be possibly sensitive by default, these label values are intended to signal that a warning should be put on the material even for the explicit Okazu-Diary.org application users who are willing to see mature contents in general.',
               refs: ['lex:com.atproto.label.defs#selfLabels'],
             },
-            hadHiatus: {
-              type: 'boolean',
-              default: false,
+            genericLabels: {
+              type: 'union',
               description:
-                'If `true`, indicates that there may have been unrecorded activities since the last entry, so that the data in the meantime are not reliable for statistical purposes.',
-            },
-            visibility: {
-              type: 'string',
-              default: 'public',
-              description:
-                'Indicates the intended audience of the entry. A `public` entry (default) is fully public. An `unlisted` entry should not be listed in public profile feeds.',
-              knownValues: ['public', 'unlisted'],
+                'General-purpose self-label values primarily for consumption by generic AT clients who may not expect the sensitive nature of this Lexicon. Publishers of this record are strongly recommended to always include at least one of the protocol-global label values; namely, `porn`, `sexual`, `graphic-media`, and `nudity`, unless the material and tags are all known to be safe by themselves. It is the safest to unconditionally include the `sexual` value, which has the `adultOnly` semantics, but it is acceptable to use a stronger (`porn`/`graphic-media`) or more moderate (`nudity`) value instead if the user decides so.',
+              refs: ['lex:com.atproto.label.defs#selfLabels'],
             },
             via: {
               type: 'ref',
               ref: 'lex:com.atproto.repo.strongRef',
               description:
-                'Reference to another `org.okazu-diary.feed.entry` record or an `org.okazu-diary.feed.collectionItem` record whose `subjects` this collection item is derived from.',
+                'Reference to an `org.okazu-diary.feed.material` record from another repository from which this collection item is derived. Clients can use this property to offer the user to update this record if the original record have updated from the referenced version.',
             },
           },
         },
       },
-    },
-  },
-  OrgOkazuDiaryFeedLike: {
-    lexicon: 1,
-    id: 'org.okazu-diary.feed.like',
-    defs: {
-      main: {
-        type: 'record',
-        description:
-          "Record declaring a 'like' of a piece of subject activity.",
-        key: 'tid',
-        record: {
-          type: 'object',
-          required: ['subject', 'createdAt'],
-          properties: {
-            subject: {
-              type: 'ref',
-              ref: 'lex:com.atproto.repo.strongRef',
-            },
-            createdAt: {
-              type: 'string',
-              format: 'datetime',
-            },
-            via: {
-              type: 'ref',
-              ref: 'lex:com.atproto.repo.strongRef',
-            },
+      thumb: {
+        type: 'object',
+        required: ['url'],
+        properties: {
+          cid: {
+            type: 'string',
+            format: 'cid',
+          },
+          url: {
+            type: 'string',
+            format: 'uri',
           },
         },
       },
@@ -996,11 +993,11 @@ export const ids = {
   ComAtprotoRepoPutRecord: 'com.atproto.repo.putRecord',
   ComAtprotoRepoStrongRef: 'com.atproto.repo.strongRef',
   OrgOkazuDiaryActorProfile: 'org.okazu-diary.actor.profile',
-  OrgOkazuDiaryEmbedExternal: 'org.okazu-diary.embed.external',
-  OrgOkazuDiaryEmbedRecord: 'org.okazu-diary.embed.record',
-  OrgOkazuDiaryFeedCollection: 'org.okazu-diary.feed.collection',
-  OrgOkazuDiaryFeedCollectionItem: 'org.okazu-diary.feed.collectionItem',
-  OrgOkazuDiaryFeedDefs: 'org.okazu-diary.feed.defs',
   OrgOkazuDiaryFeedEntry: 'org.okazu-diary.feed.entry',
   OrgOkazuDiaryFeedLike: 'org.okazu-diary.feed.like',
+  OrgOkazuDiaryMaterialCollection: 'org.okazu-diary.material.collection',
+  OrgOkazuDiaryMaterialCollectionItem:
+    'org.okazu-diary.material.collectionItem',
+  OrgOkazuDiaryMaterialDefs: 'org.okazu-diary.material.defs',
+  OrgOkazuDiaryMaterialExternal: 'org.okazu-diary.material.external',
 } as const

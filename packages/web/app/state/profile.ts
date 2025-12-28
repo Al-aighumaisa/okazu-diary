@@ -1,8 +1,8 @@
 import {
   AppBskyActorProfile,
-  AtpBaseClient,
-  BlobRef,
-  ComAtprotoLabelDefs,
+  type AtpBaseClient,
+  type BlobRef,
+  type ComAtprotoLabelDefs,
   type $Typed,
   type ComAtprotoRepoGetRecord,
 } from '@atproto/api';

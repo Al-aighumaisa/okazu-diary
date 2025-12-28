@@ -38,9 +38,6 @@ importers:
       jest:
         specifier: ^30.2.0
         version: 30.2.0(@types/node@24.10.1)
-      multiformats:
-        specifier: ^13.4.1
-        version: 13.4.1
       prettier:
         specifier: ^3.6.2
         version: 3.6.2
@@ -58,7 +55,7 @@ importers:
     dependencies:
       '@atproto/lexicon':
         specifier: ^0.5.1
-        version: 0.5.1
+        version: 0.5.2
       '@atproto/xrpc':
         specifier: ^0.7.5
         version: 0.7.5
@@ -118,6 +115,12 @@ importers:
       '@atproto/api':
         specifier: ^0.18.1
         version: 0.18.1
+      '@atproto/common':
+        specifier: ^0.5.3
+        version: 0.5.3
+      '@atproto/common-web':
+        specifier: ^0.4.7
+        version: 0.4.7
       '@atproto/did':
         specifier: ^0.2.3
         version: 0.2.3
@@ -127,6 +130,9 @@ importers:
       '@atproto/lex-cbor':
         specifier: ^0.0.3
         version: 0.0.3
+      '@atproto/lexicon':
+        specifier: ^0.5.2
+        version: 0.5.2
       '@atproto/repo':
         specifier: ^0.8.12
         version: 0.8.12
@@ -136,6 +142,9 @@ importers:
       '@okazu-diary/kondate':
         specifier: workspace:^
         version: link:../kondate
+      multiformats:
+        specifier: ^9.9.0
+        version: 9.9.0
       p-limit:
         specifier: ^7.2.0
         version: 7.2.0
@@ -185,6 +194,9 @@ importers:
       '@atproto/dev-env':
         specifier: ^0.3.192
         version: 0.3.192
+      '@atproto/repo':
+        specifier: ^0.8.11
+        version: 0.8.11
       '@atproto/xrpc-server':
         specifier: ^0.10.1
         version: 0.10.1
@@ -269,9 +281,6 @@ packages:
     resolution: {integrity: sha512-ONbbY1oavc02ItBzXpo7dam0aNZ4ufDdGlgqLjBV5ZQnP35qmPfdq01plf8H9B2rerOLzz5PaxOBber35KffUA==}
     engines: {node: '>=18.7.0'}
 
-  '@atproto/common-web@0.4.5':
-    resolution: {integrity: sha512-Tx0xUafLm3vRvOQpbBl5eb9V8xlC7TaRXs6dAulHRkDG3Kb+P9qn3pkDteq+aeMshbVXbVa1rm3Ok4vFyuoyYA==}
-
   '@atproto/common-web@0.4.6':
     resolution: {integrity: sha512-+2mG/1oBcB/ZmYIU1ltrFMIiuy9aByKAkb2Fos/0eTdczcLBaH17k0KoxMGvhfsujN2r62XlanOAMzysa7lv1g==}
 
@@ -283,10 +292,6 @@ packages:
 
   '@atproto/common@0.1.1':
     resolution: {integrity: sha512-GYwot5wF/z8iYGSPjrLHuratLc0CVgovmwfJss7+BUOB6y2/Vw8+1Vw0n9DDI0gb5vmx3UI8z0uJgC8aa8yuJg==}
-
-  '@atproto/common@0.5.1':
-    resolution: {integrity: sha512-0S57sjzw4r9OLc5srJFi6uAz/aTKYl6btz3x36tSnGriL716m6h0x2IVtgd+FhUfIQfisevrqcqw8SfaGk8VTw==}
-    engines: {node: '>=18.7.0'}
 
   '@atproto/common@0.5.3':
     resolution: {integrity: sha512-jMC9ikl8QbJcnh21upe9Gb9mIaSJWsdp8sgaelmntUtChWnxxvCC/pI3TBX11PT7XlHUE6UyuvY+S3hh6WZVEg==}
@@ -344,9 +349,6 @@ packages:
   '@atproto/lex-data@0.0.3':
     resolution: {integrity: sha512-ivo1IpY/EX+RIpxPgCf4cPhQo5bfu4nrpa1vJCt8hCm9SfoonJkDFGa0n4SMw4JnXZoUcGcrJ46L+D8bH6GI2g==}
 
-  '@atproto/lex-json@0.0.1':
-    resolution: {integrity: sha512-ivcF7+pDRuD/P97IEKQ/9TruunXj0w58Khvwk3M6psaI5eZT6LRsRZ4cWcKaXiFX4SHnjy+x43g0f7pPtIsERg==}
-
   '@atproto/lex-json@0.0.2':
     resolution: {integrity: sha512-Pd72lO+l2rhOTutnf11omh9ZkoB/elbzE3HSmn2wuZlyH1mRhTYvoH8BOGokWQwbZkCE8LL3nOqMT3gHCD2l7g==}
 
@@ -355,9 +357,6 @@ packages:
 
   '@atproto/lexicon-resolver@0.2.4':
     resolution: {integrity: sha512-tPa7ylTLtvT5d5hHNPBPLtVaJdONZQB9VroyjD95aLJMeM8OHGhMnGABro25V58V5ipFv2bsm1Jldb6XsXP44g==}
-
-  '@atproto/lexicon@0.5.1':
-    resolution: {integrity: sha512-y8AEtYmfgVl4fqFxqXAeGvhesiGkxiy3CWoJIfsFDDdTlZUC8DFnZrYhcqkIop3OlCkkljvpSJi1hbeC1tbi8A==}
 
   '@atproto/lexicon@0.5.2':
     resolution: {integrity: sha512-lRmJgMA8f5j7VB5Iu5cp188ald5FuI4FlmZ7nn6EBrk1dgOstWVrI5Ft6K3z2vjyLZRG6nzknlsw+tDP63p7bQ==}
@@ -3743,9 +3742,6 @@ packages:
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
-  multiformats@13.4.1:
-    resolution: {integrity: sha512-VqO6OSvLrFVAYYjgsr8tyv62/rCQhPgsZUXLTqoFLSgdkgiUYKYeArbt1uWLlEpkjxQe+P0+sHlbPEte1Bi06Q==}
-
   multiformats@9.9.0:
     resolution: {integrity: sha512-HoMUjhH9T8DDBNT+6xzkrd9ga/XiBI4xLr58LJACwK6G3HTOPeMz4nB4KJs33L2BelrIJa7P0VuNaVF3hMYfjg==}
 
@@ -4911,8 +4907,8 @@ snapshots:
 
   '@atproto/api@0.18.1':
     dependencies:
-      '@atproto/common-web': 0.4.6
-      '@atproto/lexicon': 0.5.1
+      '@atproto/common-web': 0.4.7
+      '@atproto/lexicon': 0.5.2
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc': 0.7.5
       await-lock: 2.2.2
@@ -4922,7 +4918,7 @@ snapshots:
 
   '@atproto/api@0.18.3':
     dependencies:
-      '@atproto/common-web': 0.4.6
+      '@atproto/common-web': 0.4.7
       '@atproto/lexicon': 0.5.2
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc': 0.7.6
@@ -4933,10 +4929,10 @@ snapshots:
 
   '@atproto/aws@0.2.31':
     dependencies:
-      '@atproto/common': 0.5.1
-      '@atproto/common-web': 0.4.6
+      '@atproto/common': 0.5.3
+      '@atproto/common-web': 0.4.7
       '@atproto/crypto': 0.4.4
-      '@atproto/repo': 0.8.11
+      '@atproto/repo': 0.8.12
       '@aws-sdk/client-cloudfront': 3.940.0
       '@aws-sdk/client-kms': 3.940.0
       '@aws-sdk/client-s3': 3.940.0
@@ -4953,12 +4949,12 @@ snapshots:
       '@atproto-labs/fetch-node': 0.2.0
       '@atproto-labs/xrpc-utils': 0.0.24
       '@atproto/api': 0.18.3
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/crypto': 0.4.4
       '@atproto/did': 0.2.2
       '@atproto/identity': 0.4.10
       '@atproto/lexicon': 0.5.2
-      '@atproto/repo': 0.8.11
+      '@atproto/repo': 0.8.12
       '@atproto/sync': 0.1.38
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc-server': 0.10.1
@@ -5004,7 +5000,7 @@ snapshots:
 
   '@atproto/bsync@0.0.23':
     dependencies:
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/syntax': 0.4.2
       '@bufbuild/protobuf': 1.10.1
       '@connectrpc/connect': 1.7.0(@bufbuild/protobuf@1.10.1)
@@ -5016,12 +5012,6 @@ snapshots:
       typed-emitter: 2.1.0
     transitivePeerDependencies:
       - pg-native
-
-  '@atproto/common-web@0.4.5':
-    dependencies:
-      '@atproto/lex-data': 0.0.1
-      '@atproto/lex-json': 0.0.1
-      zod: 3.25.76
 
   '@atproto/common-web@0.4.6':
     dependencies:
@@ -5048,15 +5038,6 @@ snapshots:
       multiformats: 9.9.0
       pino: 8.21.0
       zod: 3.25.76
-
-  '@atproto/common@0.5.1':
-    dependencies:
-      '@atproto/common-web': 0.4.6
-      '@atproto/lex-cbor': 0.0.1
-      '@atproto/lex-data': 0.0.1
-      iso-datestring-validator: 2.2.2
-      multiformats: 9.9.0
-      pino: 8.21.0
 
   '@atproto/common@0.5.3':
     dependencies:
@@ -5092,7 +5073,7 @@ snapshots:
       '@atproto/api': 0.18.3
       '@atproto/bsky': 0.0.198
       '@atproto/bsync': 0.0.23
-      '@atproto/common-web': 0.4.6
+      '@atproto/common-web': 0.4.7
       '@atproto/crypto': 0.4.4
       '@atproto/identity': 0.4.10
       '@atproto/lexicon': 0.5.2
@@ -5128,7 +5109,7 @@ snapshots:
 
   '@atproto/identity@0.4.10':
     dependencies:
-      '@atproto/common-web': 0.4.6
+      '@atproto/common-web': 0.4.7
       '@atproto/crypto': 0.4.4
 
   '@atproto/jwk-jose@0.1.11':
@@ -5155,7 +5136,7 @@ snapshots:
 
   '@atproto/lex-cli@0.9.6':
     dependencies:
-      '@atproto/lexicon': 0.5.1
+      '@atproto/lexicon': 0.5.2
       '@atproto/syntax': 0.4.2
       chalk: 4.1.2
       commander: 9.5.0
@@ -5188,11 +5169,6 @@ snapshots:
       uint8arrays: 3.0.0
       unicode-segmenter: 0.14.0
 
-  '@atproto/lex-json@0.0.1':
-    dependencies:
-      '@atproto/lex-data': 0.0.1
-      tslib: 2.8.1
-
   '@atproto/lex-json@0.0.2':
     dependencies:
       '@atproto/lex-data': 0.0.2
@@ -5208,22 +5184,14 @@ snapshots:
       '@atproto-labs/fetch-node': 0.2.0
       '@atproto/identity': 0.4.10
       '@atproto/lexicon': 0.5.2
-      '@atproto/repo': 0.8.11
+      '@atproto/repo': 0.8.12
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc': 0.7.6
       multiformats: 9.9.0
 
-  '@atproto/lexicon@0.5.1':
-    dependencies:
-      '@atproto/common-web': 0.4.5
-      '@atproto/syntax': 0.4.2
-      iso-datestring-validator: 2.2.2
-      multiformats: 9.9.0
-      zod: 3.25.76
-
   '@atproto/lexicon@0.5.2':
     dependencies:
-      '@atproto/common-web': 0.4.6
+      '@atproto/common-web': 0.4.7
       '@atproto/syntax': 0.4.2
       iso-datestring-validator: 2.2.2
       multiformats: 9.9.0
@@ -5257,7 +5225,7 @@ snapshots:
       '@atproto-labs/pipe': 0.1.1
       '@atproto-labs/simple-store': 0.3.0
       '@atproto-labs/simple-store-memory': 0.1.4
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/did': 0.2.2
       '@atproto/jwk': 0.6.0
       '@atproto/jwk-jose': 0.1.11
@@ -5298,7 +5266,7 @@ snapshots:
   '@atproto/ozone@0.1.158':
     dependencies:
       '@atproto/api': 0.18.3
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/crypto': 0.4.4
       '@atproto/identity': 0.4.10
       '@atproto/lexicon': 0.5.2
@@ -5338,7 +5306,7 @@ snapshots:
       '@atproto-labs/xrpc-utils': 0.0.24
       '@atproto/api': 0.18.3
       '@atproto/aws': 0.2.31
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/crypto': 0.4.4
       '@atproto/identity': 0.4.10
       '@atproto/lex-cbor': 0.0.1
@@ -5347,7 +5315,7 @@ snapshots:
       '@atproto/lexicon-resolver': 0.2.4
       '@atproto/oauth-provider': 0.13.5
       '@atproto/oauth-scopes': 0.2.2
-      '@atproto/repo': 0.8.11
+      '@atproto/repo': 0.8.12
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc': 0.7.6
       '@atproto/xrpc-server': 0.10.1
@@ -5388,9 +5356,9 @@ snapshots:
 
   '@atproto/repo@0.8.11':
     dependencies:
-      '@atproto/common': 0.5.1
-      '@atproto/common-web': 0.4.6
-      '@atproto/crypto': 0.4.4
+      '@atproto/common': 0.5.3
+      '@atproto/common-web': 0.4.7
+      '@atproto/crypto': 0.4.5
       '@atproto/lexicon': 0.5.2
       '@ipld/dag-cbor': 7.0.3
       multiformats: 9.9.0
@@ -5412,10 +5380,10 @@ snapshots:
 
   '@atproto/sync@0.1.38':
     dependencies:
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/identity': 0.4.10
       '@atproto/lexicon': 0.5.2
-      '@atproto/repo': 0.8.11
+      '@atproto/repo': 0.8.12
       '@atproto/syntax': 0.4.2
       '@atproto/xrpc-server': 0.10.1
       multiformats: 9.9.0
@@ -5432,7 +5400,7 @@ snapshots:
 
   '@atproto/ws-client@0.0.3':
     dependencies:
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       ws: 8.18.3
     transitivePeerDependencies:
       - bufferutil
@@ -5440,7 +5408,7 @@ snapshots:
 
   '@atproto/xrpc-server@0.10.1':
     dependencies:
-      '@atproto/common': 0.5.1
+      '@atproto/common': 0.5.3
       '@atproto/crypto': 0.4.4
       '@atproto/lex-cbor': 0.0.1
       '@atproto/lex-data': 0.0.1
@@ -5460,7 +5428,7 @@ snapshots:
 
   '@atproto/xrpc@0.7.5':
     dependencies:
-      '@atproto/lexicon': 0.5.1
+      '@atproto/lexicon': 0.5.2
       zod: 3.25.76
 
   '@atproto/xrpc@0.7.6':
@@ -9564,8 +9532,6 @@ snapshots:
   ms@2.0.0: {}
 
   ms@2.1.3: {}
-
-  multiformats@13.4.1: {}
 
   multiformats@9.9.0: {}
 

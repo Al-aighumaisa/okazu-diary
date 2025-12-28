@@ -13,10 +13,10 @@ import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'org.okazu-diary.feed.collection'
+const id = 'org.okazu-diary.material.collection'
 
 export interface Main {
-  $type: 'org.okazu-diary.feed.collection'
+  $type: 'org.okazu-diary.material.collection'
   /** Display name for the collection. */
   name?: string
   description?: string

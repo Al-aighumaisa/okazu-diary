@@ -1,0 +1,44 @@
+{
+  "lexicon": 1,
+  "id": "org.okazu-diary.material.collectionItem",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "Record declaring the inclusion of a single material or a set of materials in a specific collection.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["collection", "subjects", "createdAt"],
+        "properties": {
+          "collection": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Reference to the collection record (`org.okazu-diary.feed.collection`)."
+          },
+          "subjects": {
+            "type": "array",
+            "description": "Reference(s) to a material or set of materials (`org.okazu-diary.material.external`) to be included in the collection.",
+            "minLength": 1,
+            "maxLength": 16,
+            "items": {
+              "type": "string",
+              "format": "at-uri"
+            }
+          },
+          "note": {
+            "type": "string",
+            "description": "Remarks on the collection item.",
+            "maxLength": 5000,
+            "maxGraphemes": 500
+          },
+          "via": {
+            "type": "ref",
+            "ref": "com.atproto.repo.strongRef",
+            "description": "Reference to an `org.okazu-diary.feed.entry` record or an `org.okazu-diary.material.collectionItem` of another collection from which this collection item is derived."
+          },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

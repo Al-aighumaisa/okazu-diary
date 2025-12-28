@@ -9,23 +9,20 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
-import type * as OrgOkazuDiaryFeedDefs from './defs.js'
-import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 import type * as ComAtprotoRepoStrongRef from '../../../com/atproto/repo/strongRef.js'
 
 const is$typed = _is$typed,
   validate = _validate
-const id = 'org.okazu-diary.feed.collectionItem'
+const id = 'org.okazu-diary.material.collectionItem'
 
 export interface Main {
-  $type: 'org.okazu-diary.feed.collectionItem'
+  $type: 'org.okazu-diary.material.collectionItem'
   /** Reference to the collection record (`org.okazu-diary.feed.collection`). */
   collection: string
-  /** The material or set of materials to be included in the collection. */
-  subjects: OrgOkazuDiaryFeedDefs.Subject[]
-  /** User-specified tags for the collection item. */
-  tags?: OrgOkazuDiaryFeedDefs.Tag[]
-  labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
+  /** Reference(s) to a material or set of materials (`org.okazu-diary.material.external`) to be included in the collection. */
+  subjects: string[]
+  /** Remarks on the collection item. */
+  note?: string
   via?: ComAtprotoRepoStrongRef.Main
   createdAt: string
   [k: string]: unknown

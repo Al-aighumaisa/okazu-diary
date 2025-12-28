@@ -1,11 +1,10 @@
 export {
   AtpBaseClient,
   OrgOkazuDiaryActorProfile,
-  OrgOkazuDiaryEmbedExternal,
-  OrgOkazuDiaryEmbedRecord,
-  OrgOkazuDiaryFeedCollection,
-  OrgOkazuDiaryFeedCollectionItem,
-  OrgOkazuDiaryFeedDefs,
   OrgOkazuDiaryFeedEntry,
   OrgOkazuDiaryFeedLike,
+  OrgOkazuDiaryMaterialCollection,
+  OrgOkazuDiaryMaterialCollectionItem,
+  OrgOkazuDiaryMaterialDefs,
+  OrgOkazuDiaryMaterialExternal,
 } from './client';

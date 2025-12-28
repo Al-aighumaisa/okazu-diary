@@ -1,4 +1,4 @@
-import { BlobRef } from '@atproto/api';
+import type { BlobRef } from '@atproto/api';
 import type React from 'react';
 
 import * as config from '~/config';

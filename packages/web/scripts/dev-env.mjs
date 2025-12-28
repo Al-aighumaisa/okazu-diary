@@ -3,11 +3,12 @@ import { spawn } from 'node:child_process';
 import { TID } from '@atproto/common-web';
 import { Secp256k1Keypair } from '@atproto/crypto';
 import { TestNetworkNoAppView } from '@atproto/dev-env';
+import { cidForRecord } from '@atproto/repo';
 import { createServiceAuthHeaders } from '@atproto/xrpc-server';
 import * as plc from '@did-plc/lib';
 
-/** @import { ComAtprotoLabelDefs } from '@atproto/api' */
-/** @import { OrgOkazuDiaryActorProfile, OrgOkazuDiaryFeedEntry } from '@okazu-diary/api' */
+/** @import { ComAtprotoLabelDefs, ComAtprotoRepoApplyWrites } from '@atproto/api' */
+/** @import { OrgOkazuDiaryActorProfile, OrgOkazuDiaryFeedEntry, OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api' */
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
@@ -70,8 +71,7 @@ async function main() {
             $type: 'org.okazu-diary.feed.entry',
             datetime: new Date(mockTime).toISOString(),
             subjects: [],
-            tags: [{ value: 'tag-1' }, { value: 'tag-2' }],
-            note: '',
+            note: 'Entry with no subjects.',
             /** @type {ComAtprotoLabelDefs.SelfLabels} */
             labels: {
               $type: 'com.atproto.label.defs#selfLabels',
@@ -81,6 +81,53 @@ async function main() {
             visibility: 'public',
           },
         },
+        ...(await (async () => {
+          /** @type {OrgOkazuDiaryMaterialExternal.Main} */
+          const material = {
+            $type: 'org.okazu-diary.material.external',
+            uri: 'https://example.com/',
+            title: 'Test material',
+            description: 'This is a test material',
+            thumb: {
+              url: 'http://localhost:5173/favicon.ico',
+            },
+          };
+          const materialCid = await cidForRecord(material);
+          const rkey = nextTID();
+          return /** @type {ComAtprotoRepoApplyWrites.Create[]} */ ([
+            {
+              $type: 'com.atproto.repo.applyWrites#create',
+              collection: material.$type,
+              rkey,
+              value: material,
+            },
+            {
+              $type: 'com.atproto.repo.applyWrites#create',
+              collection: 'org.okazu-diary.feed.entry',
+              rkey,
+              /** @type {OrgOkazuDiaryFeedEntry.Main} */
+              value: {
+                $type: 'org.okazu-diary.feed.entry',
+                datetime: new Date(mockTime).toISOString(),
+                subjects: [
+                  {
+                    uri: `at://${did}/${material.$type}/${rkey}`,
+                    cid: materialCid.toString(),
+                  },
+                ],
+                tags: [{ value: 'tag-1' }, { value: 'tag-2' }],
+                note: 'Hello',
+                /** @type {ComAtprotoLabelDefs.SelfLabels} */
+                labels: {
+                  $type: 'com.atproto.label.defs#selfLabels',
+                  values: [{ val: 'sexual' }],
+                },
+                hadHiatus: false,
+                visibility: 'public',
+              },
+            },
+          ]);
+        })()),
       ],
     },
     { headers: { authorization: `Bearer ${accessJwt}` } },

@@ -1,4 +1,11 @@
-import { AtpBaseClient, AtUri, ComAtprotoLabelDefs } from '@atproto/api';
+import {
+  AtpBaseClient,
+  AtUri,
+  ComAtprotoLabelDefs,
+  ComAtprotoRepoStrongRef,
+} from '@atproto/api';
+import { cidForCbor } from '@atproto/common';
+import { TID } from '@atproto/common-web';
 import { isDid } from '@atproto/did';
 import {
   DidResolver,
@@ -7,32 +14,54 @@ import {
   MemoryCache,
 } from '@atproto/identity';
 import { cidForRawBytes } from '@atproto/lex-cbor';
-import { cidForRecord } from '@atproto/repo';
+import { lexToIpld } from '@atproto/lexicon';
 import {
-  OrgOkazuDiaryEmbedExternal,
-  OrgOkazuDiaryEmbedRecord,
-  OrgOkazuDiaryFeedDefs,
+  OrgOkazuDiaryMaterialExternal,
   OrgOkazuDiaryFeedEntry,
 } from '@okazu-diary/api';
 import * as kondate from '@okazu-diary/kondate';
 
+import type {
+  ExportMaterialStore,
+  ImportMaterialStore,
+} from './material-store.js';
 import * as util from './util.js';
+
+export * from './material-store.js';
 
 export interface FromShikorismOptions {
   privateAs?: 'public' | 'unlisted' | undefined;
-  linkResolution?: LinkResolutionOptions | boolean | undefined;
+  resolveLink?: boolean | undefined;
 }
 
-export interface LinkResolutionOptions {
-  cache?: Map<string, OrgOkazuDiaryFeedDefs.Subject['value']>;
+export interface Material {
+  rkey: string;
+  record: OrgOkazuDiaryMaterialExternal.Main;
+  cid?: string | undefined;
+  resolution: ResolutionStatuses | undefined;
+}
+
+export interface ResolutionStatuses {
+  uri: ResolutionStatus;
+  record: ResolutionStatus;
+  thumb: ResolutionStatus;
+}
+
+export type ResolutionStatus = 'resolved' | 'error' | undefined;
+
+export interface ImportedRecord {
+  rkey: string;
+  record: OrgOkazuDiaryFeedEntry.Main;
 }
 
 export interface FromCSVRowOptions extends FromShikorismOptions {}
 
 export async function fromCSVRow(
   row: string[],
+  actorDid: string,
+  materials: ImportMaterialStore,
   options?: FromCSVRowOptions,
-): Promise<OrgOkazuDiaryFeedEntry.Record | void> {
+): Promise<ImportedRecord | undefined> {
   const [
     datetime,
     note,
@@ -43,13 +72,15 @@ export async function fromCSVRow(
     ...tags
   ] = row;
   const is_too_sensitive = isTooSensitive === 'true';
-  const { privateAs, linkResolution: lr } = options ?? {};
-  const linkResolution: LinkResolutionOptions | undefined =
-    lr === true ? {} : lr ? { ...lr } : undefined;
+  const { privateAs, resolveLink } = options ?? {};
 
-  const ret: OrgOkazuDiaryFeedEntry.Record = {
+  const isoDatetime =
+    datetime.replaceAll('/', '-').replaceAll(' ', 'T') + '+09:00';
+
+  const rkey = TID.fromTime(Date.parse(isoDatetime) * 1000, 0).toString();
+  const record: OrgOkazuDiaryFeedEntry.Record = {
     $type: 'org.okazu-diary.feed.entry',
-    datetime: datetime.replaceAll('/', '-').replaceAll(' ', 'T') + '+09:00',
+    datetime: isoDatetime,
     tags: tags.map((value) => ({ value })),
     labels: {
       $type: 'com.atproto.label.defs#selfLabels',
@@ -60,16 +91,22 @@ export async function fromCSVRow(
   };
 
   if (note) {
-    ret.note = note;
+    record.note = note;
   }
 
   if (link) {
-    ret.subjects = [
-      await subjectFromLink(link, is_too_sensitive, linkResolution),
-    ];
+    const material = await getOrUpdateMaterial(
+      materials,
+      link,
+      rkey,
+      tags,
+      is_too_sensitive,
+      resolveLink,
+    );
+    record.subjects = [await materialToStrongRef(material, actorDid)];
   }
 
-  return ret;
+  return { rkey, record };
 }
 
 export interface Checkin {
@@ -86,13 +123,17 @@ export interface FromCheckinOptions extends FromShikorismOptions {}
 
 export async function fromCheckin(
   checkin: Checkin,
+  actorDid: string,
+  materials: ImportMaterialStore,
   options?: FromCheckinOptions,
-): Promise<OrgOkazuDiaryFeedEntry.Record | undefined> {
-  const { privateAs, linkResolution: lr } = options ?? {};
-  const linkResolution: LinkResolutionOptions | undefined =
-    lr === true ? {} : lr ? { ...lr } : undefined;
+): Promise<ImportedRecord | undefined> {
+  const { privateAs, resolveLink } = options ?? {};
 
-  const ret: OrgOkazuDiaryFeedEntry.Record = {
+  const rkey = TID.fromTime(
+    Date.parse(checkin.checked_in_at) * 1000,
+    0,
+  ).toString();
+  const record: OrgOkazuDiaryFeedEntry.Record = {
     $type: 'org.okazu-diary.feed.entry',
     datetime: checkin.checked_in_at,
     labels: {
@@ -104,50 +145,72 @@ export async function fromCheckin(
   };
 
   if (checkin.tags) {
-    ret.tags = checkin.tags.map((value) => ({ value }));
+    record.tags = checkin.tags.map((value) => ({ value }));
   }
 
   if (checkin.link) {
-    ret.subjects = [
-      await subjectFromLink(
-        checkin.link,
-        checkin.is_too_sensitive,
-        linkResolution,
-      ),
-    ];
+    const material = await getOrUpdateMaterial(
+      materials,
+      checkin.link,
+      rkey,
+      checkin.tags,
+      checkin.is_too_sensitive,
+      resolveLink,
+    );
+    record.subjects = [await materialToStrongRef(material, actorDid)];
   }
 
   if (checkin.note) {
-    ret.note = checkin.note;
+    record.note = checkin.note;
   }
 
   if (checkin.is_private) {
     if (!privateAs) {
       return;
     }
-    ret.visibility = privateAs;
+    record.visibility = privateAs;
   }
 
   if (checkin.discard_elapsed_time) {
-    ret.hadHiatus = true;
+    record.hadHiatus = true;
   }
 
-  return ret;
+  return { rkey, record };
 }
 
-export function toCheckin(record: OrgOkazuDiaryFeedEntry.Record): Checkin {
+export async function toCheckin(
+  record: OrgOkazuDiaryFeedEntry.Record,
+  materials: ExportMaterialStore,
+): Promise<Checkin> {
   const ret: Checkin = {
     checked_in_at: record.datetime,
   };
+
+  const subjects =
+    record.subjects &&
+    (await Promise.all(
+      record.subjects.map(async ({ uri }) => {
+        const parsed = new AtUri(uri);
+        const rkey = parsed.rkey;
+        if (rkey) {
+          throw new Error(`Missing rkey in subject URI: ${uri}`);
+        }
+        const subject = await materials.getRkey(rkey);
+        if (!subject) {
+          throw new Error(`Subject ${rkey} not found in the store`);
+        }
+        return subject;
+      }),
+    ));
 
   if (record.tags) {
     ret.tags = record.tags.map(({ value }) => value);
   }
 
   let note = record.note;
-  if (record.subjects) {
-    const [first, ...rest] = record.subjects.reduce((acc: string[], s) => {
-      const link = subjectToLink(s);
+  if (subjects) {
+    const [first, ...rest] = subjects.reduce((acc: string[], s) => {
+      const link = s.record.uri;
       if (link) {
         acc.push(link);
       }
@@ -169,9 +232,9 @@ export function toCheckin(record: OrgOkazuDiaryFeedEntry.Record): Checkin {
     ret.is_private = true;
   }
 
-  const is_too_sensitive = record.subjects?.some((s) => {
-    if (!s.labels) return;
-    const result = ComAtprotoLabelDefs.validateSelfLabels(s.labels);
+  const is_too_sensitive = subjects?.some((s) => {
+    if (!s.record.labels) return;
+    const result = ComAtprotoLabelDefs.validateSelfLabels(s.record.labels);
     if (result.success) {
       return result.value.values.some(({ val }) =>
         [
@@ -196,18 +259,36 @@ export function toCheckin(record: OrgOkazuDiaryFeedEntry.Record): Checkin {
   return ret;
 }
 
-const didResolver = new DidResolver({
-  didCache: new MemoryCache(5 * 60 * 1000, 60 * 60 * 1000),
-});
-const handleResolver = new HandleResolver();
+export interface ResolveMaterialOptions {
+  overwrite?: 'error' | boolean | undefined;
+}
 
-async function subjectFromLink(
-  link: string,
-  sensitive: boolean | undefined,
-  linkResolution: LinkResolutionOptions | undefined,
-): Promise<OrgOkazuDiaryFeedDefs.Subject> {
-  let result;
-  if (linkResolution) {
+export async function resolveMaterial(
+  material: Material,
+  options?: ResolveMaterialOptions,
+): Promise<void> {
+  const link = material.record.uri;
+  if (!link) {
+    return;
+  }
+
+  const { overwrite } = options ?? {};
+
+  material.resolution ??= {
+    uri: undefined,
+    record: undefined,
+    thumb: undefined,
+  };
+
+  const writeUriMeta =
+    !material.resolution.uri ||
+    overwrite === true ||
+    (overwrite === 'error' && material.resolution.uri === 'error');
+  const resolveRecord =
+    overwrite === true ||
+    (overwrite === 'error' && material.resolution.record === 'error');
+  if (writeUriMeta || resolveRecord) {
+    let result: kondate.ResolveResult | undefined;
     try {
       result = await kondate.resolve(link, {
         fetch: util.fetch,
@@ -215,27 +296,157 @@ async function subjectFromLink(
       });
     } catch (e) {
       console.error(`Error while resolving link: ${link}\n`, e);
+      material.resolution.uri = 'error';
+    }
+
+    let meta;
+    if (result) {
+      material.resolution.uri = 'resolved';
+      meta = result.value;
+    }
+
+    let atUri;
+    if (meta) {
+      atUri = meta.resolver?.at?.uri;
+
+      if (writeUriMeta) {
+        if (meta.name) {
+          material.record.title = meta.name.textValue;
+        }
+
+        if (meta.description) {
+          material.record.description = meta.description;
+        }
+
+        const image = meta.image?.[0];
+        if (image) {
+          material.record.thumb = {
+            url: image.contentUrl,
+          };
+        }
+      }
+    }
+
+    if (atUri && (!material.resolution.record || resolveRecord)) {
+      const ref = await freezeATRef(atUri, material.resolution);
+      if (ref) {
+        material.record.record = ref;
+      }
     }
   }
 
-  let value;
-  if (result?.value) {
-    const atUri = result.value?.resolver?.at?.uri;
-    if (atUri) {
-      value = await resolveSubjectFromAtUri(atUri);
+  const thumb = material.record.thumb;
+  if (
+    thumb &&
+    (!material.resolution.thumb ||
+      overwrite === true ||
+      (overwrite === 'error' && material.resolution.thumb === 'error'))
+  ) {
+    let res;
+    try {
+      res = await util.fetch(thumb.url);
+    } catch (e) {
+      console.error(`Error while fetching thumbnail of ${thumb.url}:`, e);
+      material.resolution.thumb = 'error';
     }
-    value ??= await embedFromKondate(link, result.value);
+    if (res) {
+      if (!res.ok) {
+        console.error(
+          `HTTP status ${res.status} from thumbnail of ${thumb.url}`,
+        );
+        material.resolution.thumb = 'error';
+      } else {
+        let bytes;
+        try {
+          bytes = await res.bytes();
+        } catch (e) {
+          console.error(`Unable to read thumbnail of ${thumb.url}:`, e);
+          material.resolution.thumb = 'error';
+        }
+        if (bytes) {
+          thumb.cid = (await cidForRawBytes(bytes)).toString();
+          material.resolution.thumb = 'resolved';
+        }
+      }
+    }
+  }
+}
+
+async function getOrUpdateMaterial(
+  materials: ImportMaterialStore,
+  link: string,
+  rkey: string,
+  tags: string[] | undefined,
+  sensitive: boolean | undefined,
+  resolveLink: boolean | undefined,
+) {
+  let material;
+
+  const ms = materials.getUri(link);
+  if (ms) {
+    for await (material of ms) {
+      // Iterate until taking the last material.
+    }
   }
 
-  value ??= {
-    $type: 'org.okazu-diary.embed.external',
-    uri: link,
-  } satisfies OrgOkazuDiaryEmbedExternal.Main;
+  if (material) {
+    let updated;
 
-  const ret: OrgOkazuDiaryFeedDefs.Subject = { value };
+    const unstoredTags = new Set(tags).difference(
+      new Set(material.record.tags?.map(({ value }) => value)),
+    );
+    if (unstoredTags.size) {
+      updated = true;
+      (material.record.tags ??= []).push(
+        ...unstoredTags.values().map((value) => ({ value })),
+      );
+    }
+
+    if (sensitive && !material.record.labels) {
+      updated = true;
+      material.record.labels = {
+        $type: 'com.atproto.label.defs#selfLabels',
+        values: [{ val: 'porn' }],
+      } satisfies ComAtprotoLabelDefs.SelfLabels;
+    }
+
+    if (updated) {
+      materials.add(material);
+    }
+  } else {
+    material = await materialFromLink(link, rkey, tags, sensitive, resolveLink);
+    await materials.add(material);
+  }
+
+  return material;
+}
+
+async function materialFromLink(
+  link: string,
+  rkey: string,
+  tags: string[] | undefined,
+  sensitive: boolean | undefined,
+  resolveLink: boolean | undefined,
+): Promise<Material> {
+  const ret: Material = {
+    rkey,
+    record: {
+      $type: 'org.okazu-diary.material.external',
+      uri: link,
+    },
+    resolution: undefined,
+  };
+
+  if (resolveLink) {
+    await resolveMaterial(ret);
+  }
+
+  if (tags?.length) {
+    ret.record.tags = tags.map((value) => ({ value }));
+  }
 
   if (sensitive) {
-    ret.labels = {
+    ret.record.labels = {
       $type: 'com.atproto.label.defs#selfLabels',
       values: [{ val: 'porn' }],
     } satisfies ComAtprotoLabelDefs.SelfLabels;
@@ -244,95 +455,40 @@ async function subjectFromLink(
   return ret;
 }
 
-function subjectToLink(
-  subject: OrgOkazuDiaryFeedDefs.Subject,
-): string | undefined {
-  const value = subject.value;
-  switch (value.$type) {
-    case 'org.okazu-diary.embed.external': {
-      const result = OrgOkazuDiaryEmbedExternal.validateMain(value);
-      if (result.success) {
-        return result.value.uri;
-      }
-      break;
-    }
-    case 'org.okazu-diary.embed.record': {
-      const result = OrgOkazuDiaryEmbedRecord.validateMain(value);
-      if (result.success) {
-        const uri = new AtUri(result.value.record.uri);
-        if (uri.collection === 'app.bsky.feed.post') {
-          return `https://bsky.app/profile/${uri.host}/post/${uri.rkey}`;
-        }
-      }
-    }
-  }
-}
-
-async function embedFromKondate(
-  url: string,
-  meta: kondate.Metadata,
-): Promise<OrgOkazuDiaryEmbedExternal.Main> {
-  const ret: OrgOkazuDiaryEmbedExternal.Main = {
-    $type: 'org.okazu-diary.embed.external',
-    uri: meta.url ?? url,
+async function materialToStrongRef(
+  material: Material,
+  repo: string,
+): Promise<ComAtprotoRepoStrongRef.Main> {
+  return {
+    uri: `at://${repo}/org.okazu-diary.material.external/${material.rkey}`,
+    cid:
+      material.cid ?? (await cidForCbor(lexToIpld(material.record))).toString(),
   };
-
-  if (meta.name) {
-    ret.title = meta.name.textValue;
-  }
-
-  if (meta.description) {
-    ret.description = meta.description;
-  }
-
-  if (meta.image?.[0]) {
-    const image = meta.image[0];
-    const thumb: OrgOkazuDiaryEmbedExternal.Thumb = {
-      uri: image.contentUrl,
-    };
-
-    let res;
-    try {
-      res = await util.fetch(image.contentUrl);
-    } catch (e) {
-      console.error(`Error while fetching thumbnail of ${url}:`, e);
-    }
-    if (res) {
-      if (!res.ok) {
-        console.error(`HTTP status ${res.status} from thumbnail of ${url}`);
-      } else {
-        let bytes;
-        try {
-          bytes = await res.bytes();
-        } catch (e) {
-          console.error(`Unable to read thumbnail of ${url}:`, e);
-        }
-        if (bytes) {
-          thumb.cid = (await cidForRawBytes(bytes)).toString();
-        }
-      }
-    }
-
-    ret.thumb = thumb;
-  }
-
-  return ret;
 }
 
-async function resolveSubjectFromAtUri(
+const didResolver = new DidResolver({
+  didCache: new MemoryCache(5 * 60 * 1000, 60 * 60 * 1000),
+});
+const handleResolver = new HandleResolver();
+
+async function freezeATRef(
   uri: string,
-): Promise<OrgOkazuDiaryEmbedRecord.Main | undefined> {
+  resolutionState: ResolutionStatuses,
+): Promise<ComAtprotoRepoStrongRef.Main | undefined> {
   let parsed;
   try {
     parsed = new AtUri(uri);
   } catch {
     console.error(`URI is not valid AT URI: ${uri}`);
+    // Mark the irrecoverable error as `resolved`.
+    resolutionState.record = 'resolved';
     return;
   }
 
   const rkey = parsed.rkey;
   if (!rkey) {
     console.error(`URI is not record URI: ${uri}`);
+    resolutionState.record = 'resolved';
     return;
   }
 
@@ -346,6 +502,7 @@ async function resolveSubjectFromAtUri(
     }
     if (!resolved) {
       console.error(`Unable to resolve handle: ${id}`);
+      resolutionState.record = 'error';
       return;
     }
     id = resolved;
@@ -356,16 +513,19 @@ async function resolveSubjectFromAtUri(
     didDoc = await didResolver.resolve(id);
   } catch (e) {
     console.error(`Error while resolving DID ${id}:`, e);
+    resolutionState.record = 'error';
     return;
   }
   if (!didDoc) {
     console.error(`Unable to resolve DID: ${id}`);
+    resolutionState.record = 'error';
     return;
   }
 
   const pds = getPds(didDoc);
   if (!pds) {
     console.error(`DID ${id} does not have atproto PDS`);
+    resolutionState.record = 'error';
     return;
   }
 
@@ -379,10 +539,12 @@ async function resolveSubjectFromAtUri(
     rkey,
   });
 
-  const cid = res.data.cid ?? (await cidForRecord(res.data.value)).toString();
+  const cid =
+    res.data.cid ?? (await cidForCbor(lexToIpld(res.data.value))).toString();
 
   return {
-    $type: 'org.okazu-diary.embed.record',
-    record: { uri, cid },
+    $type: 'com.atproto.repo.strongRef',
+    uri,
+    cid,
   };
 }

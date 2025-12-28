@@ -99,7 +99,7 @@ export default function ProfilePage({
       pending = true;
     // Fall through
     case 'error':
-      feedContent = (
+      feedContent ??= (
         <>
           <p style={{ color: '#F00' }}>{`${feedState.error}`}</p>
           <button onClick={retryFeed} disabled={pending}>
@@ -113,7 +113,7 @@ export default function ProfilePage({
         <ul>
           {feedState.items.map((record) => (
             <li key={record.cid}>
-              <FeedEntry record={record.value} />
+              <FeedEntry actor={did} record={record.value} />
             </li>
           ))}
         </ul>

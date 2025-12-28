@@ -26,6 +26,7 @@
     "@atproto/common-web": "^0.4.6",
     "@atproto/crypto": "^0.4.4",
     "@atproto/dev-env": "^0.3.192",
+    "@atproto/repo": "^0.8.11",
     "@atproto/xrpc-server": "^0.10.1",
     "@did-plc/lib": "^0.0.4",
     "@react-router/dev": "^7.9.2",

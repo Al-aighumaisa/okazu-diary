@@ -1,6 +1,6 @@
 {
   "lexicon": 1,
-  "id": "org.okazu-diary.feed.collection",
+  "id": "org.okazu-diary.material.collection",
   "defs": {
     "main": {
       "type": "record",

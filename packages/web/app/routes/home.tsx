@@ -1,12 +1,13 @@
-import { DidResolver, getHandle } from '@atproto/identity';
+import { getHandle } from '@atproto/identity';
 import type React from 'react';
 import { Link, redirect } from 'react-router';
 
 import { allowed_dids } from '~/config';
+import { didResolver } from '~/lib/atproto';
 
 const actors = await Promise.all(
   allowed_dids.map(async (did) => {
-    const didDoc = await new DidResolver({}).resolve(did);
+    const didDoc = await didResolver.resolve(did);
     if (!didDoc) {
       return { did };
     }

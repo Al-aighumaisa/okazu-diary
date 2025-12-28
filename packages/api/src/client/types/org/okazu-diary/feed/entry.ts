@@ -9,9 +9,9 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
-import type * as OrgOkazuDiaryFeedDefs from './defs.js'
-import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 import type * as ComAtprotoRepoStrongRef from '../../../com/atproto/repo/strongRef.js'
+import type * as OrgOkazuDiaryMaterialDefs from '../material/defs.js'
+import type * as ComAtprotoLabelDefs from '../../../com/atproto/label/defs.js'
 
 const is$typed = _is$typed,
   validate = _validate
@@ -21,10 +21,10 @@ export interface Main {
   $type: 'org.okazu-diary.feed.entry'
   /** User-defined date and time associated with the activity, typically the datetime of the climax of the activity or simply of the record creation. The string format must satisfy all the requirements of the `datetime` format from the Lexicon language, except the requirement of whole seconds precision, but the datetime must at least specify up to the day (e.g. valid: `4545-07-21Z`, `1919-04-05T04:05+09:00`, invalid: `1919Z`). This is a subset of ISO 8601-1:2019 datetime format, but not RFC 3339 (whose time format requires whole seconds precision). */
   datetime: string
-  /** Materials used for gratification. Leave the array empty if it is known that there is no applicable material. Omit the property if the materials are uncertain. */
-  subjects?: OrgOkazuDiaryFeedDefs.Subject[]
-  /** User-specified tags for the entry. */
-  tags?: OrgOkazuDiaryFeedDefs.Tag[]
+  /** References to `org.okazu-diary.material.external` records associated with the activity. Leave the array empty if it is known that there is no applicable material. Omit the property if the materials are uncertain. Although this property uses a `strongRef` to make a reference to an external repository reliable to some extent, it is recommended that you copy the record to your own repository if you want to reference a record from another repository. */
+  subjects?: ComAtprotoRepoStrongRef.Main[]
+  /** User-specified tags for the activity. */
+  tags?: OrgOkazuDiaryMaterialDefs.Tag[]
   /** Remarks on the activity. */
   note?: string
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
