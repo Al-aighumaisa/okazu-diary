@@ -24,8 +24,9 @@
     "codegen": "find ../../lexicons -name '*.json' -exec lex gen-api --yes src/client {} +"
   },
   "dependencies": {
-    "@atproto/lexicon": "^0.5.1",
-    "@atproto/xrpc": "^0.7.5"
+    "@atproto/lexicon": "^0.6.0",
+    "@atproto/xrpc": "^0.7.5",
+    "multiformats": "9.9.0"
   },
   "devDependencies": {
     "@atproto/lex-cli": "^0.9.6"

@@ -2,7 +2,8 @@
   "extends": "../../tsconfig/node.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "lib": ["es2023", "esnext.iterator", "esnext.collection"]
   },
   "include": ["./src"]
 }

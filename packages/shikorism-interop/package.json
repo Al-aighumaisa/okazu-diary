@@ -29,7 +29,7 @@
     "@atproto/did": "^0.2.3",
     "@atproto/identity": "^0.4.10",
     "@atproto/lex-cbor": "^0.0.3",
-    "@atproto/lexicon": "^0.5.2",
+    "@atproto/lexicon": "^0.6.0",
     "@atproto/repo": "^0.8.12",
     "@okazu-diary/api": "workspace:^",
     "@okazu-diary/kondate": "workspace:^",
