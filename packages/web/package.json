@@ -18,6 +18,7 @@
     "@react-router/serve": "^7.9.2",
     "i18next": "^25.6.3",
     "isbot": "^5.1.31",
+    "local-storage-fallback": "^5.0.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router": "^7.9.2"

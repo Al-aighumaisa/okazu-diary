@@ -11,6 +11,8 @@ import type { Route } from './+types/root';
 import './app.css';
 import type React from 'react';
 
+import AgeGate from '~/components/AgeGate';
+
 export function Layout({
   children,
 }: {
@@ -26,7 +28,7 @@ export function Layout({
         <Links />
       </head>
       <body>
-        {children}
+        <AgeGate>{children}</AgeGate>
         <ScrollRestoration />
         <Scripts />
       </body>
