@@ -74,6 +74,16 @@ export async function fromCSVRow(
   const is_too_sensitive = isTooSensitive === 'true';
   const { privateAs, resolveLink } = options ?? {};
 
+  let visibility;
+  if (isPrivate === 'true') {
+    if (!privateAs) {
+      return;
+    }
+    visibility = privateAs;
+  } else {
+    visibility = 'public';
+  }
+
   const isoDatetime =
     datetime.replaceAll('/', '-').replaceAll(' ', 'T') + '+09:00';
 
@@ -87,7 +97,7 @@ export async function fromCSVRow(
       values: [{ val: is_too_sensitive ? 'porn' : 'sexual' }],
     } satisfies ComAtprotoLabelDefs.SelfLabels,
     hadHiatus: discardElapsedTime === 'true',
-    visibility: (isPrivate === 'true' && privateAs) || 'public',
+    visibility,
   };
 
   if (note) {
@@ -129,6 +139,16 @@ export async function fromCheckin(
 ): Promise<ImportedRecord | undefined> {
   const { privateAs, resolveLink } = options ?? {};
 
+  let visibility;
+  if (checkin.is_private) {
+    if (!privateAs) {
+      return;
+    }
+    visibility = privateAs;
+  } else {
+    visibility = 'public';
+  }
+
   const rkey = TID.fromTime(
     Date.parse(checkin.checked_in_at) * 1000,
     0,
@@ -141,7 +161,7 @@ export async function fromCheckin(
       values: [{ val: checkin.is_too_sensitive ? 'porn' : 'sexual' }],
     } satisfies ComAtprotoLabelDefs.SelfLabels,
     hadHiatus: checkin.discard_elapsed_time ?? false,
-    visibility: (checkin.is_private && privateAs) || 'public',
+    visibility,
   };
 
   if (checkin.tags) {
