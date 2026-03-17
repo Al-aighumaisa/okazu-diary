@@ -9,4 +9,5 @@ export * as melonbooks from './melonbooks.js';
 export * as narouNovel18 from './narou-novel18.js';
 export * as nijie from './nijie.js';
 export * as pixiv from './pixiv.js';
+export * as skeb from './skeb.js';
 export * as toranoana from './toranoana.js';

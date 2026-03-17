@@ -22,6 +22,7 @@ export interface Metadata {
   image?: ImageObject[] | undefined;
   video?: VideoObject[] | undefined;
   audio?: AudioObject[] | undefined;
+  text?: TextObject[] | undefined;
   keywords?: DefinedTerm[] | undefined;
   labels?: SelfLabel[] | undefined;
   /**
@@ -68,6 +69,7 @@ export interface MediaObject {
   name?: PronounceableText | undefined;
   encodingFormat?: string | undefined;
   ratio?: { width: number; height: number } | undefined;
+  duration?: (QuantitativeValue & { unitCode: 'SEC' }) | undefined;
   labels?: SelfLabel[] | undefined;
 }
 
@@ -79,12 +81,12 @@ export interface VideoObject extends MediaObject {
   type?: 'VideoObject' | undefined;
 }
 
-export interface AudioObject {
+export interface AudioObject extends MediaObject {
   type?: 'AudioObject' | undefined;
-  contentUrl: string;
-  name?: PronounceableText | undefined;
-  encodingFormat?: string | undefined;
-  labels?: SelfLabel[] | undefined;
+}
+
+export interface TextObject extends MediaObject {
+  type?: 'TextObject' | undefined;
 }
 
 export interface DefinedTerm {
@@ -95,6 +97,11 @@ export interface PronounceableText {
   inLanguage?: string | undefined;
   phoneticText?: string | undefined;
   textValue: string;
+}
+
+export interface QuantitativeValue {
+  unitCode: string;
+  value: number;
 }
 
 export interface SelfLabel {

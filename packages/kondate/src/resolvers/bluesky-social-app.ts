@@ -44,7 +44,8 @@ export async function resolve(
         { value: undefined, response: undefined };
 
   if (atUri) {
-    ((result.value ??= {}).resolver ??= {}).at ??= { uri: atUri };
+    (((result.value ??= {}).resolver ??= {}).at ??= { uri: atUri }).uri ??=
+      atUri;
   }
 
   return result;

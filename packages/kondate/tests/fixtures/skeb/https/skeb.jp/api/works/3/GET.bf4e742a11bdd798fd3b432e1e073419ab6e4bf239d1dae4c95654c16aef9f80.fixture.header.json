@@ -1,0 +1,32 @@
+{
+  "headers": {
+    "accept-ranges": "bytes",
+    "age": "0",
+    "cache-control": "public, no-cache",
+    "connection": "keep-alive",
+    "content-encoding": "br",
+    "content-length": "5097",
+    "content-type": "application/json; charset=utf-8",
+    "date": "Tue, 17 Mar 2026 16:41:51 GMT",
+    "etag": "W/\"251aa223b5f93bbd77410432aa67832f\"",
+    "referrer-policy": "strict-origin-when-cross-origin",
+    "server": "skeb",
+    "vary": "Origin, Accept-Encoding",
+    "via": "1.1 varnish",
+    "x-cache": "MISS",
+    "x-cache-hits": "0",
+    "x-content-type-options": "nosniff",
+    "x-frame-options": "SAMEORIGIN",
+    "x-permitted-cross-domain-policies": "none",
+    "x-robots-tag": "noindex,nofollow",
+    "x-runtime": "0.051173",
+    "x-served-by": "cache-nrt-rjtf7700104-NRT",
+    "x-timer": "S1773765712.911013,VS0,VE65",
+    "x-xss-protection": "0"
+  },
+  "setCookie": [],
+  "redirected": false,
+  "status": 200,
+  "statusText": "OK",
+  "url": "https://skeb.jp/api/works/3"
+}
