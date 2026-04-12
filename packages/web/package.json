@@ -10,30 +10,29 @@
     "typecheck": "react-router typegen && tsc --build --noEmit"
   },
   "dependencies": {
-    "@atproto/api": "^0.18.1",
-    "@atproto/identity": "^0.4.10",
-    "@atproto/xrpc": "^0.7.5",
+    "@atproto/api": "^0.19.8",
+    "@atproto/identity": "^0.4.12",
+    "@atproto/xrpc": "^0.7.7",
     "@okazu-diary/api": "workspace:^",
-    "@react-router/node": "^7.9.2",
-    "@react-router/serve": "^7.9.2",
-    "i18next": "^25.6.3",
-    "isbot": "^5.1.31",
+    "@react-router/node": "^7.14.0",
+    "@react-router/serve": "^7.14.0",
+    "i18next": "^25.10.10",
+    "isbot": "^5.1.37",
     "local-storage-fallback": "^5.0.0",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router": "^7.9.2"
+    "react": "^19.2.5",
+    "react-dom": "^19.2.5",
+    "react-router": "^7.14.0"
   },
   "devDependencies": {
-    "@atproto/common-web": "^0.4.6",
-    "@atproto/crypto": "^0.4.4",
-    "@atproto/dev-env": "^0.3.192",
-    "@atproto/repo": "^0.8.11",
-    "@atproto/xrpc-server": "^0.10.1",
+    "@atproto/common-web": "^0.4.20",
+    "@atproto/crypto": "^0.4.5",
+    "@atproto/dev-env": "^0.4.3",
+    "@atproto/repo": "^0.9.1",
+    "@atproto/xrpc-server": "^0.10.19",
     "@did-plc/lib": "^0.0.4",
-    "@react-router/dev": "^7.9.2",
-    "@types/react": "^19.1.13",
-    "@types/react-dom": "^19.1.9",
-    "vite": "^7.1.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "@react-router/dev": "^7.14.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "vite": "^8.0.8"
   }
 }

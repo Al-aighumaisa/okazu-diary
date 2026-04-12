@@ -5,11 +5,13 @@ import { useEffect, useRef, useState } from 'react';
 export default function AgeGate({
   children,
 }: React.PropsWithChildren): React.ReactNode {
+  const storage_ = storage.storage ?? storage;
+
   const [state, setState] = useState<boolean | null>(null);
 
   const ageGateDialogRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    const adult = storage.getItem('adult');
+    const adult = storage_.getItem('adult');
     if (adult !== '1') {
       ageGateDialogRef.current?.showModal();
       setState(true);
@@ -17,7 +19,7 @@ export default function AgeGate({
   }, []);
 
   function confirmAge(): void {
-    storage.setItem('adult', '1');
+    storage_.setItem('adult', '1');
     ageGateDialogRef.current?.close();
     setState(true);
   }

@@ -13,7 +13,7 @@ import {
   HandleResolver,
   MemoryCache,
 } from '@atproto/identity';
-import { cidForRawBytes } from '@atproto/lex-cbor';
+import { cidForRawBytes } from '@atproto/lex-data';
 import { lexToIpld } from '@atproto/lexicon';
 import {
   OrgOkazuDiaryMaterialExternal,

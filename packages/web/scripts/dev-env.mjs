@@ -17,7 +17,7 @@ async function main() {
   }
 
   const { network, did, accessJwt } = await setupNetwork();
-  const agent = network.pds.getClient();
+  const agent = network.pds.getAgent();
 
   let mockTime = Date.parse('2025-01-01T00:00:00Z');
   function nextTID() {
@@ -167,7 +167,7 @@ async function setupNetwork() {
     plc: { port: 2587 },
   });
   const plcClient = new plc.Client(network.plc.url);
-  const agent = network.pds.getClient();
+  const agent = network.pds.getAgent();
 
   const keypair = await Secp256k1Keypair.import(
     // https://github.com/bluesky-social/atproto/blob/a487ab8afe8f18d00662e666049be8d28de2b57e/packages/crypto/tests/did.test.ts#L52-L55
