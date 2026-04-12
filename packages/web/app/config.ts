@@ -9,11 +9,10 @@ if (!vite_okazu_diary_web_allowed_dids) {
 const vite_okazu_diary_web_allowed_dids_array =
   vite_okazu_diary_web_allowed_dids.split(' ');
 
-export const allowed_dids = vite_okazu_diary_web_allowed_dids_array.includes(
-  '*',
-)
-  ? []
-  : vite_okazu_diary_web_allowed_dids_array;
+export const allowed_dids: readonly string[] =
+  vite_okazu_diary_web_allowed_dids_array.includes('*')
+    ? []
+    : vite_okazu_diary_web_allowed_dids_array;
 
 export const plc =
   // Meant to ignore empty strings as well.

@@ -28,11 +28,7 @@ export async function clientLoader({
     if (!did) {
       throw new Response(null, { status: 404 });
     }
-  } else if (
-    id.startsWith('did:') ||
-    id.startsWith('did%3A') ||
-    id.startsWith('did%3a')
-  ) {
+  } else if (/^did(?::|%3A)/i.test(id)) {
     did = decodeURIComponent(id);
   } else {
     throw new Response(null, { status: 404 });
