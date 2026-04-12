@@ -18,15 +18,15 @@ export default function FeedEntry({
       <header>
         <time dateTime={record.datetime}>{record.datetime}</time>
       </header>
-      <p>{record.note}</p>
-      <Subjects actor={actor} subjects={record.subjects} />
       {record.tags?.length && (
-        <ul>
+        <ul className="tags">
           {record.tags.map((tag) => (
             <li>{tag.value}</li>
           ))}
         </ul>
       )}
+      <Subjects actor={actor} subjects={record.subjects} />
+      <p>{record.note}</p>
     </article>
   );
 }
@@ -46,7 +46,7 @@ function Subjects({
   if (first) {
     if (rest.length) {
       const items = subjects.map((subject) => (
-        <li>
+        <li key={subject.cid}>
           <Subject actor={actor} subject={subject} />
         </li>
       ));
@@ -93,41 +93,35 @@ function Subject({
       break;
     case 'resolved':
       return (
-        <>
-          {
-            // Using logical OR for consistency.
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            (materialState.value.thumb ||
-              materialState.value.title ||
-              materialState.value.description) && (
-              <a href={materialState.value.uri}>
-                <figure>
-                  {materialState.value.thumb && (
-                    <img
-                      src={materialState.value.thumb.url}
-                      aria-labelledby={materialState.value.title && titleId}
-                    />
-                  )}
-                  {(materialState.value.title ||
-                    materialState.value.description) && (
-                    <figcaption>
-                      {materialState.value.title && (
-                        <cite id={titleId}>{materialState.value.title}</cite>
-                      )}
-                      {materialState.value.description && (
-                        <p>{materialState.value.description}</p>
-                      )}
-                    </figcaption>
-                  )}
-                </figure>
-              </a>
-            )
-          }
-          <p>
-            Link:{' '}
-            <a href={materialState.value.uri}>{materialState.value.uri}</a>
-          </p>
-        </>
+        <div className="subject">
+          <a href={materialState.value.uri}>
+            {materialState.value.thumb ||
+            materialState.value.title ||
+            materialState.value.description ? (
+              <figure>
+                {materialState.value.thumb && (
+                  <img
+                    src={materialState.value.thumb.url}
+                    aria-labelledby={materialState.value.title && titleId}
+                  />
+                )}
+                {(materialState.value.title ||
+                  materialState.value.description) && (
+                  <figcaption>
+                    {materialState.value.title && (
+                      <cite id={titleId}>{materialState.value.title}</cite>
+                    )}
+                    {materialState.value.description && (
+                      <p>{materialState.value.description}</p>
+                    )}
+                  </figcaption>
+                )}
+              </figure>
+            ) : (
+              materialState.value.uri
+            )}
+          </a>
+        </div>
       );
   }
 }

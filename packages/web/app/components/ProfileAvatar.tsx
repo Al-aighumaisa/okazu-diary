@@ -3,7 +3,7 @@ import type React from 'react';
 
 import * as config from '~/config';
 
-interface UserAvatarProps extends React.AriaAttributes {
+export interface UserAvatarProps extends React.AriaAttributes {
   repo: string;
   blob?: BlobRef | undefined;
   size: number;

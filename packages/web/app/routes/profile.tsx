@@ -111,6 +111,47 @@ export default function ProfilePage({
     case 'resolved':
       feedContent = (
         <ul>
+          <style>{`@scope {
+  & > li {
+    margin: 12px;
+    padding: 12px;
+    border: 1px solid gray;
+    border-radius: 8px;
+  }
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .tags {
+    display: flex;
+  }
+  .tags > li, .subject {
+    margin-inline: 4px;
+    border: 1px solid gray;
+    border-radius: 4px;
+  }
+  .tags > li {
+    padding: 2px;
+  }
+  .tags > li::before {
+    content: "#";
+  }
+  .subject {
+    padding: 12px;
+  }
+  figure {
+    display: flex;
+    gap: 8px;
+  }
+  figure > img {
+    max-width: 50vw;
+    max-height: 50vh;
+  }
+  cite {
+    font-weight: bold;
+  }
+}`}</style>
           {feedState.items.map((record) => (
             <li key={record.cid}>
               <FeedEntry actor={did} record={record.value} />
@@ -138,7 +179,22 @@ export default function ProfilePage({
           ? `${profileState.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
           : 'Okazu Diary'}
       </title>
-      <Profile did={did} profileState={profileState} onRetry={retryProfile} />
+      <header
+        style={{
+          display: 'flex',
+          padding: '12px',
+          flexDirection: 'column',
+          gap: '8px',
+          borderBlockEnd: '1px solid gray',
+        }}
+      >
+        <Profile
+          did={did}
+          profileState={profileState}
+          handle={handle}
+          onRetry={retryProfile}
+        />
+      </header>
       <main>{feedContent}</main>
       <div>
         {prevPage ? (
