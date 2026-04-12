@@ -119,15 +119,13 @@ export default function ProfilePage({
     flex-direction: column;
     gap: 6px;
   }
-  .tags {
-    display: flex;
-  }
   .tags > li, .subject {
     margin-inline: 4px;
     border: 1px solid gray;
     border-radius: 4px;
   }
   .tags > li {
+    display: inline-block;
     padding: 2px;
   }
   .tags > li::before {
