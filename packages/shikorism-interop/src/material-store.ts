@@ -32,6 +32,19 @@ export class InMemoryMaterialStore
   }
 
   add(material: Material): void {
+    const old = this.rkeyMap.get(material.rkey);
+    this.rkeyMap.set(material.rkey, material);
+
+    if (old) {
+      const uri = old.record.uri;
+      if (uri) {
+        const set = this.uriMap.get(uri);
+        if (set) {
+          set.delete(old);
+        }
+      }
+    }
+
     const uri = material.record.uri;
     if (uri) {
       const set = this.uriMap.get(uri);
@@ -41,8 +54,6 @@ export class InMemoryMaterialStore
         this.uriMap.set(uri, new Set([material]));
       }
     }
-
-    this.rkeyMap.set(material.rkey, material);
   }
 
   clear(): void {

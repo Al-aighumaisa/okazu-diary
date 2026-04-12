@@ -31,12 +31,13 @@ export * from './material-store.js';
 
 export interface FromShikorismOptions {
   privateAs?: 'public' | 'unlisted' | undefined;
-  resolveLink?: boolean | undefined;
+  resolveLink?: 'error' | 'force' | boolean | undefined;
 }
 
 export interface Material {
   rkey: string;
   record: OrgOkazuDiaryMaterialExternal.Main;
+  kondate?: kondate.Metadata | undefined;
   cid?: string | undefined;
   resolution: ResolutionStatuses | undefined;
 }
@@ -105,7 +106,7 @@ export async function fromCSVRow(
   }
 
   if (link) {
-    const material = await getOrUpdateMaterial(
+    const material = await getOrMakeMaterial(
       materials,
       link,
       rkey,
@@ -169,7 +170,7 @@ export async function fromCheckin(
   }
 
   if (checkin.link) {
-    const material = await getOrUpdateMaterial(
+    const material = await getOrMakeMaterial(
       materials,
       checkin.link,
       rkey,
@@ -279,20 +280,27 @@ export async function toCheckin(
   return ret;
 }
 
-export interface ResolveMaterialOptions {
-  overwrite?: 'error' | boolean | undefined;
+export interface HydrateMaterialOptions {
+  /**
+   * Whether to resolve link metadata.
+   * - `true` - Resolve the link if not done yet.
+   * - `'error'` - Resolve the link if not done yet, or retry previously failed resolution.
+   * - `'force'` - Resolve the link and overwrite the metadata even if it has already been resolved.
+   * - `false` (default) - Never resolve the link.
+   */
+  resolveLink?: 'error' | 'force' | boolean | undefined;
 }
 
-export async function resolveMaterial(
+export async function hydrateMaterial(
   material: Material,
-  options?: ResolveMaterialOptions,
-): Promise<void> {
+  options?: HydrateMaterialOptions,
+): Promise<boolean> {
   const link = material.record.uri;
   if (!link) {
-    return;
+    return false;
   }
 
-  const { overwrite } = options ?? {};
+  const { resolveLink } = options ?? {};
 
   material.resolution ??= {
     uri: undefined,
@@ -300,14 +308,16 @@ export async function resolveMaterial(
     thumb: undefined,
   };
 
-  const writeUriMeta =
-    !material.resolution.uri ||
-    overwrite === true ||
-    (overwrite === 'error' && material.resolution.uri === 'error');
+  let updated = false;
+
+  const updateUriMeta =
+    (resolveLink && (!material.resolution.uri || !material.kondate)) ||
+    resolveLink === 'force' ||
+    (resolveLink === 'error' && material.resolution.uri === 'error');
   const resolveRecord =
-    overwrite === true ||
-    (overwrite === 'error' && material.resolution.record === 'error');
-  if (writeUriMeta || resolveRecord) {
+    resolveLink === 'force' ||
+    (resolveLink === 'error' && material.resolution.record === 'error');
+  if (updateUriMeta || resolveRecord) {
     let result: kondate.ResolveResult | undefined;
     try {
       result = await kondate.resolve(link, {
@@ -319,48 +329,51 @@ export async function resolveMaterial(
       material.resolution.uri = 'error';
     }
 
-    let meta;
     if (result) {
       material.resolution.uri = 'resolved';
-      meta = result.value;
+      material.kondate = result.value;
+      updated = true;
     }
+  }
 
-    let atUri;
-    if (meta) {
-      atUri = meta.resolver?.at?.uri;
-
-      if (writeUriMeta) {
-        if (meta.name) {
-          material.record.title = meta.name.textValue;
-        }
-
-        if (meta.description) {
-          material.record.description = meta.description;
-        }
-
-        const image = meta.image?.[0];
-        if (image) {
-          material.record.thumb = {
-            url: image.contentUrl,
-          };
-        }
+  const meta = material.kondate;
+  if (meta) {
+    if (meta.name) {
+      material.record.title = meta.name.textValue;
+    } else {
+      const creatorName = meta.creator?.[0].name;
+      if (creatorName) {
+        material.record.title = creatorName.textValue;
       }
     }
 
-    if (atUri && (!material.resolution.record || resolveRecord)) {
-      const ref = await freezeATRef(atUri, material.resolution);
-      if (ref) {
-        material.record.record = ref;
-      }
+    if (meta.description) {
+      material.record.description = meta.description;
+    }
+
+    const image = meta.image?.[0];
+    if (image) {
+      material.record.thumb = {
+        url: image.contentUrl,
+      };
+    }
+
+    const atUri = meta.resolver?.at?.uri;
+    if (
+      atUri &&
+      ((resolveLink && !material.resolution.record) || resolveRecord)
+    ) {
+      await freezeRecordRef(atUri, material);
+      updated ||= material.resolution.record === 'resolved';
     }
   }
 
   const thumb = material.record.thumb;
   if (
     thumb &&
-    (!material.resolution.thumb ||
-      overwrite === true ||
-      (overwrite === 'error' && material.resolution.thumb === 'error'))
+    ((resolveLink && !material.resolution.thumb) ||
+      resolveLink === 'force' ||
+      (resolveLink === 'error' && material.resolution.thumb === 'error'))
   ) {
     let res;
     try {
@@ -386,19 +399,22 @@ export async function resolveMaterial(
         if (bytes) {
           thumb.cid = (await cidForRawBytes(bytes)).toString();
           material.resolution.thumb = 'resolved';
+          updated = true;
         }
       }
     }
   }
+
+  return updated;
 }
 
-async function getOrUpdateMaterial(
+async function getOrMakeMaterial(
   materials: ImportMaterialStore,
   link: string,
   rkey: string,
   tags: string[] | undefined,
   sensitive: boolean | undefined,
-  resolveLink: boolean | undefined,
+  resolveLink: 'error' | 'force' | boolean | undefined,
 ) {
   let material;
 
@@ -410,7 +426,7 @@ async function getOrUpdateMaterial(
   }
 
   if (material) {
-    let updated;
+    let updated = await hydrateMaterial(material, { resolveLink });
 
     const unstoredTags = new Set(tags).difference(
       new Set(material.record.tags?.map(({ value }) => value)),
@@ -446,7 +462,7 @@ async function materialFromLink(
   rkey: string,
   tags: string[] | undefined,
   sensitive: boolean | undefined,
-  resolveLink: boolean | undefined,
+  resolveLink: 'error' | 'force' | boolean | undefined,
 ): Promise<Material> {
   const ret: Material = {
     rkey,
@@ -458,7 +474,7 @@ async function materialFromLink(
   };
 
   if (resolveLink) {
-    await resolveMaterial(ret);
+    await hydrateMaterial(ret, { resolveLink });
   }
 
   if (tags?.length) {
@@ -471,6 +487,11 @@ async function materialFromLink(
       values: [{ val: 'porn' }],
     } satisfies ComAtprotoLabelDefs.SelfLabels;
   }
+
+  ret.record.genericLabels = {
+    $type: 'com.atproto.label.defs#selfLabels',
+    values: [{ val: 'sexual' }],
+  } satisfies ComAtprotoLabelDefs.SelfLabels;
 
   return ret;
 }
@@ -491,24 +512,27 @@ const didResolver = new DidResolver({
 });
 const handleResolver = new HandleResolver();
 
-async function freezeATRef(
-  uri: string,
-  resolutionState: ResolutionStatuses,
-): Promise<ComAtprotoRepoStrongRef.Main | undefined> {
+async function freezeRecordRef(uri: string, material: Material): Promise<void> {
+  material.resolution ??= {
+    uri: undefined,
+    record: undefined,
+    thumb: undefined,
+  };
+
   let parsed;
   try {
     parsed = new AtUri(uri);
   } catch {
     console.error(`URI is not valid AT URI: ${uri}`);
     // Mark the irrecoverable error as `resolved`.
-    resolutionState.record = 'resolved';
+    material.resolution.record = 'resolved';
     return;
   }
 
   const rkey = parsed.rkey;
   if (!rkey) {
     console.error(`URI is not record URI: ${uri}`);
-    resolutionState.record = 'resolved';
+    material.resolution.record = 'resolved';
     return;
   }
 
@@ -522,7 +546,7 @@ async function freezeATRef(
     }
     if (!resolved) {
       console.error(`Unable to resolve handle: ${id}`);
-      resolutionState.record = 'error';
+      material.resolution.record = 'error';
       return;
     }
     id = resolved;
@@ -533,19 +557,19 @@ async function freezeATRef(
     didDoc = await didResolver.resolve(id);
   } catch (e) {
     console.error(`Error while resolving DID ${id}:`, e);
-    resolutionState.record = 'error';
+    material.resolution.record = 'error';
     return;
   }
   if (!didDoc) {
     console.error(`Unable to resolve DID: ${id}`);
-    resolutionState.record = 'error';
+    material.resolution.record = 'error';
     return;
   }
 
   const pds = getPds(didDoc);
   if (!pds) {
     console.error(`DID ${id} does not have atproto PDS`);
-    resolutionState.record = 'error';
+    material.resolution.record = 'error';
     return;
   }
 
@@ -553,18 +577,25 @@ async function freezeATRef(
     service: pds,
   });
 
-  const res = await client.com.atproto.repo.getRecord({
-    repo: id,
-    collection: parsed.collection,
-    rkey,
-  });
+  let cid;
+  try {
+    const res = await client.com.atproto.repo.getRecord({
+      repo: id,
+      collection: parsed.collection,
+      rkey,
+    });
+    cid =
+      res.data.cid ?? (await cidForCbor(lexToIpld(res.data.value))).toString();
+  } catch (e) {
+    console.error('Error while getting (CID of) record:', e);
+    material.resolution.record = 'error';
+    return;
+  }
 
-  const cid =
-    res.data.cid ?? (await cidForCbor(lexToIpld(res.data.value))).toString();
-
-  return {
+  material.record.record = {
     $type: 'com.atproto.repo.strongRef',
     uri,
     cid,
   };
+  material.resolution.record = 'resolved';
 }

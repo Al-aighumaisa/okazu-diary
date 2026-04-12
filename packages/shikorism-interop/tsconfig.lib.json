@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig/node.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "lib": ["es2023", "esnext.iterator", "esnext.collection"]
+  },
+  "include": ["./src"],
+  "exclude": ["./src/bin/*.mts"]
+}

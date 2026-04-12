@@ -33,6 +33,7 @@
     "@atproto/repo": "^0.8.12",
     "@okazu-diary/api": "workspace:^",
     "@okazu-diary/kondate": "workspace:^",
+    "csv-parse": "^6.1.0",
     "multiformats": "^9.9.0",
     "p-limit": "^7.2.0"
   },

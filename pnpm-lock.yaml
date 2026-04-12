@@ -145,6 +145,9 @@ importers:
       '@okazu-diary/kondate':
         specifier: workspace:^
         version: link:../kondate
+      csv-parse:
+        specifier: ^6.1.0
+        version: 6.2.1
       multiformats:
         specifier: ^9.9.0
         version: 9.9.0
@@ -2571,6 +2574,9 @@ packages:
 
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
+
+  csv-parse@6.2.1:
+    resolution: {integrity: sha512-LRLMV+UCyfMokp8Wb411duBf1gaBKJfOfBWU9eHMJ+b+cJYZsNu3AFmjJf3+yPGd59Exz1TsMjaSFyxnYB9+IQ==}
 
   data-urls@6.0.0:
     resolution: {integrity: sha512-BnBS08aLUM+DKamupXs3w2tJJoqU+AkaE/+6vQxi/G/DPmIZFJJp9Dkb1kM03AZx8ADehDUZgsNxju3mPXZYIA==}
@@ -7995,6 +8001,8 @@ snapshots:
       lru-cache: 11.2.4
 
   csstype@3.2.3: {}
+
+  csv-parse@6.2.1: {}
 
   data-urls@6.0.0:
     dependencies:
