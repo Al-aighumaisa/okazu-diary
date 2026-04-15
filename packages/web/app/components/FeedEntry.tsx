@@ -96,7 +96,7 @@ function Subject({
           </button>
         </>
       );
-      break;
+      return <div className={styles.subject}>{content}</div>;
     case 'resolved':
       return (
         <a href={materialState.value.uri} className={styles.subject}>
