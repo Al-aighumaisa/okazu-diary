@@ -13,7 +13,7 @@ import styles from './profile.module.css';
 
 interface LoaderData {
   did: string;
-  client: AtpBaseClient;
+  pds: string;
   handle: string | undefined;
 }
 
@@ -49,8 +49,8 @@ export async function clientLoader({
     throw new Response(null, { status: 404 });
   }
 
-  const service = getPds(doc);
-  if (!service) {
+  const pds = getPds(doc);
+  if (!pds) {
     throw new Error('DID document does not have atproto PDS service');
   }
 
@@ -64,17 +64,17 @@ export async function clientLoader({
     }
   }
 
-  const client = new AtpBaseClient({ service });
-
-  return { did, client, handle };
+  return { did, pds, handle };
 }
 
 export default function ProfilePage({
-  loaderData: { did, client, handle },
+  loaderData: { did, pds, handle },
 }: {
   loaderData: LoaderData;
 }): React.ReactNode {
+  const client = new AtpBaseClient({ service: pds });
   const { search } = useLocation();
+
   const [profileState, retryProfile] = useProfile(did, client);
 
   const query = new URLSearchParams(search);
