@@ -1,6 +1,6 @@
 import { getHandle } from '@atproto/identity';
 import type React from 'react';
-import { Link, redirect } from 'react-router';
+import { Link } from 'react-router';
 
 import { allowed_dids } from '~/config';
 import { didResolver } from '~/lib/atproto';
@@ -16,18 +16,6 @@ const actors = await Promise.all(
     return handle ? { did, handle } : { did };
   }),
 );
-const [actor, ...restActors] = actors;
-export const clientLoader =
-  actor && !restActors.length
-    ? (() => {
-        const location =
-          'handle' in actor ? `/@${actor.handle}` : `/${actor.did}`;
-        return function clientLoader() {
-          return redirect(location);
-        };
-      })()
-    : // eslint-disable-next-line @typescript-eslint/no-empty-function
-      function clientLoader() {};
 
 const items = actors.map((actor) => {
   const link =

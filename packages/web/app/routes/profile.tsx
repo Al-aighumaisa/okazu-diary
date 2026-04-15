@@ -23,20 +23,25 @@ export async function clientLoader({
   params: { id },
 }: Route.LoaderArgs): Promise<LoaderData> {
   let did, handle;
-  if (id.startsWith('@')) {
-    handle = id.slice(1);
-    did = await handleResolver.resolve(handle);
-    if (!did) {
+
+  if (id) {
+    if (id.startsWith('@')) {
+      handle = id.slice(1);
+      did = await handleResolver.resolve(handle);
+      if (!did) {
+        throw new Response(null, { status: 404 });
+      }
+    } else if (/^did(?::|%3A)/i.test(id)) {
+      did = decodeURIComponent(id);
+    } else {
       throw new Response(null, { status: 404 });
     }
-  } else if (/^did(?::|%3A)/i.test(id)) {
-    did = decodeURIComponent(id);
-  } else {
-    throw new Response(null, { status: 404 });
-  }
 
-  if (allowed_dids.length && !allowed_dids.includes(did)) {
-    throw new Response(null, { status: 404 });
+    if (allowed_dids.length && !allowed_dids.includes(did)) {
+      throw new Response(null, { status: 404 });
+    }
+  } else {
+    did = allowed_dids[0]!;
   }
 
   const doc = await didResolver.resolve(did);
