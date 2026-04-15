@@ -1,6 +1,7 @@
 import storage from 'local-storage-fallback';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
+import styles from './AgeGate.module.css';
 
 export default function AgeGate({
   children,
@@ -26,12 +27,7 @@ export default function AgeGate({
 
   return (
     <>
-      <dialog ref={ageGateDialogRef}>
-        <style>{`@scope {
-  &::backdrop {
-    backdrop-filter: blur(50px) brightness(.5);
-  }
-}`}</style>
+      <dialog ref={ageGateDialogRef} className={styles.dialog}>
         {state === false ? (
           <>
             <h1>Sorry</h1>
@@ -46,10 +42,14 @@ export default function AgeGate({
               majority in your jurisdiction, and consent to viewing sexually
               explicit content.
             </p>
-            <button onClick={() => setState(false)}>
-              No, I am under 18 years old
-            </button>
-            <button onClick={confirmAge}>I am over 18 years old - Enter</button>
+            <div>
+              <button onClick={() => setState(false)}>
+                No, I am under 18 years old
+              </button>
+              <button onClick={confirmAge}>
+                I am over 18 years old - Enter
+              </button>
+            </div>
           </>
         )}
       </dialog>

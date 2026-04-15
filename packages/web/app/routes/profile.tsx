@@ -1,5 +1,6 @@
 import { AtpBaseClient } from '@atproto/api';
 import { getHandle, getPds, HandleResolver } from '@atproto/identity';
+import { Link, useLocation } from 'react-router';
 
 import FeedEntry from '~/components/FeedEntry';
 import Profile from '~/components/Profile';
@@ -8,7 +9,7 @@ import { didResolver } from '~/lib/atproto';
 import { useActorFeed } from '~/state/actorFeed';
 import { useProfile } from '~/state/profile';
 import type { Route } from './+types/profile';
-import { Link, useLocation } from 'react-router';
+import styles from './profile.module.css';
 
 interface LoaderData {
   did: string;
@@ -106,46 +107,7 @@ export default function ProfilePage({
       break;
     case 'resolved':
       feedContent = (
-        <ul>
-          <style>{`@scope {
-  & > li {
-    margin: 12px;
-    padding: 12px;
-    border: 1px solid gray;
-    border-radius: 8px;
-  }
-  article {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .tags > li, .subject {
-    margin-inline: 4px;
-    border: 1px solid gray;
-    border-radius: 4px;
-  }
-  .tags > li {
-    display: inline-block;
-    padding: 2px;
-  }
-  .tags > li::before {
-    content: "#";
-  }
-  .subject {
-    padding: 12px;
-  }
-  figure {
-    display: flex;
-    gap: 8px;
-  }
-  figure > img {
-    max-width: 50vw;
-    max-height: 50vh;
-  }
-  cite {
-    font-weight: bold;
-  }
-}`}</style>
+        <ul className={styles.feed}>
           {feedState.items.map((record) => (
             <li key={record.cid}>
               <FeedEntry actor={did} record={record.value} />
@@ -163,9 +125,6 @@ export default function ProfilePage({
       break;
   }
 
-  const prevText = <span title="Previous page">«</span>;
-  const nextText = <span title="Next page">»</span>;
-
   return (
     <>
       <title>
@@ -173,15 +132,7 @@ export default function ProfilePage({
           ? `${profileState.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
           : 'Okazu Diary'}
       </title>
-      <header
-        style={{
-          display: 'flex',
-          padding: '12px',
-          flexDirection: 'column',
-          gap: '8px',
-          borderBlockEnd: '1px solid gray',
-        }}
-      >
+      <header className={styles.header}>
         <Profile
           did={did}
           profileState={profileState}
@@ -190,20 +141,20 @@ export default function ProfilePage({
         />
       </header>
       <main>{feedContent}</main>
-      <div>
+      <div className={styles.pageNav}>
         {prevPage ? (
-          <Link to={prevPage} rel="prev">
-            {prevText}
+          <Link to={prevPage} rel="prev" title="Previous page">
+            «
           </Link>
         ) : (
-          prevText
+          <span title="Previous page">«</span>
         )}{' '}
         {nextPage ? (
-          <Link to={nextPage} rel="next">
-            {nextText}
+          <Link to={nextPage} rel="next" title="Next page">
+            »
           </Link>
         ) : (
-          nextText
+          <span title="Next page">»</span>
         )}
       </div>
     </>

@@ -1,0 +1,57 @@
+.article {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.tags > li,
+.subject {
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.tags > li {
+  display: inline-block;
+  padding: 2px;
+}
+
+.tags > li > ::before {
+  content: '#';
+}
+
+.subjectList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subject {
+  display: block;
+  padding: 12px;
+}
+
+.subject figure {
+  display: flex;
+  gap: 8px;
+}
+
+.subject figure > img {
+  height: 100%;
+  max-width: 50vw;
+  max-height: 50vh;
+  object-fit: contain;
+}
+
+.subjectList .subject figure > img {
+  max-height: 25vh;
+}
+
+.subject figure > figcaption > cite {
+  font-weight: bold;
+}

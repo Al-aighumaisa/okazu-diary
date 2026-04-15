@@ -1,0 +1,19 @@
+.dialog {
+  margin: auto;
+  padding: 1em;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+.dialog[open] {
+  display: flex;
+}
+
+.dialog::backdrop {
+  backdrop-filter: blur(50px) brightness(0.5);
+}
+
+.dialog > div {
+  display: flex;
+  gap: 0.5em;
+}

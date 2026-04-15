@@ -1,6 +1,8 @@
 import type { BlobRef } from '@atproto/api';
-import ProfileAvatar from './ProfileAvatar';
+
 import * as ProfileState from '~/state/profile';
+import ProfileAvatar from './ProfileAvatar';
+import styles from './Profile.module.css';
 
 interface ProfileProps {
   did: string;
@@ -65,24 +67,16 @@ function AvatarAndName({
   name: string | undefined;
 }): React.ReactNode {
   return (
-    <div style={{ display: 'flex', gap: '12px' }}>
+    <div className={styles.avatarName}>
       <ProfileAvatar
         repo={repo}
         blob={blob}
         size={80}
         aria-labelledby={name && 'profile-name'}
       />
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        {name !== undefined && (
-          <h1 id="profile-name" style={{ marginBlock: 'auto' }}>
-            {name}
-          </h1>
-        )}
-        {
-          <p style={{ color: '#444' }}>
-            {handle ? `@${handle}` : '(Invalid handle!)'}
-          </p>
-        }
+      <div>
+        {name !== undefined && <h1 id="profile-name">{name}</h1>}
+        {<p>{handle ? `@${handle}` : '(Invalid handle!)'}</p>}
       </div>
     </div>
   );

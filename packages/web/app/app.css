@@ -1,4 +1,4 @@
-* {
+*:not(button) {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -7,6 +7,11 @@
     'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
     'Noto Sans JP', sans-serif;
   font-style: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 ol,

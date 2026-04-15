@@ -2,7 +2,9 @@ import type { ComAtprotoRepoStrongRef } from '@atproto/api';
 import type { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import type React from 'react';
 import { useId } from 'react';
+
 import { useMaterial } from '~/state/material';
+import styles from './FeedEntry.module.css';
 
 interface ActorFeedProps {
   actor: string;
@@ -14,14 +16,18 @@ export default function FeedEntry({
   record,
 }: ActorFeedProps): React.ReactNode {
   return (
-    <article>
+    <article className={styles.article}>
       <header>
         <time dateTime={record.datetime}>{record.datetime}</time>
       </header>
       {record.tags?.length && (
-        <ul className="tags">
+        <ul className={styles.tags}>
           {record.tags.map((tag) => (
-            <li>{tag.value}</li>
+            <li>
+              {/* Add extra `<div>` (`display: block`) in attempt to limit the span of the
+             triple-click selection behavior. */}
+              <div>{tag.value}</div>
+            </li>
           ))}
         </ul>
       )}
@@ -50,12 +56,12 @@ function Subjects({
           <Subject actor={actor} subject={subject} />
         </li>
       ));
-      return <ul>{items}</ul>;
+      return <ul className={styles.subjectList}>{items}</ul>;
     } else {
       return <Subject actor={actor} subject={first} />;
     }
   } else {
-    return <p>No materials used</p>;
+    return <p className={styles.subject}>No materials used</p>;
   }
 }
 
@@ -93,35 +99,33 @@ function Subject({
       break;
     case 'resolved':
       return (
-        <div className="subject">
-          <a href={materialState.value.uri}>
-            {materialState.value.thumb ||
-            materialState.value.title ||
-            materialState.value.description ? (
-              <figure>
-                {materialState.value.thumb && (
-                  <img
-                    src={materialState.value.thumb.url}
-                    aria-labelledby={materialState.value.title && titleId}
-                  />
-                )}
-                {(materialState.value.title ||
-                  materialState.value.description) && (
-                  <figcaption>
-                    {materialState.value.title && (
-                      <cite id={titleId}>{materialState.value.title}</cite>
-                    )}
-                    {materialState.value.description && (
-                      <p>{materialState.value.description}</p>
-                    )}
-                  </figcaption>
-                )}
-              </figure>
-            ) : (
-              materialState.value.uri
-            )}
-          </a>
-        </div>
+        <a href={materialState.value.uri} className={styles.subject}>
+          {materialState.value.thumb ||
+          materialState.value.title ||
+          materialState.value.description ? (
+            <figure>
+              {materialState.value.thumb && (
+                <img
+                  src={materialState.value.thumb.url}
+                  aria-labelledby={materialState.value.title && titleId}
+                />
+              )}
+              {(materialState.value.title ||
+                materialState.value.description) && (
+                <figcaption>
+                  {materialState.value.title && (
+                    <cite id={titleId}>{materialState.value.title}</cite>
+                  )}
+                  {materialState.value.description && (
+                    <p>{materialState.value.description}</p>
+                  )}
+                </figcaption>
+              )}
+            </figure>
+          ) : (
+            materialState.value.uri
+          )}
+        </a>
       );
   }
 }

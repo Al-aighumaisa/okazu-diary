@@ -4,6 +4,7 @@ import { Link, redirect } from 'react-router';
 
 import { allowed_dids } from '~/config';
 import { didResolver } from '~/lib/atproto';
+import styles from './home.module.css';
 
 const actors = await Promise.all(
   allowed_dids.map(async (did) => {
@@ -47,7 +48,7 @@ export default function Home(): React.ReactNode {
       <title>Okazu Diary</title>
       <main>
         <h1>Okazu Diary</h1>
-        <ul>{items}</ul>
+        <ul className={styles.list}>{items}</ul>
       </main>
     </>
   );

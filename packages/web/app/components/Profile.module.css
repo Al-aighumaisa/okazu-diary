@@ -1,0 +1,17 @@
+.avatarName {
+  display: flex;
+  gap: 12px;
+}
+
+.avatarName > div {
+  display: flex;
+  flex-direction: column;
+}
+
+.avatarName > div > h1 {
+  margin-block: auto;
+}
+
+.avatarName > div > p {
+  color: #444;
+}
