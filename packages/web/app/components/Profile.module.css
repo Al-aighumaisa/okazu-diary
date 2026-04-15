@@ -15,3 +15,13 @@
 .avatarName > div > p {
   color: #444;
 }
+
+.website::before {
+  content: '🔗';
+  margin-inline-end: 4px;
+}
+
+.website a {
+  color: revert;
+  text-decoration: revert;
+}

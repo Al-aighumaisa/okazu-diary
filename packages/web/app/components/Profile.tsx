@@ -49,6 +49,14 @@ export default function Profile({
             name={profile.displayName}
           />
           {profile.description !== undefined && <p>{profile.description}</p>}
+          {profile.website && (
+            <p className={styles.website}>
+              <link rel="me" href={profile.website} />
+              <a rel="me" href={profile.website}>
+                {profile.website}
+              </a>
+            </p>
+          )}
         </>
       );
     }
