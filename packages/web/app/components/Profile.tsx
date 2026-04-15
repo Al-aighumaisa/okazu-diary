@@ -7,7 +7,7 @@ import styles from './Profile.module.css';
 interface ProfileProps {
   did: string;
   profileState: ProfileState.State;
-  handle: string | undefined;
+  handle: string;
   onRetry: () => void;
 }
 
@@ -23,7 +23,7 @@ export default function Profile({
       if (!profileState.error) {
         return (
           <>
-            <AvatarAndName repo={did} name="profile-name" />
+            <AvatarAndName repo={did} name="Loading…" />
           </>
         );
       }
@@ -84,7 +84,11 @@ function AvatarAndName({
       />
       <div>
         {name !== undefined && <h1 id="profile-name">{name}</h1>}
-        {<p>{handle ? `@${handle}` : '(Invalid handle!)'}</p>}
+        {handle && (
+          <p>
+            {handle === 'handle.invalid' ? '(Invalid handle!)' : `@${handle}`}
+          </p>
+        )}
       </div>
     </div>
   );

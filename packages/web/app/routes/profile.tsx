@@ -141,7 +141,7 @@ export default function ProfilePage({
         <Profile
           did={did}
           profileState={profileState}
-          handle={handle}
+          handle={handle ?? 'handle.invalid'}
           onRetry={retryProfile}
         />
       </header>
