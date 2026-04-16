@@ -12,13 +12,14 @@
 
 .tags > li,
 .subject {
-  border: 1px solid gray;
+  border: 1px solid var(--border-color);
   border-radius: 4px;
 }
 
 .tags > li {
   display: inline-block;
-  padding: 2px;
+  padding-block: 1px;
+  padding-inline: 4px;
 }
 
 .tags > li > ::before {
@@ -54,4 +55,18 @@
 
 .subject figure > figcaption > cite {
   font-weight: bold;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.error > p {
+  color: #f00;
+}
+
+.error > button {
+  inline-size: fit-content;
 }

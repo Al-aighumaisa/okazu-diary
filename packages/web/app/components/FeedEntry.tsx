@@ -89,12 +89,12 @@ function Subject({
     // Fall through
     case 'error':
       content ??= (
-        <>
-          <p style={{ color: '#F00' }}>{`${materialState.error}`}</p>
+        <div className={styles.error}>
+          <p>{`${materialState.error}`}</p>
           <button onClick={retryMaterial} disabled={pending}>
             Retry
           </button>
-        </>
+        </div>
       );
       return <div className={styles.subject}>{content}</div>;
     case 'resolved':

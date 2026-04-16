@@ -148,18 +148,44 @@ export default function ProfilePage({
       <main>{feedContent}</main>
       <div className={styles.pageNav}>
         {prevPage ? (
-          <Link to={prevPage} rel="prev" title="Previous page">
-            «
+          <Link
+            to={prevPage}
+            rel="prev"
+            className="button"
+            draggable="false"
+            title="Previous page"
+          >
+            <span aria-hidden="true">«</span>
           </Link>
         ) : (
-          <span title="Previous page">«</span>
+          <span
+            role="button"
+            aria-disabled="true"
+            className="button"
+            title="Previous page"
+          >
+            <span aria-hidden="true">«</span>
+          </span>
         )}{' '}
         {nextPage ? (
-          <Link to={nextPage} rel="next" title="Next page">
-            »
+          <Link
+            className="button"
+            to={nextPage}
+            rel="next"
+            draggable="false"
+            title="Next page"
+          >
+            <span aria-hidden="true">»</span>
           </Link>
         ) : (
-          <span title="Next page">»</span>
+          <span
+            role="button"
+            aria-disabled="true"
+            className="button"
+            title="Next page"
+          >
+            <span aria-hidden="true">»</span>
+          </span>
         )}
       </div>
     </>

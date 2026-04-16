@@ -3,19 +3,19 @@
   padding: 12px;
   flex-direction: column;
   gap: 8px;
-  border-block-end: 1px solid gray;
+  border-block-end: 1px solid var(--border-color);
 }
 
 .feed > li {
   margin: 12px;
   padding: 12px;
-  border: 1px solid gray;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
 }
 
 .pageNav {
   display: flex;
-  width: fit-content;
+  inline-size: fit-content;
   margin-inline: auto;
   margin-block-start: 16px;
   margin-block-end: 12px;
@@ -23,19 +23,5 @@
 }
 
 .pageNav > * {
-  display: inline-block;
-  border: 1px solid gray;
-  border-radius: 4px;
-  min-width: 2em;
-  padding: 2px;
-  text-align: center;
-  user-select: none;
-}
-
-.pageNav > a:hover {
-  background-color: #ddd;
-}
-
-.pageNav > span {
-  background-color: gray;
+  min-inline-size: 2em;
 }

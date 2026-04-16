@@ -19,3 +19,55 @@ ul,
 menu {
   list-style: none;
 }
+
+:root {
+  --border-color: gray;
+}
+
+/* Replicates the appearance of a button while retaining the semantics of a hyperlink. */
+.button {
+  display: block;
+  border: 1px solid #888;
+  border-color: #999;
+  border-radius: 4px;
+  padding-block: 1px;
+  padding-inline: 4px;
+  color: #666;
+  background-color: #eee7;
+  font-style: system-ui;
+  text-align: center;
+  user-select: none;
+  cursor: default;
+}
+
+a.button {
+  border-color: #888;
+  color: initial;
+  background-color: #eee;
+}
+
+a.button:hover {
+  border-color: #666;
+  background-color: #ddd;
+}
+
+a.button:active:hover {
+  border-color: #444;
+  background-color: #bbb;
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --border-color: #000;
+  }
+
+  .button {
+    border-color: #000 !important;
+    color: #000 !important;
+    background-color: #aaa;
+  }
+
+  a.button:not(:active):not(:hover) {
+    background-color: #fff;
+  }
+}
