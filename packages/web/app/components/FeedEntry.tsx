@@ -2,6 +2,7 @@ import type { ComAtprotoRepoStrongRef } from '@atproto/api';
 import type { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import type React from 'react';
 import { useId } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 import { useMaterial } from '~/state/material';
 import styles from './FeedEntry.module.css';
@@ -44,22 +45,33 @@ function Subjects({
   actor: string;
   subjects: ComAtprotoRepoStrongRef.Main[] | undefined;
 }): React.ReactNode {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    rootMargin: '200px 0px',
+  });
+
   if (!subjects) {
     return null;
   }
 
   const [first, ...rest] = subjects;
   if (first) {
-    if (rest.length) {
-      const items = subjects.map((subject) => (
-        <li key={subject.cid}>
-          <Subject actor={actor} subject={subject} />
-        </li>
-      ));
-      return <ul className={styles.subjectList}>{items}</ul>;
+    let content;
+    if (inView) {
+      if (rest.length) {
+        const items = subjects.map((subject) => (
+          <li key={subject.cid}>
+            <Subject actor={actor} subject={subject} />
+          </li>
+        ));
+        content = <ul className={styles.subjectList}>{items}</ul>;
+      } else {
+        content = <Subject actor={actor} subject={first} />;
+      }
     } else {
-      return <Subject actor={actor} subject={first} />;
+      content = null;
     }
+    return <div ref={ref}>{content}</div>;
   } else {
     return <p className={styles.subject}>No materials used</p>;
   }
