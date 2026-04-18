@@ -63,10 +63,12 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
       try {
         didDoc = await didResolver.resolve(repo);
       } catch (error) {
-        setState({
-          status: 'error',
-          error,
-        });
+        if (!signal.aborted) {
+          setState({
+            status: 'error',
+            error,
+          });
+        }
         return;
       }
       if (!didDoc) {
@@ -115,7 +117,9 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
         cid: res.data.cid,
       });
     })().catch((error) => {
-      setState({ status: 'error', error });
+      if (!signal.aborted) {
+        setState({ status: 'error', error });
+      }
     });
 
     return () => abort.abort();

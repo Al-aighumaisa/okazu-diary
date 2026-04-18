@@ -59,7 +59,9 @@ export function useActorFeed(
         next: res.data.cursor,
       });
     })().catch((error) => {
-      setState({ status: 'error', error });
+      if (!signal.aborted) {
+        setState({ status: 'error', error });
+      }
     });
 
     return () => abort.abort();
