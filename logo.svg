@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+	<!-- The last `l` command is technically not necessary, but without this, the fill color of this
+	  path may interfere with antialiasing of the right edge of the foreground path when rasterizing
+	  with ImageMagick. -->
+	<path fill="#f7f" d="
+		M 30,3 a2,2 0 0 0 -2,-2
+		h -22
+		a 4,4 0 0 0 -4,4
+		v 22
+		a 4,4 0 0 0 4,4
+		h 22
+		a 2,2 0 0 0 2,-2
+		l -3,-3 3,-3
+		z" />
+	<path fill="#eee" d="
+		M 30,23
+		h -23
+		a 3,3 0 0 0 0,6
+		h 23
+		z" />
+	<path fill="#ff0" d="
+		M 19,6
+		a 6,6 0 1 0 4,4
+		a 4,4 0 1 1 -4,-4
+		z" />
+</svg>
