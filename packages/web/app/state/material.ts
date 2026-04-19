@@ -7,7 +7,11 @@ import { getPds } from '@atproto/identity';
 import { OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api';
 import { useEffect, useReducer, useState } from 'react';
 
+import coalesce, { type State as CoalescerState } from '~/lib/coalescer';
 import { didResolver } from '~/lib/atproto';
+
+const coalescerState: CoalescerState<ComAtprotoRepoGetRecord.Response> =
+  new Map();
 
 export type State =
   | { status: 'pending'; error?: unknown }
@@ -100,7 +104,13 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
       if (cid) {
         params.cid = cid;
       }
-      const res = await client.com.atproto.repo.getRecord(params, { signal });
+      const res = await coalesce(
+        coalescerState,
+        cid ? `${uri}/${cid}` : uri,
+        (signal) => client.com.atproto.repo.getRecord(params, { signal }),
+        [],
+        { signal },
+      );
 
       const result = OrgOkazuDiaryMaterialExternal.validateMain(res.data.value);
       if (!result.success) {
