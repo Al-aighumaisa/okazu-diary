@@ -21,7 +21,7 @@ export default function FeedEntry({
       <header>
         <time dateTime={record.datetime}>{record.datetime}</time>
       </header>
-      {record.tags?.length && (
+      {record.tags?.length ? (
         <ul className={styles.tags}>
           {record.tags.map((tag) => (
             <li>
@@ -31,7 +31,7 @@ export default function FeedEntry({
             </li>
           ))}
         </ul>
-      )}
+      ) : null}
       <Subjects actor={actor} subjects={record.subjects} />
       <p>{record.note}</p>
     </article>
