@@ -1,12 +1,15 @@
-*:not(button) {
+:where(:not(button)) {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
   border: 0 solid;
+  font-style: inherit;
+}
+
+:root {
   font-family:
     'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
     'Noto Sans JP', sans-serif;
-  font-style: inherit;
 }
 
 a {
@@ -34,7 +37,7 @@ menu {
   padding-inline: 4px;
   color: #666;
   background-color: #eee7;
-  font-style: system-ui;
+  font-family: system-ui;
   text-align: center;
   user-select: none;
   cursor: default;
