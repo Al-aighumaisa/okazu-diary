@@ -113,11 +113,15 @@ export default function ProfilePage({
     case 'resolved':
       feedContent = (
         <ul className={styles.feed}>
-          {feedState.items.map((record) => (
-            <li key={record.cid}>
-              <FeedEntry actor={did} record={record.value} />
-            </li>
-          ))}
+          {feedState.items.map(
+            (record) =>
+              (!record.value.visibility ||
+                record.value.visibility === 'public') && (
+                <li key={record.cid}>
+                  <FeedEntry actor={did} record={record.value} />
+                </li>
+              ),
+          )}
         </ul>
       );
       if (feedState.next) {
