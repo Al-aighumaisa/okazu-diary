@@ -1,3 +1,8 @@
+import type { CompatibleOperation } from '@atcute/did-plc';
+import type { DidDocument } from '@atproto/identity';
+
+import prefetchedDidsJson from './prefetched-dids.json';
+
 const vite_okazu_diary_web_allowed_dids =
   import.meta.env.VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS?.trim();
 if (!vite_okazu_diary_web_allowed_dids) {
@@ -22,3 +27,8 @@ export const plc =
 export const bsky_cdn =
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   import.meta.env.VITE_OKAZU_DIARY_WEB_BSKY_CDN || 'https://cdn.bsky.app';
+
+export const prefetchedDids = new Map<
+  string,
+  DidDocument | CompatibleOperation
+>(Object.entries(prefetchedDidsJson));

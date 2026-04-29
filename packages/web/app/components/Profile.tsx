@@ -7,7 +7,7 @@ import styles from './Profile.module.css';
 interface ProfileProps {
   did: string;
   profileState: ProfileState.State;
-  handle: string;
+  handle: string | undefined;
   onRetry: () => void;
 }
 

@@ -1,4 +1,4 @@
-export type State<V, K = string> = Map<K, Entry<V>>;
+export type State<K = string> = Map<K, Entry<unknown>>;
 
 export interface Options {
   signal?: AbortSignal | undefined;
@@ -10,9 +10,11 @@ interface Entry<V> {
   value: Promise<V>;
 }
 
+export const state: State<unknown> = new Map();
+
 /** Coalesce concurrent identical requests. */
 export default async function coalesce<T, Args extends unknown[], K = string>(
-  state: State<T, K>,
+  state: State<K>,
   key: K,
   f: (signal?: AbortSignal, ...args: Args) => Promise<T>,
   args: Args,
@@ -30,7 +32,7 @@ export default async function coalesce<T, Args extends unknown[], K = string>(
       );
     }
 
-    return entry.value;
+    return entry.value as T;
   } else {
     const abort = new AbortController();
     const signals: AbortSignal[] = [];

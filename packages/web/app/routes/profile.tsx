@@ -1,20 +1,19 @@
-import { AtpBaseClient } from '@atproto/api';
-import { getHandle, getPds, HandleResolver } from '@atproto/identity';
+import { HandleResolver } from '@atproto/identity';
 import { Link, useLocation } from 'react-router';
 
 import FeedEntry from '~/components/FeedEntry';
 import Profile from '~/components/Profile';
 import { allowed_dids } from '~/config';
-import { didResolver } from '~/lib/atproto';
 import { useActorFeed } from '~/state/actorFeed';
 import { useProfile } from '~/state/profile';
 import type { Route } from './+types/profile';
 import styles from './profile.module.css';
+import { useDid } from '~/state/did';
+import { useHandle } from '~/state/handle';
 
 interface LoaderData {
   did: string;
-  pds: string;
-  handle: string | undefined;
+  prefetchedHandle: string | undefined;
 }
 
 const handleResolver = new HandleResolver();
@@ -22,12 +21,12 @@ const handleResolver = new HandleResolver();
 export async function clientLoader({
   params: { id },
 }: Route.LoaderArgs): Promise<LoaderData> {
-  let did, handle;
+  let did, prefetchedHandle;
 
   if (id) {
     if (id.startsWith('@')) {
-      handle = id.slice(1);
-      did = await handleResolver.resolve(handle);
+      prefetchedHandle = id.slice(1);
+      did = await handleResolver.resolve(prefetchedHandle);
       if (!did) {
         throw new Response(null, { status: 404 });
       }
@@ -41,46 +40,27 @@ export async function clientLoader({
       throw new Response(null, { status: 404 });
     }
   } else {
+    // TODO: Use a prefetched handle for this case.
     did = allowed_dids[0]!;
   }
 
-  const doc = await didResolver.resolve(did);
-  if (!doc) {
-    throw new Response(null, { status: 404 });
-  }
-
-  const pds = getPds(doc);
-  if (!pds) {
-    throw new Error('DID document does not have atproto PDS service');
-  }
-
-  if (!handle) {
-    const docHandle = getHandle(doc);
-    if (docHandle) {
-      const roundTripDid = await handleResolver.resolve(docHandle);
-      if (roundTripDid === did) {
-        handle = docHandle;
-      }
-    }
-  }
-
-  return { did, pds, handle };
+  return { did, prefetchedHandle };
 }
 
 export default function ProfilePage({
-  loaderData: { did, pds, handle },
-}: {
-  loaderData: LoaderData;
-}): React.ReactNode {
-  const client = new AtpBaseClient({ service: pds });
+  loaderData: { did, prefetchedHandle },
+}: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
+  const didRes = useDid(did);
+  const handle = useHandle(didRes, prefetchedHandle);
+
   const { search } = useLocation();
 
-  const [profileState, retryProfile] = useProfile(did, client);
+  const [profileState, retryProfile] = useProfile(did, didRes);
 
   const query = new URLSearchParams(search);
   const cursor = query.get('cursor');
   const reverse = query.get('reverse') === '1';
-  const [feedState, retryFeed] = useActorFeed(did, client, cursor, reverse);
+  const [feedState, retryFeed] = useActorFeed(did, didRes, cursor, reverse);
 
   let prevPage, nextPage;
   if (cursor) {
@@ -145,7 +125,7 @@ export default function ProfilePage({
         <Profile
           did={did}
           profileState={profileState}
-          handle={handle ?? 'handle.invalid'}
+          handle={handle}
           onRetry={retryProfile}
         />
       </header>

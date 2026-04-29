@@ -3,15 +3,11 @@ import {
   AtUri,
   type ComAtprotoRepoGetRecord,
 } from '@atproto/api';
-import { getPds } from '@atproto/identity';
 import { OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api';
 import { useEffect, useReducer, useState } from 'react';
 
-import coalesce, { type State as CoalescerState } from '~/lib/coalescer';
-import { didResolver } from '~/lib/atproto';
-
-const coalescerState: CoalescerState<ComAtprotoRepoGetRecord.Response> =
-  new Map();
+import coalesce, { state as coalescerState } from '~/lib/coalescer';
+import { useDid } from './did';
 
 export type State =
   | { status: 'pending'; error?: unknown }
@@ -30,19 +26,23 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
   } catch (e) {
     error = e;
   }
-  if (!rkey) {
-    error = new Error('Missing rkey in AT URI');
-  }
+
+  const didRes = useDid(
+    // This satisfies the overload signature since `repo` is defined iff the `uri`
+    // successfully parses and has an rkey. We are not using `if` statement here to make the
+    // `react-hooks/rules-of-hooks` lint happy.
+    // @ts-expect-error
+    repo,
+    rkey ? undefined : (error ?? new Error('Missing rkey in AT URI')),
+  );
 
   const [state, setState] = useState<State>(
-    error
+    didRes.state.error
       ? {
           status: 'error',
-          error,
+          error: didRes.state.error,
         }
-      : {
-          status: 'pending',
-        },
+      : { status: 'pending' },
   );
   const [retryState, retry] = useReducer((x) => !x, true);
   const ret: [State, () => void] = [
@@ -54,44 +54,17 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
     },
   ];
 
+  const service = didRes.state.pds;
+
   useEffect(() => {
+    if (!(rkey && service)) {
+      return;
+    }
+
     const abort = new AbortController();
     const signal = abort.signal;
 
     (async () => {
-      if (!rkey) {
-        return;
-      }
-
-      let didDoc;
-      try {
-        didDoc = await didResolver.resolve(repo);
-      } catch (error) {
-        if (!signal.aborted) {
-          setState({
-            status: 'error',
-            error,
-          });
-        }
-        return;
-      }
-      if (!didDoc) {
-        setState({
-          status: 'error',
-          error: new Error('Unable to resolve DID'),
-        });
-        return;
-      }
-
-      const service = getPds(didDoc);
-      if (!service) {
-        setState({
-          status: 'error',
-          error: new Error('DID document does not have atproto PDS service'),
-        });
-        return;
-      }
-
       const client = new AtpBaseClient({
         service,
       });
@@ -107,7 +80,8 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
       const res = await coalesce(
         coalescerState,
         cid ? `${uri}/${cid}` : uri,
-        (signal) => client.com.atproto.repo.getRecord(params, { signal }),
+        (signal) =>
+          client.com.atproto.repo.getRecord(params, signal && { signal }),
         [],
         { signal },
       );
@@ -133,7 +107,7 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
     });
 
     return () => abort.abort();
-  }, [uri, cid, retryState]);
+  }, [uri, cid, service, retryState]);
 
   return ret;
 }

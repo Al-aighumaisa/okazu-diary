@@ -3,12 +3,12 @@ import type React from 'react';
 import { Link } from 'react-router';
 
 import { allowed_dids } from '~/config';
-import { didResolver } from '~/lib/atproto';
+import { didResolver, getPrefetchedDid } from '~/lib/identity';
 import styles from './home.module.css';
 
 const actors = await Promise.all(
   allowed_dids.map(async (did) => {
-    const didDoc = await didResolver.resolve(did);
+    const didDoc = getPrefetchedDid(did) ?? (await didResolver.resolve(did));
     if (!didDoc) {
       return { did };
     }

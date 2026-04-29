@@ -1,9 +1,11 @@
-import type { AtpBaseClient, ComAtprotoRepoListRecords } from '@atproto/api';
+import { AtpBaseClient, type ComAtprotoRepoListRecords } from '@atproto/api';
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import { useEffect, useReducer, useState } from 'react';
 
+import type * as didHook from './did';
+
 export type State =
-  | { status: 'pending'; error?: unknown }
+  | { status: 'pending'; error: unknown }
   | {
       status: 'resolved';
       items: {
@@ -11,21 +13,32 @@ export type State =
         value: OrgOkazuDiaryFeedEntry.Main;
       }[];
       next: string | undefined;
+      error?: never;
     }
   | { status: 'error'; error: unknown };
 
 export function useActorFeed(
   did: string,
-  client: AtpBaseClient,
+  didRes: didHook.HookResponse,
   cursor: string | null,
   reverse: boolean,
 ): [State, () => void] {
   const [state, setState] = useState<State>({
-    status: 'pending',
+    status:
+      didRes.state.status === 'resolved' ? 'pending' : didRes.state.status,
+    error: didRes.state.error,
   });
   const [retryState, retry] = useReducer((x) => !x, true);
 
+  const pds = didRes.state.pds;
+
   useEffect(() => {
+    if (!pds) {
+      return;
+    }
+
+    const client = new AtpBaseClient({ service: pds });
+
     const abort = new AbortController();
     const signal = abort.signal;
 
@@ -65,14 +78,18 @@ export function useActorFeed(
     });
 
     return () => abort.abort();
-  }, [did, cursor, reverse, retryState]);
+  }, [pds, cursor, reverse, retryState]);
 
   return [
     state,
     () => {
-      const error = state.status === 'error' ? state.error : null;
+      const error = didRes.state.error ?? state.error ?? null;
       setState({ status: 'pending', error });
-      retry();
+      if (didRes.state.status === 'error') {
+        didRes.retry();
+      } else {
+        retry();
+      }
     },
   ];
 }

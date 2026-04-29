@@ -1,6 +1,6 @@
 import {
   AppBskyActorProfile,
-  type AtpBaseClient,
+  AtpBaseClient,
   type BlobRef,
   type ComAtprotoLabelDefs,
   type $Typed,
@@ -9,6 +9,8 @@ import {
 import { XRPCError } from '@atproto/xrpc';
 import { OrgOkazuDiaryActorProfile } from '@okazu-diary/api';
 import { useEffect, useReducer } from 'react';
+
+import type * as didHook from './did';
 
 export type State =
   | {
@@ -45,7 +47,7 @@ type Action =
 
 export function useProfile(
   did: string,
-  client: AtpBaseClient,
+  didRes: didHook.HookResponse,
 ): [State, () => void] {
   const [state, dispatch] = useReducer(reducer, {
     status: 'pending',
@@ -53,7 +55,15 @@ export function useProfile(
   });
   const [retryState, retry] = useReducer((x) => !x, false);
 
+  const pds = didRes.state.pds;
+
   useEffect(() => {
+    if (!pds) {
+      return;
+    }
+
+    const client = new AtpBaseClient({ service: pds });
+
     const abort = new AbortController();
     const signal = abort.signal;
 
@@ -107,7 +117,7 @@ export function useProfile(
     return () => {
       abort.abort();
     };
-  }, [did, retryState]);
+  }, [pds, retryState]);
 
   return [
     state,

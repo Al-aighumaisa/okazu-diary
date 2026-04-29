@@ -1,7 +1,7 @@
 import { DidResolver, getHandle } from '@atproto/identity';
 import type { Config } from '@react-router/dev/config';
 
-import * as config from './app/config.js';
+import * as config from './app/config/index.js';
 
 const didResolver = new DidResolver({
   plcUrl: config.plc,
