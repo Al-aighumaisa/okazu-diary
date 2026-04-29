@@ -27,7 +27,7 @@ export default function AgeGate({
 
   return (
     <>
-      <dialog ref={ageGateDialogRef} className={styles.dialog}>
+      <dialog ref={ageGateDialogRef} className={styles.dialog} closedby="none">
         {state === false ? (
           <>
             <h1>Sorry</h1>
