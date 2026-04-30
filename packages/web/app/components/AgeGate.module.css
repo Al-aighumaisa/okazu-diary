@@ -10,7 +10,10 @@
 }
 
 .dialog::backdrop {
-  backdrop-filter: blur(50px) brightness(0.5);
+  /* Make the blur relative to the viewport because the size of material images scales propotional
+   * to the viewport. Otherwise, the blur could be made arbitralily small relative to the image as
+   * the user zooms out the viewport, effectively making the image clearer. */
+  backdrop-filter: blur(min(3vw, 3vh)) brightness(0.5);
 }
 
 .dialog > div {
