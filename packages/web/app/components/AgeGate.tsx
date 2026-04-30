@@ -1,6 +1,6 @@
 import storage from 'local-storage-fallback';
 import type React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import styles from './AgeGate.module.css';
 
 export default function AgeGate({
@@ -25,18 +25,29 @@ export default function AgeGate({
     setState(true);
   }
 
+  const headingId = useId();
+  const descId = useId();
+
   return (
     <>
-      <dialog ref={ageGateDialogRef} className={styles.dialog} closedby="none">
+      <dialog
+        ref={ageGateDialogRef}
+        className={styles.dialog}
+        closedby="none"
+        aria-labelledby={headingId}
+        aria-describedby={descId}
+      >
         {state === false ? (
           <>
-            <h1>Sorry</h1>
-            <p>This site is for adult only. Come back when you are an adult.</p>
+            <h1 id={headingId}>Sorry</h1>
+            <p id={descId}>
+              This site is for adult only. Come back when you are an adult.
+            </p>
           </>
         ) : (
           <>
-            <h1>Age Verification</h1>
-            <p>
+            <h1 id={headingId}>Age Verification</h1>
+            <p id={descId}>
               This website contains age-restricted materials. By entering, you
               affirm that you are over the age of 18 years or over the age of
               majority in your jurisdiction, and consent to viewing sexually
