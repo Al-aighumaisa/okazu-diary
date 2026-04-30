@@ -34,6 +34,11 @@ export interface Profile {
   hasBskyProfile: boolean;
 }
 
+export interface HookResponse {
+  state: State;
+  retry: () => void;
+}
+
 type Action =
   | {
       type: 'od_resp';
@@ -48,7 +53,7 @@ type Action =
 export function useProfile(
   did: string,
   didRes: didHook.HookResponse,
-): [State, () => void] {
+): HookResponse {
   const [state, dispatch] = useReducer(reducer, {
     status: 'pending',
     value: undefined,
@@ -119,13 +124,13 @@ export function useProfile(
     };
   }, [pds, retryState]);
 
-  return [
+  return {
     state,
-    () => {
+    retry: () => {
       dispatch({ type: 'reinit' });
       retry();
     },
-  ];
+  };
 }
 
 function reducer(state: State, action: Action): State {

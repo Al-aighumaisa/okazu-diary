@@ -1,5 +1,6 @@
 import type React from 'react';
 import { Outlet } from 'react-router';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export default function Home(): React.ReactNode {
   return (

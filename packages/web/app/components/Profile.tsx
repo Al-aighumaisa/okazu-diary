@@ -1,29 +1,37 @@
 import type { BlobRef } from '@atproto/api';
+import Skeleton from 'react-loading-skeleton';
 
-import * as ProfileState from '~/state/profile';
+import * as profileHook from '~/state/profile';
 import ProfileAvatar from './ProfileAvatar';
 import styles from './Profile.module.css';
 
 interface ProfileProps {
-  did: string;
-  profileState: ProfileState.State;
+  did: string | undefined;
+  profileRes: profileHook.HookResponse | undefined;
   handle: string | undefined;
-  onRetry: () => void;
 }
 
+export default function Profile(props: {
+  [P in keyof ProfileProps]: undefined;
+}): React.ReactNode;
+export default function Profile(props: ProfileProps): React.ReactNode;
 export default function Profile({
   did,
-  profileState,
+  profileRes,
   handle,
-  onRetry,
-}: ProfileProps): React.ReactNode {
+}: {
+  [P in keyof ProfileProps]?: ProfileProps[P] | undefined;
+} = {}): React.ReactNode {
   let pending;
-  switch (profileState.status) {
+  switch (profileRes?.state.status) {
     case 'pending':
-      if (!profileState.error) {
+    case undefined:
+      if (!profileRes?.state.error) {
         return (
           <>
-            <AvatarAndName repo={did} name="Loading…" />
+            <AvatarAndName repo={undefined} handle={handle} name={undefined} />
+            <Skeleton style={{ inlineSize: '40em' }} />
+            <Skeleton style={{ inlineSize: '40em' }} />
           </>
         );
       }
@@ -33,20 +41,20 @@ export default function Profile({
       return (
         <>
           <p style={{ color: '#F00' }}>{`${profileState.error}`}</p>
-          <button onClick={onRetry} disabled={pending}>
+          <button onClick={profileRes.retry} disabled={pending}>
             Retry
           </button>
         </>
       );
     case 'resolved': {
-      const profile = profileState.value;
+      const profile = profileRes.state.value;
       return (
         <>
           <AvatarAndName
             repo={did}
             blob={profile.avatar}
             handle={handle}
-            name={profile.displayName}
+            name={profile.displayName ?? null}
           />
           {profile.description !== undefined && <p>{profile.description}</p>}
           {profile.website && (
@@ -69,10 +77,10 @@ function AvatarAndName({
   handle,
   name,
 }: {
-  repo: string;
+  repo: string | undefined;
   blob?: BlobRef | undefined;
   handle?: string | undefined;
-  name: string | undefined;
+  name: string | null | undefined;
 }): React.ReactNode {
   return (
     <div className={styles.avatarName}>
@@ -80,15 +88,30 @@ function AvatarAndName({
         repo={repo}
         blob={blob}
         size={80}
-        aria-labelledby={name && 'profile-name'}
+        aria-labelledby={(name && 'profile-name') || undefined}
       />
       <div>
-        {name !== undefined && <h1 id="profile-name">{name}</h1>}
-        {handle && (
-          <p>
-            {handle === 'handle.invalid' ? '(Invalid handle!)' : `@${handle}`}
-          </p>
+        {name === undefined ? (
+          <Skeleton
+            containerClassName={styles.profileName}
+            style={{ inlineSize: '20em' }}
+          />
+        ) : (
+          name !== null && (
+            <h1 id="profile-name" className={styles.profileName}>
+              {name}
+            </h1>
+          )
         )}
+        <p className={styles.profileHandle}>
+          {handle === 'handle.invalid' ? (
+            '(Invalid handle!)'
+          ) : handle ? (
+            `@${handle}`
+          ) : (
+            <Skeleton />
+          )}
+        </p>
       </div>
     </div>
   );

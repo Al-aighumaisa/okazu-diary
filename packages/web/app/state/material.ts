@@ -10,15 +10,31 @@ import coalesce, { state as coalescerState } from '~/lib/coalescer';
 import { useDid } from './did';
 
 export type State =
-  | { status: 'pending'; error?: unknown }
+  | {
+      status: 'pending';
+      value?: never;
+      cid?: never;
+      error?: unknown;
+    }
   | {
       status: 'resolved';
       value: OrgOkazuDiaryMaterialExternal.Main;
       cid: string | undefined;
+      error?: never;
     }
-  | { status: 'error'; error: unknown };
+  | {
+      status: 'error';
+      error: unknown;
+      value?: never;
+      cid?: never;
+    };
 
-export function useMaterial(uri: string, cid?: string): [State, () => void] {
+export interface HookResponse {
+  state: State;
+  retry: () => void;
+}
+
+export function useMaterial(uri: string, cid?: string): HookResponse {
   let repo: string, collection: string, rkey: string | undefined, error;
   try {
     const atUri = new AtUri(uri);
@@ -45,14 +61,6 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
       : { status: 'pending' },
   );
   const [retryState, retry] = useReducer((x) => !x, true);
-  const ret: [State, () => void] = [
-    state,
-    () => {
-      const error = state.status === 'error' ? state.error : null;
-      setState({ status: 'pending', error });
-      retry();
-    },
-  ];
 
   const service = didRes.state.pds;
 
@@ -109,5 +117,12 @@ export function useMaterial(uri: string, cid?: string): [State, () => void] {
     return () => abort.abort();
   }, [uri, cid, service, retryState]);
 
-  return ret;
+  return {
+    state,
+    retry: () => {
+      const error = state.status === 'error' ? state.error : null;
+      setState({ status: 'pending', error });
+      retry();
+    },
+  };
 }

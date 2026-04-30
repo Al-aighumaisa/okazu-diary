@@ -17,12 +17,17 @@ export type State =
     }
   | { status: 'error'; error: unknown };
 
+export interface HookResponse {
+  state: State;
+  retry: () => void;
+}
+
 export function useActorFeed(
   did: string,
   didRes: didHook.HookResponse,
   cursor: string | null,
   reverse: boolean,
-): [State, () => void] {
+): HookResponse {
   const [state, setState] = useState<State>({
     status:
       didRes.state.status === 'resolved' ? 'pending' : didRes.state.status,
@@ -80,9 +85,9 @@ export function useActorFeed(
     return () => abort.abort();
   }, [pds, cursor, reverse, retryState]);
 
-  return [
+  return {
     state,
-    () => {
+    retry: () => {
       const error = didRes.state.error ?? state.error ?? null;
       setState({ status: 'pending', error });
       if (didRes.state.status === 'error') {
@@ -91,5 +96,5 @@ export function useActorFeed(
         retry();
       }
     },
-  ];
+  };
 }

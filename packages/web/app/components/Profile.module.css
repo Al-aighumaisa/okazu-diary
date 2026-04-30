@@ -8,12 +8,16 @@
   flex-direction: column;
 }
 
-.avatarName > div > h1 {
+.profileName {
   margin-block: auto;
 }
 
-.avatarName > div > p {
+.profileHandle {
   color: #444;
+}
+
+.profileHandle:not(.profileName ~ *) {
+  margin-block: auto;
 }
 
 .website::before {

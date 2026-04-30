@@ -5,7 +5,9 @@ import FeedEntry from '~/components/FeedEntry';
 import Profile from '~/components/Profile';
 import { allowed_dids } from '~/config';
 import { useActorFeed } from '~/state/actorFeed';
+import type * as actorFeedHook from '~/state/actorFeed';
 import { useProfile } from '~/state/profile';
+import type * as profileHook from '~/state/profile';
 import type { Route } from './+types/profile';
 import styles from './profile.module.css';
 import { useDid } from '~/state/did';
@@ -55,13 +57,41 @@ export default function ProfilePage({
 
   const { search } = useLocation();
 
-  const [profileState, retryProfile] = useProfile(did, didRes);
-
   const query = new URLSearchParams(search);
   const cursor = query.get('cursor');
   const reverse = query.get('reverse') === '1';
-  const [feedState, retryFeed] = useActorFeed(did, didRes, cursor, reverse);
 
+  return ProfilePageView(
+    did,
+    handle,
+    cursor,
+    reverse,
+    useProfile(did, didRes),
+    useActorFeed(did, didRes, cursor, reverse),
+  );
+}
+
+export function HydrateFallback(): React.ReactNode {
+  return ProfilePageView();
+}
+
+function ProfilePageView(): React.ReactNode;
+function ProfilePageView(
+  did: string,
+  handle: string | undefined,
+  cursor: string | null,
+  reverse: boolean,
+  profileRes: profileHook.HookResponse,
+  feedRes: actorFeedHook.HookResponse,
+): React.ReactNode;
+function ProfilePageView(
+  did?: string,
+  handle?: string,
+  cursor?: string | null,
+  reverse?: boolean,
+  profileRes?: profileHook.HookResponse,
+  feedRes?: actorFeedHook.HookResponse,
+): React.ReactNode {
   let prevPage, nextPage;
   if (cursor) {
     if (reverse) {
@@ -71,20 +101,31 @@ export default function ProfilePage({
     }
   }
 
-  let feedContent, pending;
-  switch (feedState.status) {
+  let feedContent;
+  switch (feedRes?.state.status) {
     case 'pending':
-      if (!feedState.error) {
-        feedContent = <p>Loading…</p>;
+    case undefined:
+      if (!feedRes?.state.error) {
+        feedContent = (
+          <ul className={styles.feed}>
+            {[...Array<void>(3)].map((_, i) => (
+              <li key={`skeleton-${i}`}>
+                <FeedEntry />
+              </li>
+            ))}
+          </ul>
+        );
         break;
       }
-      pending = true;
     // Fall through
     case 'error':
       feedContent ??= (
         <>
-          <p style={{ color: '#F00' }}>{`${feedState.error}`}</p>
-          <button onClick={retryFeed} disabled={pending}>
+          <p style={{ color: '#F00' }}>{`${feedRes.state.error}`}</p>
+          <button
+            onClick={feedRes.retry}
+            disabled={feedRes.state.status === 'pending'}
+          >
             Retry
           </button>
         </>
@@ -93,22 +134,22 @@ export default function ProfilePage({
     case 'resolved':
       feedContent = (
         <ul className={styles.feed}>
-          {feedState.items.map(
+          {feedRes.state.items.map(
             (record) =>
               (!record.value.visibility ||
                 record.value.visibility === 'public') && (
                 <li key={record.cid}>
-                  <FeedEntry actor={did} record={record.value} />
+                  <FeedEntry actor={did!} record={record.value} />
                 </li>
               ),
           )}
         </ul>
       );
-      if (feedState.next) {
+      if (feedRes.state.next) {
         if (reverse) {
-          prevPage = `?cursor=${feedState.next}&reverse=1`;
+          prevPage = `?cursor=${feedRes.state.next}&reverse=1`;
         } else {
-          nextPage = `?cursor=${feedState.next}`;
+          nextPage = `?cursor=${feedRes.state.next}`;
         }
       }
       break;
@@ -117,17 +158,12 @@ export default function ProfilePage({
   return (
     <>
       <title>
-        {profileState.status === 'resolved'
-          ? `${profileState.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
+        {profileRes?.state.status === 'resolved'
+          ? `${profileRes.state.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
           : 'Okazu Diary'}
       </title>
       <header className={styles.header}>
-        <Profile
-          did={did}
-          profileState={profileState}
-          handle={handle}
-          onRetry={retryProfile}
-        />
+        <Profile did={did} profileRes={profileRes} handle={handle} />
       </header>
       <main>{feedContent}</main>
       <div className={styles.pageNav}>

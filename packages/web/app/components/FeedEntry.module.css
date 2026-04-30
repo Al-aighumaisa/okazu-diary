@@ -42,15 +42,21 @@
   gap: 8px;
 }
 
-.subject figure > img {
-  height: 100%;
-  max-width: 50vw;
-  max-height: 50vh;
+.subjectThumb {
+  --max-width: 50vw;
+  max-width: var(--max-width);
+  --max-height: 50vh;
+  max-height: var(--max-height);
   object-fit: contain;
 }
 
-.subjectList .subject figure > img {
-  max-height: 25vh;
+:global(.react-loading-skeleton).subjectThumb {
+  height: calc(min(var(--max-width) * 16 / 9, var(--max-height)));
+  width: calc(min(var(--max-height) * 9 / 16, var(--max-width)));
+}
+
+.subjectList .subjectThumb {
+  --max-height: 25vh;
 }
 
 .subject figure > figcaption > cite {
