@@ -5,7 +5,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 export default function Home(): React.ReactNode {
   return (
     <>
-      <title>Okazu Diary</title>
       <link rel="icon" href="/icon.svg" sizes="any" type="image/svg+xml" />
       <link rel="icon" href="/icon-192.png" sizes="192x192" type="image/png" />
       <link rel="icon" href="/icon-128.png" sizes="128x128" type="image/png" />
