@@ -33,7 +33,7 @@ export default function EntryPage({
   loaderData: { did, prefetchedHandle, urlId },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
-  const rkey = search.get('key');
+  const rkey = search.get('id');
 
   const didRes = useDid(did);
   const entryRes =
@@ -43,7 +43,7 @@ export default function EntryPage({
           {
             state: {
               status: 'error',
-              error: new Error('Missing `key` parameter in URL'),
+              error: new Error('Missing `id` parameter in URL'),
             },
             // eslint-disable-next-line @typescript-eslint/no-empty-function
             retry: () => {},
@@ -119,7 +119,7 @@ function EntryPageView(
       <main>
         <article className={homeStyles.feedItem}>
           {entryRecord ? (
-            <Entry actor={did!} record={entryRecord} url={`?key=${rkey!}`} />
+            <Entry actor={did!} record={entryRecord} url={`?id=${rkey!}`} />
           ) : (
             <Entry />
           )}

@@ -141,7 +141,7 @@ function ProfilePageView(
                   <Entry
                     actor={did!}
                     record={record.value}
-                    url={`entry/?key=${record.uri.split('/').at(-1)}`}
+                    url={`entry/?id=${record.uri.split('/').at(-1)}`}
                   />
                 </li>
               ),
