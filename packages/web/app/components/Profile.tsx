@@ -48,7 +48,7 @@ export default function Profile({
     case 'error':
       return (
         <>
-          <p style={{ color: '#F00' }}>{`${profileState.error}`}</p>
+          <p style={{ color: '#F00' }}>{`${profileRes.state.error}`}</p>
           <button onClick={profileRes.retry} disabled={pending}>
             Retry
           </button>
