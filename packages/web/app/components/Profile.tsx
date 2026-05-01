@@ -1,5 +1,6 @@
 import type { BlobRef } from '@atproto/api';
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router';
 
 import * as profileHook from '~/state/profile';
 import ProfileAvatar from './ProfileAvatar';
@@ -9,6 +10,7 @@ interface ProfileProps {
   did: string | undefined;
   profileRes: profileHook.HookResponse | undefined;
   handle: string | undefined;
+  url?: string | undefined;
 }
 
 export default function Profile(props: {
@@ -19,6 +21,7 @@ export default function Profile({
   did,
   profileRes,
   handle,
+  url,
 }: {
   [P in keyof ProfileProps]?: ProfileProps[P] | undefined;
 } = {}): React.ReactNode {
@@ -29,7 +32,12 @@ export default function Profile({
       if (!profileRes?.state.error) {
         return (
           <>
-            <AvatarAndName repo={undefined} handle={handle} name={undefined} />
+            <AvatarAndName
+              repo={undefined}
+              handle={handle}
+              name={undefined}
+              url={url}
+            />
             <Skeleton style={{ inlineSize: '40em' }} />
             <Skeleton style={{ inlineSize: '40em' }} />
           </>
@@ -55,6 +63,7 @@ export default function Profile({
             blob={profile.avatar}
             handle={handle}
             name={profile.displayName ?? null}
+            url={url}
           />
           {profile.description !== undefined && <p>{profile.description}</p>}
           {profile.website && (
@@ -76,14 +85,16 @@ function AvatarAndName({
   blob,
   handle,
   name,
+  url,
 }: {
   repo: string | undefined;
   blob?: BlobRef | undefined;
   handle?: string | undefined;
   name: string | null | undefined;
+  url?: string | undefined;
 }): React.ReactNode {
-  return (
-    <div className={styles.avatarName}>
+  const content = (
+    <>
       <ProfileAvatar
         repo={repo}
         blob={blob}
@@ -113,6 +124,14 @@ function AvatarAndName({
           )}
         </p>
       </div>
-    </div>
+    </>
+  );
+
+  return url === undefined ? (
+    <div className={styles.avatarName}>{content}</div>
+  ) : (
+    <Link to={url} className={styles.avatarName}>
+      {content}
+    </Link>
   );
 }

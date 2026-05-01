@@ -10,12 +10,27 @@ import type * as profileHook from '~/state/profile';
 import { useDidRecord } from '~/state/record';
 import type * as recordHook from '~/state/record';
 import type { Route } from './+types/entry';
+import {
+  clientLoader as homeClientLoader,
+  type LoaderData as HomeLoaderData,
+} from './home';
 import homeStyles from './home.module.css';
 
-export { clientLoader } from './home';
+interface LoaderData extends HomeLoaderData {
+  urlId: string | undefined;
+}
+
+export async function clientLoader(
+  args: Route.LoaderArgs,
+): Promise<LoaderData> {
+  return {
+    ...(await homeClientLoader(args)),
+    urlId: args.params.id,
+  };
+}
 
 export default function EntryPage({
-  loaderData: { did, prefetchedHandle },
+  loaderData: { did, prefetchedHandle, urlId },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
   const rkey = search.get('key');
@@ -46,7 +61,14 @@ export default function EntryPage({
         );
   const handle = useHandle(didRes, prefetchedHandle);
 
-  return EntryPageView(did, handle, rkey, entryRes, useProfile(did, didRes));
+  return EntryPageView(
+    did,
+    handle,
+    urlId,
+    rkey,
+    entryRes,
+    useProfile(did, didRes),
+  );
 }
 
 export function HydrateFallback(): React.ReactNode {
@@ -56,6 +78,7 @@ export function HydrateFallback(): React.ReactNode {
 function EntryPageView(
   did: string,
   handle: string | undefined,
+  urlId: string | undefined,
   rkey: string | null,
   entryRes: recordHook.HookResponse<OrgOkazuDiaryFeedEntry.Main>,
   profileRes: profileHook.HookResponse,
@@ -64,6 +87,7 @@ function EntryPageView(): React.ReactNode;
 function EntryPageView(
   did?: string,
   handle?: string,
+  urlId?: string | undefined,
   rkey?: string | null,
   entryRes?: recordHook.HookResponse<OrgOkazuDiaryFeedEntry.Main>,
   profileRes?: profileHook.HookResponse,
@@ -85,7 +109,12 @@ function EntryPageView(
             : `Entry — Okazu Diary`}
       </title>
       <header className={homeStyles.header}>
-        <Profile did={did} profileRes={profileRes} handle={handle} />
+        <Profile
+          did={did}
+          profileRes={profileRes}
+          handle={handle}
+          url={urlId ? `/${urlId}/` : '/'}
+        />
       </header>
       <main>
         <article className={homeStyles.feedItem}>
