@@ -4,6 +4,15 @@
   gap: 6px;
 }
 
+.datetimeAnchor {
+  color: #444;
+}
+
+.datetimeAnchor:hover {
+  color: #444;
+  text-decoration: revert;
+}
+
 .tags {
   display: flex;
   flex-wrap: wrap;

@@ -14,10 +14,10 @@ export default [
     ...(did && !restDids.length
       ? [
           index('routes/profile/home.tsx', { id: 'homeProfile' }),
-          route('entry/:rkey', 'routes/profile/entry.tsx', { id: 'homeEntry' }),
+          route('entry', 'routes/profile/entry.tsx', { id: 'homeEntry' }),
         ]
       : [index('routes/home.tsx')]),
     route(':id', 'routes/profile/home.tsx'),
-    route(':id/entry/:rkey', 'routes/profile/entry.tsx'),
+    route(':id/entry', 'routes/profile/entry.tsx'),
   ]),
 ] satisfies RouteConfig;

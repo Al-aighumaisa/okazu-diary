@@ -33,7 +33,7 @@ export default function Entry({
     <article className={styles.article}>
       <header>
         {datetime ? (
-          <Link to={url!}>
+          <Link to={url!} className={styles.datetimeAnchor}>
             <time dateTime={datetime}>{datetime}</time>
           </Link>
         ) : (

@@ -1,5 +1,5 @@
 import { HandleResolver } from '@atproto/identity';
-import { Link, useLocation } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
@@ -55,11 +55,10 @@ export default function ProfilePage({
   const didRes = useDid(did);
   const handle = useHandle(didRes, prefetchedHandle);
 
-  const { search } = useLocation();
+  const [search] = useSearchParams();
 
-  const query = new URLSearchParams(search);
-  const cursor = query.get('cursor');
-  const reverse = query.get('reverse') === '1';
+  const cursor = search.get('cursor');
+  const reverse = search.get('reverse') === '1';
 
   return ProfilePageView(
     did,
@@ -142,7 +141,7 @@ function ProfilePageView(
                   <Entry
                     actor={did!}
                     record={record.value}
-                    url={`entry/${record.uri.split('/').at(-1)}`}
+                    url={`entry/?key=${record.uri.split('/').at(-1)}`}
                   />
                 </li>
               ),

@@ -12,16 +12,17 @@ export default {
   async prerender() {
     return [
       '/',
-      ...config.allowed_dids.map((did) => '/' + did),
+      ...(config.allowed_dids.length === 1 ? ['/entry'] : []),
+      ...config.allowed_dids.flatMap((did) => [`/${did}`, `/${did}/entry`]),
       ...(
         await Promise.all(
           config.allowed_dids.map(async (did) => {
             const doc = await didResolver.resolve(did);
             if (!doc) {
-              return [] as string[];
+              return [];
             }
             const handle = getHandle(doc);
-            return handle ? `/@${handle}` : ([] as string[]);
+            return handle ? [`/@${handle}`, `/@${handle}/entry`] : [];
           }),
         )
       ).flat(),
