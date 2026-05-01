@@ -214,7 +214,12 @@ function SubjectView({
         materialRes.state.value.uri
       );
     return materialRes.state.value?.uri ? (
-      <a href={materialRes.state.value.uri} className={styles.subject}>
+      <a
+        href={materialRes.state.value.uri}
+        target="_blank"
+        rel="noopener"
+        className={styles.subject}
+      >
         {content}
       </a>
     ) : (
