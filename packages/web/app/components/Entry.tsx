@@ -19,18 +19,30 @@ interface ActorFeedProps {
   url: string;
 }
 
-export default function Entry(props: ActorFeedProps): React.ReactNode;
-export default function Entry(): React.ReactNode;
+export default function Entry(
+  props: ActorFeedProps & React.HTMLAttributes<Element>,
+): React.ReactNode;
+export default function Entry(
+  props: React.HTMLAttributes<Element>,
+): React.ReactNode;
 export default function Entry({
   actor,
   record,
   url,
-}: ActorFeedProps | Record<string, undefined> = {}): React.ReactNode {
+  ...rest
+}: Partial<ActorFeedProps> &
+  React.HTMLAttributes<Element> = {}): React.ReactNode {
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
 
+  let className = styles.article;
+  if (rest.className) {
+    className += ` ${rest.className}`;
+    delete rest.className;
+  }
+
   return (
-    <article className={styles.article}>
+    <article className={className} {...rest}>
       <header>
         {datetime ? (
           <Link to={url!} className={styles.datetimeAnchor}>

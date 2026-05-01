@@ -117,13 +117,16 @@ function EntryPageView(
         />
       </header>
       <main>
-        <article className={homeStyles.feedItem}>
-          {entryRecord ? (
-            <Entry actor={did!} record={entryRecord} url={`?id=${rkey!}`} />
-          ) : (
-            <Entry />
-          )}
-        </article>
+        {entryRecord ? (
+          <Entry
+            actor={did!}
+            record={entryRecord}
+            url={`?id=${rkey!}`}
+            className={homeStyles.feedItem}
+          />
+        ) : (
+          <Entry className={homeStyles.feedItem} />
+        )}
       </main>
     </>
   );
