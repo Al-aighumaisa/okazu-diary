@@ -61,7 +61,11 @@ export default function Entry({
         <Subjects skeleton={true} />
       )}
       <p>
-        {record ? record.note : <Skeleton style={{ inlineSize: '30em' }} />}
+        {record ? (
+          <span className={styles.note}>{record.note}</span>
+        ) : (
+          <Skeleton style={{ inlineSize: '30em' }} />
+        )}
       </p>
     </article>
   );

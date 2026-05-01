@@ -68,6 +68,10 @@
   font-weight: bold;
 }
 
+.note {
+  white-space: pre-wrap;
+}
+
 .error {
   display: flex;
   flex-direction: column;
