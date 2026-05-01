@@ -49,7 +49,7 @@ export default function Entry({
               ) : (
                 // Add extra `<div>` (`display: block`) in attempt to limit the span of the
                 // triple-click selection behavior.
-                <div>{tag.value}</div>
+                <div data-nosnippet="true">{tag.value}</div>
               )}
             </li>
           ))}
@@ -186,6 +186,7 @@ function SubjectView({
                 src={materialRes.state.value.thumb.url}
                 className={styles.subjectThumb}
                 aria-labelledby={materialRes.state.value?.title && titleId}
+                data-nosnippet="true"
               />
             )
           ) : (
@@ -194,7 +195,7 @@ function SubjectView({
           {materialRes.state.value ? (
             (materialRes.state.value?.title ||
               materialRes.state.value?.description) && (
-              <figcaption>
+              <figcaption data-nosnippet="true">
                 {materialRes.state.value?.title && (
                   <cite id={titleId}>{materialRes.state.value?.title}</cite>
                 )}
