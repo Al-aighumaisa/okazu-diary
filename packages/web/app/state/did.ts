@@ -3,15 +3,26 @@ import { useEffect, useReducer, useState } from 'react';
 
 import { didResolver, getPrefetchedDid } from '~/lib/identity';
 
-export type State =
-  | { status: 'pending'; error: unknown; doc?: never; pds?: never }
-  | {
-      status: 'resolved';
-      doc: DidDocument;
-      pds: string;
-      error?: never;
-    }
-  | { status: 'error'; error: unknown; doc?: never; pds?: never };
+export type State = PendingState | ResolvedState | ErrorState;
+
+interface PendingState {
+  status: 'pending';
+  error: unknown;
+  doc?: never;
+  pds?: never;
+}
+interface ResolvedState {
+  status: 'resolved';
+  doc: DidDocument;
+  pds: string;
+  error?: never;
+}
+interface ErrorState {
+  status: 'error';
+  error: unknown;
+  doc?: never;
+  pds?: never;
+}
 
 export interface HookResponse {
   state: State;
@@ -19,8 +30,11 @@ export interface HookResponse {
 }
 
 export function useDid(did: string): HookResponse;
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export function useDid(did: undefined, error: {}): HookResponse;
+export function useDid(
+  did: undefined,
+  // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+  error: {},
+): HookResponse & { state: ErrorState };
 export function useDid(did: string | undefined, error?: unknown): HookResponse {
   let init: State | undefined;
 

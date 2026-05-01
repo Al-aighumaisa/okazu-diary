@@ -19,7 +19,7 @@ export type State =
       error?: unknown;
     }
   | { status: 'resolved'; value: Profile }
-  | { status: 'error'; error: unknown };
+  | { status: 'error'; error: unknown; value?: never };
 
 export interface Profile {
   displayName: string | undefined;

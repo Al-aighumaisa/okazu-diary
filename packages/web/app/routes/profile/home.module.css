@@ -6,7 +6,7 @@
   border-block-end: 1px solid var(--border-color);
 }
 
-.feed > li {
+.feedItem {
   margin: 12px;
   padding: 12px;
   border: 1px solid var(--border-color);

@@ -1,27 +1,30 @@
 import type { ComAtprotoRepoStrongRef } from '@atproto/api';
-import type { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
+import {
+  OrgOkazuDiaryMaterialExternal,
+  type OrgOkazuDiaryFeedEntry,
+} from '@okazu-diary/api';
 import type React from 'react';
 import { useId } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Skeleton from 'react-loading-skeleton';
 
-import { useMaterial } from '~/state/material';
-import type * as materialHook from '~/state/material';
-import styles from './FeedEntry.module.css';
+import { useUriRecord } from '~/state/record';
+import type * as recordHook from '~/state/record';
+import styles from './Entry.module.css';
+import { Link } from 'react-router';
 
 interface ActorFeedProps {
   actor: string;
   record: OrgOkazuDiaryFeedEntry.Main;
+  url: string;
 }
 
-export default function FeedEntry({
+export default function Entry(props: ActorFeedProps): React.ReactNode;
+export default function Entry(): React.ReactNode;
+export default function Entry({
   actor,
   record,
-}: ActorFeedProps): React.ReactNode;
-export default function FeedEntry(): React.ReactNode;
-export default function FeedEntry({
-  actor,
-  record,
+  url,
 }: ActorFeedProps | Record<string, undefined> = {}): React.ReactNode {
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
@@ -30,7 +33,9 @@ export default function FeedEntry({
     <article className={styles.article}>
       <header>
         {datetime ? (
-          <time dateTime={datetime}>{datetime}</time>
+          <Link to={url!}>
+            <time dateTime={datetime}>{datetime}</time>
+          </Link>
         ) : (
           <Skeleton style={{ inlineSize: '13em' }} />
         )}
@@ -134,13 +139,21 @@ function Subject({
   const cid = subject.uri.startsWith(`at://${actor}/`)
     ? undefined
     : subject.cid;
-  return <SubjectView materialRes={useMaterial(subject.uri, cid)} />;
+  return (
+    <SubjectView
+      materialRes={useUriRecord(
+        subject.uri,
+        OrgOkazuDiaryMaterialExternal.validateMain,
+        { cid },
+      )}
+    />
+  );
 }
 
 function SubjectView({
   materialRes,
 }: {
-  materialRes: materialHook.HookResponse;
+  materialRes: recordHook.HookResponse<OrgOkazuDiaryMaterialExternal.Main>;
 }): React.ReactNode {
   const titleId = useId();
 

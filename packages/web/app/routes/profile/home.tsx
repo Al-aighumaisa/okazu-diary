@@ -1,19 +1,19 @@
 import { HandleResolver } from '@atproto/identity';
 import { Link, useLocation } from 'react-router';
 
-import FeedEntry from '~/components/FeedEntry';
+import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
 import { allowed_dids } from '~/config';
 import { useActorFeed } from '~/state/actorFeed';
 import type * as actorFeedHook from '~/state/actorFeed';
-import { useProfile } from '~/state/profile';
-import type * as profileHook from '~/state/profile';
-import type { Route } from './+types/profile';
-import styles from './profile.module.css';
 import { useDid } from '~/state/did';
 import { useHandle } from '~/state/handle';
+import { useProfile } from '~/state/profile';
+import type * as profileHook from '~/state/profile';
+import type { Route } from './+types/home';
+import styles from './home.module.css';
 
-interface LoaderData {
+export interface LoaderData {
   did: string;
   prefetchedHandle: string | undefined;
 }
@@ -22,7 +22,7 @@ const handleResolver = new HandleResolver();
 
 export async function clientLoader({
   params: { id },
-}: Route.LoaderArgs): Promise<LoaderData> {
+}: Pick<Route.LoaderArgs, 'params'>): Promise<LoaderData> {
   let did, prefetchedHandle;
 
   if (id) {
@@ -107,10 +107,10 @@ function ProfilePageView(
     case undefined:
       if (!feedRes?.state.error) {
         feedContent = (
-          <ul className={styles.feed}>
+          <ul>
             {[...Array<void>(3)].map((_, i) => (
-              <li key={`skeleton-${i}`}>
-                <FeedEntry />
+              <li key={`skeleton-${i}`} className={styles.feedItem}>
+                <Entry />
               </li>
             ))}
           </ul>
@@ -133,13 +133,17 @@ function ProfilePageView(
       break;
     case 'resolved':
       feedContent = (
-        <ul className={styles.feed}>
+        <ul>
           {feedRes.state.items.map(
             (record) =>
               (!record.value.visibility ||
                 record.value.visibility === 'public') && (
-                <li key={record.cid}>
-                  <FeedEntry actor={did!} record={record.value} />
+                <li key={record.cid} className={styles.feedItem}>
+                  <Entry
+                    actor={did!}
+                    record={record.value}
+                    url={`entry/${record.uri.split('/').at(-1)}`}
+                  />
                 </li>
               ),
           )}

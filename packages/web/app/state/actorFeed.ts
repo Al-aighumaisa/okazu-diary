@@ -9,6 +9,7 @@ export type State =
   | {
       status: 'resolved';
       items: {
+        uri: string;
         cid: string;
         value: OrgOkazuDiaryFeedEntry.Main;
       }[];
@@ -65,7 +66,7 @@ export function useActorFeed(
         if (!result.success) {
           throw result.error;
         }
-        return { cid: r.cid, value: result.value };
+        return { uri: r.uri, cid: r.cid, value: result.value };
       });
       if (reverse) {
         items.reverse();
