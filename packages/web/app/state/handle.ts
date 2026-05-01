@@ -1,4 +1,3 @@
-import { OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api';
 import { useEffect, useState } from 'react';
 
 import coalesce, { state as coalescerState } from '~/lib/coalescer';

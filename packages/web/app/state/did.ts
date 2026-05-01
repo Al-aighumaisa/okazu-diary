@@ -125,7 +125,7 @@ export function useDid(did: string | undefined, error?: unknown): HookResponse {
     });
 
     return () => abort.abort();
-  }, [did, retryState]);
+  }, [did, error, retryState]);
 
   return {
     state,

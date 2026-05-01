@@ -122,7 +122,7 @@ export function useProfile(
     return () => {
       abort.abort();
     };
-  }, [pds, retryState]);
+  }, [did, pds, retryState]);
 
   return {
     state,

@@ -84,7 +84,7 @@ export function useActorFeed(
     });
 
     return () => abort.abort();
-  }, [pds, cursor, reverse, retryState]);
+  }, [did, pds, cursor, reverse, retryState]);
 
   return {
     state,
