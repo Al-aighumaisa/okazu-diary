@@ -108,6 +108,12 @@ function EntryPageView(
             ? `Entry at ${datetime} — Okazu Diary`
             : `Entry — Okazu Diary`}
       </title>
+      {did && rkey && (
+        <link
+          rel="alternate"
+          href={`at://${did}/org.okazu-diary.feed.entry/${rkey}`}
+        />
+      )}
       <header className={homeStyles.header}>
         <Profile
           did={did}

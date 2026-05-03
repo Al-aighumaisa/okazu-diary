@@ -167,6 +167,12 @@ function ProfilePageView(
           ? `${profileRes.state.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
           : 'Okazu Diary'}
       </title>
+      {did && (
+        <link
+          rel="alternate"
+          href={`at://${did}/org.okazu-diary.actor.profile/self`}
+        />
+      )}
       <header className={styles.header}>
         <Profile did={did} profileRes={profileRes} handle={handle} />
       </header>
