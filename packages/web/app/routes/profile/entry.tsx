@@ -116,16 +116,11 @@ function EntryPageView(
           url={urlId ? `/${urlId}/` : '/'}
         />
       </header>
-      <main>
+      <main className={homeStyles.feedItem}>
         {entryRecord ? (
-          <Entry
-            actor={did!}
-            record={entryRecord}
-            url={`?id=${rkey!}`}
-            className={homeStyles.feedItem}
-          />
+          <Entry actor={did!} record={entryRecord} url={`?id=${rkey!}`} />
         ) : (
-          <Entry className={homeStyles.feedItem} />
+          <Entry />
         )}
       </main>
     </>

@@ -19,30 +19,19 @@ interface ActorFeedProps {
   url: string;
 }
 
-export default function Entry(
-  props: ActorFeedProps & React.HTMLAttributes<Element>,
-): React.ReactNode;
-export default function Entry(
-  props: React.HTMLAttributes<Element>,
-): React.ReactNode;
+export default function Entry(props: ActorFeedProps): React.ReactNode;
+export default function Entry(): React.ReactNode;
 export default function Entry({
   actor,
   record,
   url,
-  ...rest
 }: Partial<ActorFeedProps> &
   React.HTMLAttributes<Element> = {}): React.ReactNode {
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
 
-  let className = styles.article;
-  if (rest.className) {
-    className += ` ${rest.className}`;
-    delete rest.className;
-  }
-
   return (
-    <article className={className} {...rest}>
+    <div className={styles.container}>
       <header>
         {datetime ? (
           <Link to={url!} className={styles.datetimeAnchor}>
@@ -79,7 +68,7 @@ export default function Entry({
           <Skeleton style={{ inlineSize: '30em' }} />
         )}
       </p>
-    </article>
+    </div>
   );
 }
 

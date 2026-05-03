@@ -109,7 +109,9 @@ function ProfilePageView(
           <ul>
             {[...Array<void>(3)].map((_, i) => (
               <li key={`skeleton-${i}`} className={styles.feedItem}>
-                <Entry />
+                <article>
+                  <Entry />
+                </article>
               </li>
             ))}
           </ul>
