@@ -1,22 +1,32 @@
-.dialog {
+.ageGate {
   margin: auto;
   padding: 1em;
   flex-direction: column;
   gap: 0.5em;
 }
 
-.dialog[open] {
+.ageGate[open] {
   display: flex;
 }
 
-.dialog::backdrop {
+.ageGate::backdrop {
   /* Make the blur relative to the viewport because the size of material images scales propotional
    * to the viewport. Otherwise, the blur could be made arbitralily small relative to the image as
    * the user zooms out the viewport, effectively making the image clearer. */
   backdrop-filter: blur(min(3vw, 3vh)) brightness(0.5);
 }
 
-.dialog > div {
+.ageGate > div {
   display: flex;
-  gap: 0.5em;
+  justify-content: center;
+  gap: 1em;
+}
+
+.ageGate > div > button {
+  flex: 1;
+  max-width: 30em;
+}
+
+.ageGate:not([data-init]) ~ * {
+  visibility: hidden;
 }

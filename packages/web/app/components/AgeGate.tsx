@@ -1,28 +1,44 @@
-import storage from 'local-storage-fallback';
+import storage_ from 'local-storage-fallback';
 import type React from 'react';
 import { useEffect, useId, useRef, useState } from 'react';
 import styles from './AgeGate.module.css';
 
+// XXX: The `Storage` object is exported as `storage.storage` rather than being default-exported
+// on SSR, whereas on CSR it is default exported but `storage.storage` is `undefined` in exchange.
+const storage =
+  // @ts-expect-error
+  (storage_.storage as Storage | StorageFallback) ??
+  //
+  storage_;
+
 export default function AgeGate({
   children,
 }: React.PropsWithChildren): React.ReactNode {
-  const storage_ = storage.storage ?? storage;
+  const [init, setInit] = useState<true | undefined>();
+  const [dismissed, setDismissed] = useState<boolean>();
 
-  const [state, setState] = useState<boolean | null>(null);
-
-  const ageGateDialogRef = useRef<HTMLDialogElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {
-    const adult = storage_.getItem('adult');
-    if (adult !== '1') {
-      ageGateDialogRef.current?.showModal();
-      setState(true);
+    if (
+      storage.getItem('adult') !== '1' &&
+      // Let crawlers in. Showing the content to search engines should be fine since they should
+      // understand that the page is adult-only by the `<meta>` tag below.
+      // This may let in kids with a non-browser user-agent string, but they could just outright lie
+      // to the age gate dialog, so it is no use assuming the risk of bypass by UA spoofing.
+      // Or what if the user were browsing with an exotic UA without the intention of bypass? Well,
+      // that's an extreme case and it should be fair to treat a user who pretends to be a
+      // non-browser as a non-browser.
+      navigator.userAgent.startsWith('Mozilla/')
+    ) {
+      dialogRef.current?.showModal();
     }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setInit(true);
   }, []);
 
   function confirmAge(): void {
-    storage_.setItem('adult', '1');
-    ageGateDialogRef.current?.close();
-    setState(true);
+    storage.setItem('adult', '1');
+    dialogRef.current?.close();
   }
 
   const headingId = useId();
@@ -30,19 +46,27 @@ export default function AgeGate({
 
   return (
     <>
+      <meta name="rating" content="adult" />
       <dialog
-        ref={ageGateDialogRef}
-        className={styles.dialog}
+        ref={dialogRef}
+        className={styles.ageGate}
         closedby="none"
         aria-labelledby={headingId}
         aria-describedby={descId}
+        // Indicate whether the initial `useEffect` has completed so that the content can be styled
+        // to be hidden until the dialog is initialized, just to be sure.
+        data-init={init}
       >
-        {state === false ? (
+        {dismissed ? (
           <>
             <h1 id={headingId}>Sorry</h1>
             <p id={descId}>
-              This site is for adult only. Come back when you are an adult.
+              This site is for adult only. Come back when you are OK with mature
+              content.
             </p>
+            <div>
+              <button onClick={() => setDismissed(false)}>Go back</button>
+            </div>
           </>
         ) : (
           <>
@@ -54,7 +78,7 @@ export default function AgeGate({
               explicit content.
             </p>
             <div>
-              <button onClick={() => setState(false)}>
+              <button onClick={() => setDismissed(true)}>
                 No, I am under 18 years old
               </button>
               <button onClick={confirmAge}>
@@ -64,7 +88,7 @@ export default function AgeGate({
           </>
         )}
       </dialog>
-      <div>{children}</div>
+      {children}
     </>
   );
 }
