@@ -1,6 +1,8 @@
+import type React from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {
   isRouteErrorResponse,
+  Link,
   Links,
   Meta,
   Outlet,
@@ -8,11 +10,11 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
+import AgeGate from '~/components/AgeGate';
+import GitIcon from '~/icon/Git-Icon-Black.svg?react';
 import type { Route } from './+types/root';
 import './app.css';
-import type React from 'react';
-
-import AgeGate from '~/components/AgeGate';
+import styles from './root.module.css';
 
 export function Layout({
   children,
@@ -71,7 +73,49 @@ export function Layout({
         <Links />
       </head>
       <body>
-        <AgeGate>{children}</AgeGate>
+        <AgeGate>
+          <div className={styles.container}>
+            <div className={styles.content}>{children}</div>
+            <footer className={styles.footer}>
+              <div className={styles.footerIntro}>
+                <h2 className={styles.footerSiteName}>
+                  <img
+                    src="/icon.svg"
+                    width="32px"
+                    height="32px"
+                    aria-labelledby="footer-title"
+                  />
+                  <span id="footer-title">Okazu Diary</span>
+                </h2>
+                <nav>
+                  <ul>
+                    <li>
+                      <Link to="/">Home</Link>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div className={styles.footerAppendix}>
+                <h3>Links</h3>
+                <ul>
+                  <li>
+                    <a
+                      href="https://okazu-diary.org/"
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      <GitIcon
+                        role="img"
+                        aria-label="Git"
+                        className={styles.footerIcon}
+                      />
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </footer>
+          </div>
+        </AgeGate>
         <ScrollRestoration />
         <Scripts />
       </body>
