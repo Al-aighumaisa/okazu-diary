@@ -30,45 +30,54 @@ export default function Entry({
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
 
+  const visibility = record?.visibility;
+  const unlisted = visibility && visibility !== 'public';
+
   return (
-    <div className={styles.container}>
-      <header>
-        {datetime ? (
-          <Link to={url!} className={styles.datetimeAnchor}>
-            <time dateTime={datetime}>{datetime}</time>
-          </Link>
-        ) : (
-          <Skeleton style={{ inlineSize: '13em' }} />
-        )}
-      </header>
-      {tags?.length ? (
-        <ul className={styles.tags}>
-          {tags.map((tag, i) => (
-            <li key={tag === undefined ? `skeleton-${i}` : `${i}-${tag.value}`}>
-              {tag === undefined ? (
-                <Skeleton style={{ inlineSize: '5em' }} />
-              ) : (
-                // Add extra `<div>` (`display: block`) in attempt to limit the span of the
-                // triple-click selection behavior.
-                <div data-nosnippet="true">{tag.value}</div>
-              )}
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      {record ? (
-        <Subjects actor={actor} subjects={record.subjects} />
-      ) : (
-        <Subjects skeleton={true} />
-      )}
-      <p>
+    <>
+      {unlisted && <meta name="robots" content="noindex" />}
+      <div className={styles.container}>
+        <header>
+          {unlisted && <span className={styles.unlisted}>Unlisted</span>}
+          {datetime ? (
+            <Link to={url!} className={styles.datetimeAnchor}>
+              <time dateTime={datetime}>{datetime}</time>
+            </Link>
+          ) : (
+            <Skeleton style={{ inlineSize: '13em' }} />
+          )}
+        </header>
+        {tags?.length ? (
+          <ul className={styles.tags}>
+            {tags.map((tag, i) => (
+              <li
+                key={tag === undefined ? `skeleton-${i}` : `${i}-${tag.value}`}
+              >
+                {tag === undefined ? (
+                  <Skeleton style={{ inlineSize: '5em' }} />
+                ) : (
+                  // Add extra `<div>` (`display: block`) in attempt to limit the span of the
+                  // triple-click selection behavior.
+                  <div data-nosnippet="true">{tag.value}</div>
+                )}
+              </li>
+            ))}
+          </ul>
+        ) : null}
         {record ? (
-          <span className={styles.note}>{record.note}</span>
+          <Subjects actor={actor} subjects={record.subjects} />
         ) : (
-          <Skeleton style={{ inlineSize: '30em' }} />
+          <Subjects skeleton={true} />
         )}
-      </p>
-    </div>
+        <p>
+          {record ? (
+            <span className={styles.note}>{record.note}</span>
+          ) : (
+            <Skeleton style={{ inlineSize: '30em' }} />
+          )}
+        </p>
+      </div>
+    </>
   );
 }
 

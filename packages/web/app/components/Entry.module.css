@@ -4,6 +4,19 @@
   gap: 6px;
 }
 
+.container > header {
+  display: flex;
+  gap: 4px;
+}
+
+.unlisted {
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding-block: 1px;
+  padding-inline: 4px;
+  background: #fd0;
+}
+
 .datetimeAnchor {
   color: #444;
 }
