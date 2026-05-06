@@ -28,13 +28,19 @@
   gap: 4px;
 }
 
+.footerSiteName > img {
+  user-select: none;
+}
+
 .footerIntro > nav > ul {
   display: flex;
   flex-direction: column;
+  gap: 2px;
 }
 
-.footerIntro > nav a {
-  text-decoration: revert;
+.footerIntro > nav > ul > li > * {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .footerAppendix {

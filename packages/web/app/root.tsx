@@ -1,4 +1,4 @@
-import type React from 'react';
+import { type default as React, useState, useEffect } from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {
   isRouteErrorResponse,
@@ -10,7 +10,10 @@ import {
   ScrollRestoration,
 } from 'react-router';
 
+import { AuthenticatedClientProvider } from '~/contexts/AuthenticatedClientProvider';
+import { useOAuthContext } from '~/contexts/OAuthContext';
 import AgeGate from '~/components/AgeGate';
+import SignInDialog from '~/components/SignInDialog';
 import GitIcon from '~/icon/Git-Icon-Black.svg?react';
 import type { Route } from './+types/root';
 import './app.css';
@@ -74,47 +77,12 @@ export function Layout({
       </head>
       <body>
         <AgeGate>
-          <div className={styles.container}>
-            <div className={styles.content}>{children}</div>
-            <footer className={styles.footer}>
-              <div className={styles.footerIntro}>
-                <h2 className={styles.footerSiteName}>
-                  <img
-                    src="/icon.svg"
-                    width="32px"
-                    height="32px"
-                    aria-labelledby="footer-title"
-                  />
-                  <span id="footer-title">Okazu Diary</span>
-                </h2>
-                <nav>
-                  <ul>
-                    <li>
-                      <Link to="/">Home</Link>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-              <div className={styles.footerAppendix}>
-                <h3>Links</h3>
-                <ul>
-                  <li>
-                    <a
-                      href="https://okazu-diary.org/"
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <GitIcon
-                        role="img"
-                        aria-label="Git"
-                        className={styles.footerIcon}
-                      />
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </footer>
-          </div>
+          <AuthenticatedClientProvider>
+            <div className={styles.container}>
+              <div className={styles.content}>{children}</div>
+              <Footer />
+            </div>
+          </AuthenticatedClientProvider>
         </AgeGate>
         <ScrollRestoration />
         <Scripts />
@@ -155,5 +123,77 @@ export function ErrorBoundary({
         </pre>
       )}
     </main>
+  );
+}
+
+function Footer(): React.ReactNode {
+  const { isLoading, isSignedIn, signIn, signOut } = useOAuthContext();
+
+  const [signInDialogOpened, setSignInDialogOpened] = useState<boolean>(false);
+
+  return (
+    <>
+      <footer className={styles.footer}>
+        <div className={styles.footerIntro}>
+          <h2 className={styles.footerSiteName}>
+            <img
+              src="/icon.svg"
+              width="32px"
+              height="32px"
+              aria-labelledby="footer-title"
+            />
+            <span id="footer-title">Okazu Diary</span>
+          </h2>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                {isSignedIn ? (
+                  <button
+                    className="appearance-none"
+                    disabled={isLoading}
+                    onClick={() => void signOut()}
+                  >
+                    Sign out
+                  </button>
+                ) : (
+                  <button
+                    className="appearance-none"
+                    disabled={isLoading}
+                    aria-controls="sign-in-dialog"
+                    aria-haspopup="dialog"
+                    onClick={() => setSignInDialogOpened(true)}
+                  >
+                    Sign in
+                  </button>
+                )}
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div className={styles.footerAppendix}>
+          <h3>Links</h3>
+          <ul>
+            <li>
+              <a href="https://okazu-diary.org/" target="_blank" rel="noopener">
+                <GitIcon
+                  role="img"
+                  aria-label="Git"
+                  className={styles.footerIcon}
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </footer>
+      <SignInDialog
+        id="sign-in-dialog"
+        openState={[signInDialogOpened, setSignInDialogOpened]}
+        isLoading={isLoading}
+        signIn={signIn}
+      />
+    </>
   );
 }

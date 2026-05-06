@@ -1,0 +1,47 @@
+.signIn {
+  margin: auto;
+  padding: 1em;
+  min-inline-size: 24em;
+  max-width: 80vw;
+  max-height: 80vh;
+  overflow: scroll;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signIn[open] {
+  display: flex;
+}
+
+.signIn::backdrop {
+  backdrop-filter: brightness(0.5);
+}
+
+.signIn > header {
+  text-align: center;
+}
+
+.signIn > header > button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2em;
+  height: 2em;
+  cursor: pointer;
+}
+
+.signIn > form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.signIn > form > label {
+  display: flex;
+  gap: 4px;
+}
+
+.signIn > p {
+  inline-size: min-content;
+  max-inline-size: 100%;
+}

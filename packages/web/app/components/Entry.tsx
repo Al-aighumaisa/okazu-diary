@@ -173,8 +173,8 @@ function SubjectView({
 
   if (materialRes.state.error) {
     return (
-      <div className={styles.error}>
-        <p>{`${materialRes.state.error}`}</p>
+      <div className={styles.errorContainer}>
+        <p className="error">{`${materialRes.state.error}`}</p>
         <button
           onClick={materialRes.retry}
           disabled={materialRes.state.status === 'pending'}

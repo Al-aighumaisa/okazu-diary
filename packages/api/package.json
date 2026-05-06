@@ -21,7 +21,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc --build tsconfig.json",
-    "codegen": "find ../../lexicons -name '*.json' -exec lex gen-api --yes src/client {} +"
+    "codegen": "find ../../lexicons -mindepth 4 -name '*.json' -exec lex gen-api --yes src/client {} +"
   },
   "dependencies": {
     "@atproto/lexicon": "^0.6.0",

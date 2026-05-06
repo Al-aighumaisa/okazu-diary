@@ -1,10 +1,9 @@
+import { getHandle } from '@atproto/identity';
 import { useEffect, useState } from 'react';
 
 import coalesce, { state as coalescerState } from '~/lib/coalescer';
+import { handleResolver } from '~/lib/identity';
 import type * as didHook from './did';
-import { getHandle, HandleResolver } from '@atproto/identity';
-
-const handleResolver = new HandleResolver();
 
 export function useHandle(
   didRes: didHook.HookResponse,

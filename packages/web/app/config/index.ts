@@ -19,6 +19,12 @@ export const allowed_dids: readonly string[] =
     ? []
     : vite_okazu_diary_web_allowed_dids_array;
 
+export let primary_did: string | undefined;
+const [did, ...rest] = allowed_dids;
+if (did !== undefined && !rest.length) {
+  primary_did = did;
+}
+
 export const plc =
   // Meant to ignore empty strings as well.
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing

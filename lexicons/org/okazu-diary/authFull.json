@@ -1,0 +1,32 @@
+{
+  "lexicon": 1,
+  "id": "org.okazu-diary.authFull",
+  "defs": {
+    "main": {
+      "type": "permission-set",
+      "title": "Full Okazu-Diary.org App Permissions",
+      "title:lang": {
+        "ja": "Okazu-Diary.orgアプリへの完全なアクセス権"
+      },
+      "detail": "Manage all Okazu-Diary.org application data.",
+      "detail:lang": {
+        "ja": "Okazu-Diary.orgアプリケーションの全てのデータを管理します。"
+      },
+      "permissions": [
+        {
+          "type": "permission",
+          "resource": "repo",
+          "action": ["create", "update", "delete"],
+          "collection": [
+            "org.okazu-diary.actor.profile",
+            "org.okazu-diary.feed.entry",
+            "org.okazu-diary.feed.like",
+            "org.okazu-diary.material.collection",
+            "org.okazu-diary.material.collectionItem",
+            "org.okazu-diary.material.external"
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,9 +1,10 @@
-import { HandleResolver } from '@atproto/identity';
+import type React from 'react';
 import { Link, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
-import { allowed_dids } from '~/config';
+import { allowed_dids, primary_did } from '~/config';
+import { handleResolver } from '~/lib/identity';
 import { useActorFeed } from '~/state/actorFeed';
 import type * as actorFeedHook from '~/state/actorFeed';
 import { useDid } from '~/state/did';
@@ -12,13 +13,12 @@ import { useProfile } from '~/state/profile';
 import type * as profileHook from '~/state/profile';
 import type { Route } from './+types/home';
 import styles from './home.module.css';
+import { useOAuthContext } from '~/contexts/OAuthContext';
 
 export interface LoaderData {
   did: string;
   prefetchedHandle: string | undefined;
 }
-
-const handleResolver = new HandleResolver();
 
 export async function clientLoader({
   params: { id },
@@ -43,7 +43,7 @@ export async function clientLoader({
     }
   } else {
     // TODO: Use a prefetched handle for this case.
-    did = allowed_dids[0]!;
+    did = primary_did!;
   }
 
   return { did, prefetchedHandle };
@@ -91,6 +91,9 @@ function ProfilePageView(
   profileRes?: profileHook.HookResponse,
   feedRes?: actorFeedHook.HookResponse,
 ): React.ReactNode {
+  const { session } = useOAuthContext();
+  const isAuthenticated = did && session?.sub === did;
+
   let prevPage, nextPage;
   if (cursor) {
     if (reverse) {
@@ -122,7 +125,7 @@ function ProfilePageView(
     case 'error':
       feedContent ??= (
         <>
-          <p style={{ color: '#F00' }}>{`${feedRes.state.error}`}</p>
+          <p className="error">{`${feedRes.state.error}`}</p>
           <button
             onClick={feedRes.retry}
             disabled={feedRes.state.status === 'pending'}
@@ -137,8 +140,9 @@ function ProfilePageView(
         <ul>
           {feedRes.state.items.map(
             (record) =>
-              (!record.value.visibility ||
-                record.value.visibility === 'public') && (
+              (record.value.visibility === undefined ||
+                record.value.visibility === 'public' ||
+                isAuthenticated) && (
                 <li key={record.cid} className={styles.feedItem}>
                   <Entry
                     actor={did!}

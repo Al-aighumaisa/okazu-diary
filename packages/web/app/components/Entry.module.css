@@ -94,16 +94,12 @@
   white-space: pre-wrap;
 }
 
-.error {
+.errorContainer {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.error > p {
-  color: #f00;
-}
-
-.error > button {
+.errorContainer > button {
   inline-size: fit-content;
 }

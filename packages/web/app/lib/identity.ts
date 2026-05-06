@@ -8,6 +8,8 @@ import {
 } from '@atcute/did-plc';
 import {
   DidResolver as BaseDidResolver,
+  HandleResolver as BaseHandleResolver,
+  getHandle,
   MemoryCache,
   type DidDocument,
 } from '@atproto/identity';
@@ -16,6 +18,12 @@ import { deepEqual } from 'fast-equals';
 
 import * as config from '~/config';
 import coalesce, { state as coalescerState } from './coalescer';
+import {
+  assertAtprotoDid,
+  isAtprotoDid,
+  type AtprotoDid,
+  type AtprotoDidDocument,
+} from '@atproto/did';
 
 export interface PrefetchedPlc {
   op: CompatibleOperation;
@@ -147,6 +155,72 @@ export const didResolver = new DidResolver({
   plcUrl: config.plc,
   didCache: new MemoryCache(1 * 60 * 1000, 5 * 60 * 1000),
 });
+
+class HandleResolver extends BaseHandleResolver {
+  override resolve(handle: string): Promise<string | undefined> {
+    return coalesce(
+      coalescerState,
+      `at://${handle}`,
+      (_signal, handle) => super.resolve(handle),
+      [handle],
+    );
+  }
+}
+
+export const handleResolver = new HandleResolver();
+
+interface ResolveIdentityOptions {
+  signal?: AbortSignal;
+  noCache?: boolean;
+}
+
+interface IdentityInfo {
+  did: AtprotoDid;
+  didDoc: AtprotoDidDocument;
+  handle: string;
+}
+
+export const identityResolver = {
+  async resolve(
+    identifier: string,
+    options?: ResolveIdentityOptions,
+  ): Promise<IdentityInfo> {
+    if (isAtprotoDid(identifier)) {
+      const didDoc = await didResolver.resolve(identifier, options?.noCache);
+      if (!didDoc) {
+        throw new Error(`Unable to resolve DID: ${identifier}`);
+      }
+
+      const docHandle = getHandle(didDoc);
+      const handle =
+        docHandle && identifier === (await handleResolver.resolve(docHandle))
+          ? docHandle
+          : 'handle.invalid';
+
+      return {
+        did: identifier,
+        // Let's hope this works.
+        didDoc: didDoc as AtprotoDidDocument,
+        handle,
+      };
+    } else {
+      const did = await handleResolver.resolve(identifier);
+      assertAtprotoDid(did);
+
+      const didDoc = await didResolver.resolve(did, options?.noCache);
+      if (!didDoc) {
+        throw new Error(`Unable to resolve DID: ${did} (@${identifier})`);
+      }
+
+      return {
+        did,
+        didDoc: didDoc as AtprotoDidDocument,
+        handle:
+          getHandle(didDoc) === identifier ? identifier : 'handle.invalid',
+      };
+    }
+  },
+};
 
 export function getPrefetchedDid(did: string): DidDocument | null {
   if (!prefetchedDids.has(did)) {

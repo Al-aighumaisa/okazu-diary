@@ -1,9 +1,21 @@
-:where(:not(button)) {
+* {
   box-sizing: border-box;
+}
+
+:where(:not(button, input)) {
   margin: 0;
   padding: 0;
   border: 0 solid;
   font-style: inherit;
+}
+
+button.appearance-none {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font: inherit;
 }
 
 :root {
@@ -57,6 +69,10 @@ a.button:hover {
 a.button:active:hover {
   border-color: #444;
   background-color: #bbb;
+}
+
+.error {
+  color: #f00;
 }
 
 @media (prefers-contrast: more) {

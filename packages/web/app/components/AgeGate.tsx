@@ -51,6 +51,7 @@ export default function AgeGate({
         ref={dialogRef}
         className={styles.ageGate}
         closedby="none"
+        aria-modal="true"
         aria-labelledby={headingId}
         aria-describedby={descId}
         // Indicate whether the initial `useEffect` has completed so that the content can be styled

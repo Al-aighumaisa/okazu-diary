@@ -1,16 +1,14 @@
 import { type RouteConfig, index, route } from '@react-router/dev/routes';
 
-import { allowed_dids } from './config';
-
-const [did, ...restDids] = allowed_dids;
+import { primary_did } from './config';
 
 export default [
-  ...(did && !restDids.length
-    ? [
+  ...(primary_did === undefined
+    ? [index('routes/home.tsx')]
+    : [
         index('routes/profile/home.tsx', { id: 'homeProfile' }),
         route('entry', 'routes/profile/entry.tsx', { id: 'homeEntry' }),
-      ]
-    : [index('routes/home.tsx')]),
+      ]),
   route(':id', 'routes/profile/home.tsx'),
   route(':id/entry', 'routes/profile/entry.tsx'),
 ] satisfies RouteConfig;
