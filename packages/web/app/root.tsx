@@ -177,12 +177,13 @@ function Footer(): React.ReactNode {
           <h3>Links</h3>
           <ul>
             <li>
-              <a href="https://okazu-diary.org/" target="_blank" rel="noopener">
-                <GitIcon
-                  role="img"
-                  aria-label="Git"
-                  className={styles.footerIcon}
-                />
+              <a
+                href="https://okazu-diary.org/"
+                target="_blank"
+                rel="noopener"
+                className={styles.footerLinkItem}
+              >
+                <GitIcon role="img" aria-label="Git" />
               </a>
             </li>
           </ul>

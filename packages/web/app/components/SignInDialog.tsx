@@ -68,17 +68,19 @@ export default function SignInDialog({
         }}
       >
         <label>
-          AT identifier
+          <span>AT identifier</span>
           <input
             type="text"
             name="identifier"
-            disabled={primary_did !== undefined}
-            value={primary_did}
+            required
+            readOnly={primary_did !== undefined}
+            defaultValue={primary_did}
+            autoComplete="username"
           />
         </label>
         <input type="submit" value="Continue" disabled={isLoading} />
       </form>
-      {error && <p className="error">{String(error)}</p>}
+      {!error || <p className="error">{String(error)}</p>}
     </dialog>
   );
 }
