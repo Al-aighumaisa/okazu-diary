@@ -5,9 +5,9 @@ import {
 } from '@okazu-diary/api';
 import type React from 'react';
 import { useId } from 'react';
-import { useInView } from 'react-intersection-observer';
 import Skeleton from 'react-loading-skeleton';
 
+import { useDelayedInView } from '~/lib/useDelayedInView';
 import { useUriRecord } from '~/state/record';
 import type * as recordHook from '~/state/record';
 import styles from './Entry.module.css';
@@ -100,30 +100,22 @@ function Subjects({
   subjects?: ComAtprotoRepoStrongRef.Main[] | undefined;
   skeleton?: boolean;
 }): React.ReactNode {
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    rootMargin: '200px 0px',
-  });
+  let ref, inView;
+  if (!import.meta.env.SSR) {
+    ({ ref, inView } = useDelayedInView({
+      rootMargin: '200px',
+    }));
+  }
 
   if (!subjects) {
-    return (
-      skeleton && (
-        <SubjectView
-          materialRes={{
-            state: { status: 'pending' },
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            retry: () => {},
-          }}
-        />
-      )
-    );
+    return skeleton && <SubjectView />;
   }
 
   const [first, ...rest] = subjects;
   if (first) {
     const actor_ = actor!;
     let content;
-    if (inView) {
+    if (import.meta.env.SSR || inView) {
       if (rest.length) {
         const items = subjects.map((subject) => (
           <li key={subject.cid}>
@@ -135,7 +127,7 @@ function Subjects({
         content = <Subject actor={actor_} subject={first} />;
       }
     } else {
-      content = null;
+      content = <SubjectView />;
     }
     return <div ref={ref}>{content}</div>;
   } else {
@@ -167,11 +159,13 @@ function Subject({
 function SubjectView({
   materialRes,
 }: {
-  materialRes: recordHook.HookResponse<OrgOkazuDiaryMaterialExternal.Main>;
+  materialRes?:
+    | recordHook.HookResponse<OrgOkazuDiaryMaterialExternal.Main>
+    | undefined;
 }): React.ReactNode {
   const titleId = useId();
 
-  if (materialRes.state.error) {
+  if (materialRes?.state.error) {
     return (
       <div className={styles.errorContainer}>
         <p className="error">{`${materialRes.state.error}`}</p>
@@ -185,12 +179,12 @@ function SubjectView({
     );
   } else {
     const content =
-      materialRes.state.status !== 'resolved' ||
+      materialRes?.state.status !== 'resolved' ||
       materialRes.state.value.thumb ||
       materialRes.state.value.title ||
       materialRes.state.value.description ? (
         <figure>
-          {materialRes.state.value ? (
+          {materialRes?.state.value ? (
             materialRes.state.value.thumb && (
               <img
                 src={materialRes.state.value.thumb.url}
@@ -202,7 +196,7 @@ function SubjectView({
           ) : (
             <Skeleton className={styles.subjectThumb} />
           )}
-          {materialRes.state.value ? (
+          {materialRes?.state.value ? (
             (materialRes.state.value?.title ||
               materialRes.state.value?.description) && (
               <figcaption data-nosnippet="true">
@@ -223,7 +217,8 @@ function SubjectView({
       ) : (
         materialRes.state.value.uri
       );
-    return materialRes.state.value?.uri ? (
+
+    return materialRes?.state.value?.uri ? (
       <a
         href={materialRes.state.value.uri}
         target="_blank"
@@ -233,7 +228,12 @@ function SubjectView({
         {content}
       </a>
     ) : (
-      <div className={styles.subject}>{content}</div>
+      <div
+        className={styles.subject}
+        aria-busy={!materialRes || materialRes.state.status === 'pending'}
+      >
+        {content}
+      </div>
     );
   }
 }
