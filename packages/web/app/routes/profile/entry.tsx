@@ -3,9 +3,9 @@ import { useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
-import { useHandle } from '~/state/handle';
-import { useProfileQuery } from '~/state/profile';
-import { useRecordQuery } from '~/state/record';
+import { useHandle } from '~/queries/handle';
+import { useProfileQuery } from '~/queries/profile';
+import { useRecordQuery } from '~/queries/record';
 import type { Route } from './+types/entry';
 import {
   clientLoader as homeClientLoader,

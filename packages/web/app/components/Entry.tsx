@@ -8,7 +8,7 @@ import { useId } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { useDelayedInView } from '~/lib/useDelayedInView';
-import { useRecordQuery, type UseRecordQueryResult } from '~/state/record';
+import { useRecordQuery, type UseRecordQueryResult } from '~/queries/record';
 import styles from './Entry.module.css';
 import { Link } from 'react-router';
 
