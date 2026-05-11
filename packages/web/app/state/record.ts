@@ -4,169 +4,121 @@ import {
   type ComAtprotoRepoGetRecord,
 } from '@atproto/api';
 import type { ValidationResult } from '@atproto/lexicon';
-import { useEffect, useReducer, useState } from 'react';
+import {
+  queryOptions,
+  useQuery,
+  type UseQueryResult,
+} from '@tanstack/react-query';
 
-import coalesce, { state as coalescerState } from '~/lib/coalescer';
-import { useDid } from './did';
-import type * as didHook from './did';
+import { useDidQuery } from './did';
 
-export type State<T> =
-  | {
-      status: 'pending';
-      value?: never;
-      cid?: never;
-      error?: unknown;
-    }
-  | {
-      status: 'resolved';
-      value: T;
-      cid: string | undefined;
-      error?: never;
-    }
-  | {
-      status: 'error';
-      error: unknown;
-      value?: never;
-      cid?: never;
-    };
+export type UseRecordQueryResult<T> = UseQueryResult<UseRecordQueryValue<T>>;
 
-export interface HookResponse<T> {
-  state: State<T>;
-  retry: () => void;
+export interface UseRecordQueryValue<T> {
+  value: T;
+  cid: string | undefined;
 }
 
-export interface HookOptions {
+export interface UseRecordOptions {
   cid?: string | undefined;
 }
 
-export function useUriRecord<T>(
-  uri: string,
+export function useRecordQuery<T>(
+  uri: string | null | undefined,
   validate: (v: Record<string, unknown>) => ValidationResult<T>,
-  opts?: HookOptions,
-): HookResponse<T> {
-  let atUri;
-  let error;
-  try {
-    atUri = new AtUri(uri);
-  } catch (e) {
-    error = e;
-  }
-
-  let rkey;
-  // eslint-disable-next-line no-cond-assign
-  return (rkey = atUri?.rkey)
-    ? // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDidRecord(useDid(atUri.host), atUri.collection, rkey, validate, opts)
-    : // eslint-disable-next-line react-hooks/rules-of-hooks
-      useDidRecord(
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useDid(undefined, error ?? new Error('Missing rkey in AT URI')),
-        undefined,
-        undefined,
-        validate,
-        opts,
-      );
-}
-
-export function useDidRecord<T>(
-  didRes: didHook.HookResponse,
-  collection: string,
-  rkey: string,
+  opts?: UseRecordOptions,
+): UseRecordQueryResult<T>;
+export function useRecordQuery<T>(
+  repo: string | null | undefined,
+  collection: string | null | undefined,
+  rkey: string | null | undefined,
   validate: (v: Record<string, unknown>) => ValidationResult<T>,
-  opts?: HookOptions,
-): HookResponse<T>;
-export function useDidRecord<T = Record<string, unknown>>(
-  didRes: didHook.HookResponse & { state: { status: 'error' } },
-  collection: string | undefined,
-  rkey: string | undefined,
-  validate: (v: Record<string, unknown>) => ValidationResult<T>,
-  opts?: HookOptions,
-): HookResponse<T>;
-export function useDidRecord<T = Record<string, unknown>>(
-  didRes: didHook.HookResponse,
-  collection: string | undefined,
-  rkey: string | undefined,
-  validate: (v: Record<string, unknown>) => ValidationResult<T>,
-  opts?: HookOptions,
-): HookResponse<T> {
-  const [state, setState] = useState<State<T>>(
-    didRes.state.error
-      ? {
-          status: 'error',
-          error: didRes.state.error,
-        }
-      : { status: 'pending' },
-  );
-  const [retryState, retry] = useReducer((x) => !x, true);
-
-  const cid = opts?.cid;
-  const repo = didRes.state.doc?.id;
-  const service = didRes.state.pds;
-
-  useEffect(() => {
-    if (!service) {
-      return;
+  opts?: UseRecordOptions,
+): UseRecordQueryResult<T>;
+export function useRecordQuery<T>(
+  repoOrUri: string | null | undefined,
+  collectionOrValidate:
+    | string
+    | null
+    | undefined
+    | ((v: Record<string, unknown>) => ValidationResult<T>),
+  rkeyOrOpts: string | null | undefined | UseRecordOptions | void,
+  maybeValidate: ((v: Record<string, unknown>) => ValidationResult<T>) | void,
+  opts?: UseRecordOptions | void,
+): UseRecordQueryResult<T> {
+  let repo: string | null | undefined,
+    collection: string | null | undefined,
+    rkey: string | null | undefined,
+    validate,
+    uriStr,
+    uri: AtUri | undefined,
+    error: unknown;
+  if (maybeValidate) {
+    repo = repoOrUri;
+    collection = collectionOrValidate as typeof collectionOrValidate & string;
+    rkey = rkeyOrOpts as typeof rkeyOrOpts & string;
+    validate = maybeValidate!;
+    uriStr = `at://${repo}/${collection}/${rkey}`;
+  } else {
+    uriStr = repoOrUri;
+    if (uriStr) {
+      try {
+        uri = new AtUri(uriStr);
+        repo = uri.host;
+        collection = uri.collection;
+        rkey = uri.rkey;
+      } catch (e) {
+        error = e;
+      }
     }
-    // `didRes.status` has been confirmed to be not `"error"`, so this is the first overload.
-    const repo_ = repo!;
-    const collection_ = collection!;
-    const rkey_ = rkey!;
+    validate = collectionOrValidate as NonNullable<
+      typeof collectionOrValidate & typeof maybeValidate
+    >;
+    opts = rkeyOrOpts as typeof rkeyOrOpts & object;
+  }
+  const cid = opts?.cid;
 
-    const abort = new AbortController();
-    const signal = abort.signal;
+  const didQuery = useDidQuery(repo);
 
-    (async () => {
-      const client = new AtpBaseClient({
-        service,
-      });
+  return useQuery(
+    // `uriStr` corresponds to `[repo, collection, rkey, error]`.
+    // eslint-disable-next-line @tanstack/query/exhaustive-deps
+    queryOptions({
+      enabled: !!(didQuery.data && ((collection && rkey) || uriStr)),
+      queryKey: [uriStr, cid, validate, didQuery.data?.pds] as const,
+      queryFn: async ({ queryKey: [_uri, cid, validate, pds_], signal }) => {
+        const pds = pds_!;
 
-      const params: ComAtprotoRepoGetRecord.QueryParams = {
-        repo: repo_,
-        collection: collection_,
-        rkey: rkey_,
-      };
-      if (cid) {
-        params.cid = cid;
-      }
-      const uri = `at://${repo_}/${collection_}/${rkey_}`;
-      const res = await coalesce(
-        coalescerState,
-        cid ? `${uri}/${cid}` : uri,
-        (signal) =>
-          client.com.atproto.repo.getRecord(params, signal && { signal }),
-        [],
-        { signal },
-      );
+        if (error !== undefined) {
+          // eslint-disable-next-line @typescript-eslint/only-throw-error
+          throw error;
+        }
+        // `repo`, `collection` and `rkey` is initialized now as the only case where they are
+        // uninit is failure of `AtUri` ctor, in which case `error` is initialized (unless the ctor
+        // were so silly to throw `undefined`).
 
-      const result = validate(res.data.value);
-      if (!result.success) {
-        setState({
-          status: 'error',
-          error: result.error,
-        });
-        return;
-      }
+        const client = new AtpBaseClient({ service: pds });
 
-      setState({
-        status: 'resolved',
-        value: result.value,
-        cid: res.data.cid,
-      });
-    })().catch((error) => {
-      if (!signal.aborted) {
-        setState({ status: 'error', error });
-      }
-    });
+        const params: ComAtprotoRepoGetRecord.QueryParams = {
+          repo: repo!,
+          collection: collection!,
+          rkey: rkey!,
+        };
+        if (cid) {
+          params.cid = cid;
+        }
+        const res = await client.com.atproto.repo.getRecord(params, { signal });
 
-    return () => abort.abort();
-  }, [repo, collection, rkey, cid, service, validate, retryState]);
+        const result = validate(res.data.value);
+        if (!result.success) {
+          throw result.error;
+        }
 
-  return {
-    state,
-    retry: () => {
-      const error = state.status === 'error' ? state.error : null;
-      setState({ status: 'pending', error });
-      retry();
-    },
-  };
+        return {
+          value: result.value,
+          cid: res.data.cid,
+        };
+      },
+    }),
+  );
 }

@@ -1,101 +1,79 @@
 import { AtpBaseClient, type ComAtprotoRepoListRecords } from '@atproto/api';
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
-import { useEffect, useReducer, useState } from 'react';
+import {
+  keepPreviousData,
+  queryOptions,
+  useQuery,
+  type UseQueryResult,
+} from '@tanstack/react-query';
 
-import type * as didHook from './did';
+import { useDidQuery } from './did';
 
-export type State =
-  | { status: 'pending'; error: unknown }
-  | {
-      status: 'resolved';
-      items: {
-        uri: string;
-        cid: string;
-        value: OrgOkazuDiaryFeedEntry.Main;
-      }[];
-      next: string | undefined;
-      error?: never;
-    }
-  | { status: 'error'; error: unknown };
+export type UseActorFeedQueryResult = UseQueryResult<UseActorFeedQueryValue>;
 
-export interface HookResponse {
-  state: State;
-  retry: () => void;
+export interface UseActorFeedQueryValue {
+  items: {
+    uri: string;
+    cid: string;
+    value: OrgOkazuDiaryFeedEntry.Main;
+  }[];
+  next: string | undefined;
 }
 
-export function useActorFeed(
-  did: string,
-  didRes: didHook.HookResponse,
-  cursor: string | null,
-  reverse: boolean,
-): HookResponse {
-  const [state, setState] = useState<State>({
-    status:
-      didRes.state.status === 'resolved' ? 'pending' : didRes.state.status,
-    error: didRes.state.error,
-  });
-  const [retryState, retry] = useReducer((x) => !x, true);
+export function useActorFeedQuery(
+  did: string | undefined,
+  cursor: string | null | undefined,
+  reverse: boolean | undefined,
+): UseActorFeedQueryResult {
+  const didQuery = useDidQuery(did);
 
-  const pds = didRes.state.pds;
+  return useQuery(
+    queryOptions({
+      enabled: !!didQuery.data,
+      queryKey: [
+        'org.okazu-diary.feed.entry',
+        did,
+        didQuery.data?.pds,
+        cursor,
+        reverse,
+      ] as const,
+      placeholderData: keepPreviousData,
+      async queryFn({ queryKey: [_key, did_, pds_, cursor, reverse], signal }) {
+        const did = did_!;
+        const pds = pds_!;
 
-  useEffect(() => {
-    if (!pds) {
-      return;
-    }
+        const client = new AtpBaseClient({ service: pds });
 
-    const client = new AtpBaseClient({ service: pds });
-
-    const abort = new AbortController();
-    const signal = abort.signal;
-
-    (async () => {
-      const params: ComAtprotoRepoListRecords.QueryParams = {
-        repo: did,
-        collection: 'org.okazu-diary.feed.entry',
-      };
-      if (cursor) {
-        params.cursor = cursor;
-      }
-      if (reverse) {
-        params.reverse = reverse;
-      }
-      const res = await client.com.atproto.repo.listRecords(params, { signal });
-
-      const items = res.data.records.map((r) => {
-        const result = OrgOkazuDiaryFeedEntry.validateMain(r.value);
-        if (!result.success) {
-          throw result.error;
+        const params: ComAtprotoRepoListRecords.QueryParams = {
+          repo: did,
+          collection: 'org.okazu-diary.feed.entry',
+        };
+        if (cursor) {
+          params.cursor = cursor;
         }
-        return { uri: r.uri, cid: r.cid, value: result.value };
-      });
-      if (reverse) {
-        items.reverse();
-      }
+        if (reverse) {
+          params.reverse = reverse;
+        }
+        const res = await client.com.atproto.repo.listRecords(params, {
+          signal,
+        });
 
-      setState({
-        status: 'resolved',
-        items,
-        next: res.data.cursor,
-      });
-    })().catch((error) => {
-      if (!signal.aborted) {
-        setState({ status: 'error', error });
-      }
-    });
+        const items = res.data.records.map((r) => {
+          const result = OrgOkazuDiaryFeedEntry.validateMain(r.value);
+          if (!result.success) {
+            throw result.error;
+          }
+          return { uri: r.uri, cid: r.cid, value: result.value };
+        });
+        if (reverse) {
+          items.reverse();
+        }
 
-    return () => abort.abort();
-  }, [did, pds, cursor, reverse, retryState]);
-
-  return {
-    state,
-    retry: () => {
-      const error = didRes.state.error ?? state.error ?? null;
-      setState({ status: 'pending', error });
-      if (didRes.state.status === 'error') {
-        didRes.retry();
-      } else {
-        retry();
-      }
-    },
-  };
+        return {
+          items,
+          next: res.data.cursor,
+        };
+      },
+    }),
+  );
 }

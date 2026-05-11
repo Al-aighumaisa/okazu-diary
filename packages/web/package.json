@@ -23,6 +23,7 @@
     "@okazu-diary/api": "workspace:^",
     "@react-router/node": "^7.14.0",
     "@react-router/serve": "^7.14.0",
+    "@tanstack/react-query": "^5.100.9",
     "fast-equals": "^6.0.0",
     "i18next": "^25.10.10",
     "isbot": "^5.1.37",

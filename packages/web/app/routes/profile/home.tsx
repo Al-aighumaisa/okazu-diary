@@ -5,12 +5,9 @@ import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
 import { allowed_dids, primary_did } from '~/config';
 import { handleResolver } from '~/lib/identity';
-import { useActorFeed } from '~/state/actorFeed';
-import type * as actorFeedHook from '~/state/actorFeed';
-import { useDid } from '~/state/did';
+import { useActorFeedQuery } from '~/state/actorFeed';
 import { useHandle } from '~/state/handle';
-import { useProfile } from '~/state/profile';
-import type * as profileHook from '~/state/profile';
+import { useProfileQuery } from '~/state/profile';
 import type { Route } from './+types/home';
 import styles from './home.module.css';
 import { useOAuthContext } from '~/contexts/OAuthContext';
@@ -52,21 +49,13 @@ export async function clientLoader({
 export default function ProfilePage({
   loaderData: { did, prefetchedHandle },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
-  const didRes = useDid(did);
-  const handle = useHandle(didRes, prefetchedHandle);
-
   const [search] = useSearchParams();
-
-  const cursor = search.get('cursor');
-  const reverse = search.get('reverse') === '1';
 
   return ProfilePageView(
     did,
-    handle,
-    cursor,
-    reverse,
-    useProfile(did, didRes),
-    useActorFeed(did, didRes, cursor, reverse),
+    useHandle(did, prefetchedHandle).data,
+    search.get('cursor'),
+    search.get('reverse') === '1',
   );
 }
 
@@ -80,17 +69,16 @@ function ProfilePageView(
   handle: string | undefined,
   cursor: string | null,
   reverse: boolean,
-  profileRes: profileHook.HookResponse,
-  feedRes: actorFeedHook.HookResponse,
 ): React.ReactNode;
 function ProfilePageView(
   did?: string,
   handle?: string,
   cursor?: string | null,
   reverse?: boolean,
-  profileRes?: profileHook.HookResponse,
-  feedRes?: actorFeedHook.HookResponse,
 ): React.ReactNode {
+  const profileQuery = useProfileQuery(did);
+  const feedQuery = useActorFeedQuery(did, cursor, reverse);
+
   const { session } = useOAuthContext();
   const isAuthenticated = did && session?.sub === did;
 
@@ -104,10 +92,10 @@ function ProfilePageView(
   }
 
   let feedContent;
-  switch (feedRes?.state.status) {
+  switch (feedQuery?.status) {
     case 'pending':
     case undefined:
-      if (!feedRes?.state.error) {
+      if (!feedQuery?.error) {
         feedContent = (
           <ul>
             {[...Array<void>(3)].map((_, i) => (
@@ -125,20 +113,20 @@ function ProfilePageView(
     case 'error':
       feedContent ??= (
         <>
-          <p className="error">{`${feedRes.state.error}`}</p>
+          <p className="error">{`${feedQuery.error}`}</p>
           <button
-            onClick={feedRes.retry}
-            disabled={feedRes.state.status === 'pending'}
+            onClick={() => void feedQuery.refetch()}
+            disabled={feedQuery.isFetching}
           >
             Retry
           </button>
         </>
       );
       break;
-    case 'resolved':
+    case 'success':
       feedContent = (
         <ul>
-          {feedRes.state.items.map(
+          {feedQuery.data.items.map(
             (record) =>
               (record.value.visibility === undefined ||
                 record.value.visibility === 'public' ||
@@ -154,11 +142,11 @@ function ProfilePageView(
           )}
         </ul>
       );
-      if (feedRes.state.next) {
+      if (feedQuery.data.next) {
         if (reverse) {
-          prevPage = `?cursor=${feedRes.state.next}&reverse=1`;
+          prevPage = `?cursor=${feedQuery.data.next}&reverse=1`;
         } else {
-          nextPage = `?cursor=${feedRes.state.next}`;
+          nextPage = `?cursor=${feedQuery.data.next}`;
         }
       }
       break;
@@ -167,9 +155,11 @@ function ProfilePageView(
   return (
     <>
       <title>
-        {profileRes?.state.status === 'resolved'
-          ? `${profileRes.state.value.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
-          : 'Okazu Diary'}
+        {profileQuery?.data?.displayName
+          ? `${profileQuery.data.displayName}${handle ? ` (@${handle})` : ''} — Okazu Diary`
+          : handle
+            ? `@${handle} — Okazu Diary`
+            : 'Okazu Diary'}
       </title>
       {did && (
         <link
@@ -178,7 +168,7 @@ function ProfilePageView(
         />
       )}
       <header className={styles.header}>
-        <Profile did={did} profileRes={profileRes} handle={handle} />
+        <Profile did={did} profileQuery={profileQuery} handle={handle} />
       </header>
       <main>{feedContent}</main>
       <div className={styles.pageNav}>

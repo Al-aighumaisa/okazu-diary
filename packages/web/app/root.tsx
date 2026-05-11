@@ -1,4 +1,5 @@
-import { type default as React, useState, useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { type default as React, useState } from 'react';
 import 'react-loading-skeleton/dist/skeleton.css';
 import {
   isRouteErrorResponse,
@@ -18,6 +19,8 @@ import GitIcon from '~/icon/Git-Icon-Black.svg?react';
 import type { Route } from './+types/root';
 import './app.css';
 import styles from './root.module.css';
+
+const queryClient = new QueryClient();
 
 export function Layout({
   children,
@@ -77,12 +80,14 @@ export function Layout({
       </head>
       <body>
         <AgeGate>
-          <AuthenticatedClientProvider>
-            <div className={styles.container}>
-              <div className={styles.content}>{children}</div>
-              <Footer />
-            </div>
-          </AuthenticatedClientProvider>
+          <QueryClientProvider client={queryClient}>
+            <AuthenticatedClientProvider>
+              <div className={styles.container}>
+                <div className={styles.content}>{children}</div>
+                <Footer />
+              </div>
+            </AuthenticatedClientProvider>
+          </QueryClientProvider>
         </AgeGate>
         <ScrollRestoration />
         <Scripts />

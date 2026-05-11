@@ -26,6 +26,7 @@
   "devDependencies": {
     "@eslint/js": "^10",
     "@swc/jest": "^0.2.39",
+    "@tanstack/eslint-plugin-query": "^5.100.9",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.0.0",
     "eslint": "^10",

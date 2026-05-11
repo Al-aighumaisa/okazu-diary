@@ -2,13 +2,13 @@ import type { BlobRef } from '@atproto/api';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';
 
-import * as profileHook from '~/state/profile';
+import type { UseProfileQueryResult } from '~/state/profile';
 import ProfileAvatar from './ProfileAvatar';
 import styles from './Profile.module.css';
 
 interface ProfileProps {
   did: string | undefined;
-  profileRes: profileHook.HookResponse | undefined;
+  profileQuery: UseProfileQueryResult | undefined;
   handle: string | undefined;
   url?: string | undefined;
 }
@@ -19,17 +19,17 @@ export default function Profile(props: {
 export default function Profile(props: ProfileProps): React.ReactNode;
 export default function Profile({
   did,
-  profileRes,
+  profileQuery,
   handle,
   url,
 }: {
   [P in keyof ProfileProps]?: ProfileProps[P] | undefined;
 } = {}): React.ReactNode {
   let pending;
-  switch (profileRes?.state.status) {
+  switch (profileQuery?.status) {
     case 'pending':
     case undefined:
-      if (!profileRes?.state.error) {
+      if (!profileQuery?.error) {
         return (
           <>
             <AvatarAndName
@@ -48,25 +48,28 @@ export default function Profile({
     case 'error':
       return (
         <>
-          <p className="error">{`${profileRes.state.error}`}</p>
-          <button onClick={profileRes.retry} disabled={pending}>
+          <p className="error">{`${profileQuery.error}`}</p>
+          <button
+            onClick={() => void profileQuery.refetch()}
+            disabled={pending}
+          >
             Retry
           </button>
         </>
       );
-    case 'resolved': {
-      const profile = profileRes.state.value;
+    case 'success': {
+      const profile = profileQuery.data;
       return (
         <>
           <AvatarAndName
             repo={did}
-            blob={profile.avatar}
+            blob={profile?.avatar}
             handle={handle}
-            name={profile.displayName ?? null}
+            name={profile?.displayName ?? null}
             url={url}
           />
-          {profile.description !== undefined && <p>{profile.description}</p>}
-          {profile.website && (
+          {profile?.description !== undefined && <p>{profile.description}</p>}
+          {profile?.website && (
             <p className={styles.website}>
               <link rel="me" href={profile.website} />
               <a rel="me" href={profile.website}>

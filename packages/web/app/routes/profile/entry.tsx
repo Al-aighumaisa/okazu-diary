@@ -3,12 +3,9 @@ import { useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
-import { useDid } from '~/state/did';
 import { useHandle } from '~/state/handle';
-import { useProfile } from '~/state/profile';
-import type * as profileHook from '~/state/profile';
-import { useDidRecord } from '~/state/record';
-import type * as recordHook from '~/state/record';
+import { useProfileQuery } from '~/state/profile';
+import { useRecordQuery } from '~/state/record';
 import type { Route } from './+types/entry';
 import {
   clientLoader as homeClientLoader,
@@ -35,40 +32,7 @@ export default function EntryPage({
   const [search] = useSearchParams();
   const rkey = search.get('id');
 
-  const didRes = useDid(did);
-  const entryRes =
-    rkey === null
-      ? // eslint-disable-next-line react-hooks/rules-of-hooks
-        useDidRecord(
-          {
-            state: {
-              status: 'error',
-              error: new Error('Missing `id` parameter in URL'),
-            },
-            // eslint-disable-next-line @typescript-eslint/no-empty-function
-            retry: () => {},
-          },
-          undefined,
-          undefined,
-          OrgOkazuDiaryFeedEntry.validateMain,
-        )
-      : // eslint-disable-next-line react-hooks/rules-of-hooks
-        useDidRecord(
-          didRes,
-          'org.okazu-diary.feed.entry',
-          rkey,
-          OrgOkazuDiaryFeedEntry.validateMain,
-        );
-  const handle = useHandle(didRes, prefetchedHandle);
-
-  return EntryPageView(
-    did,
-    handle,
-    urlId,
-    rkey,
-    entryRes,
-    useProfile(did, didRes),
-  );
+  return EntryPageView(did, useHandle(did, prefetchedHandle).data, urlId, rkey);
 }
 
 export function HydrateFallback(): React.ReactNode {
@@ -80,22 +44,26 @@ function EntryPageView(
   handle: string | undefined,
   urlId: string | undefined,
   rkey: string | null,
-  entryRes: recordHook.HookResponse<OrgOkazuDiaryFeedEntry.Main>,
-  profileRes: profileHook.HookResponse,
 ): React.ReactNode;
 function EntryPageView(): React.ReactNode;
 function EntryPageView(
   did?: string,
   handle?: string,
-  urlId?: string | undefined,
+  urlId?: string,
   rkey?: string | null,
-  entryRes?: recordHook.HookResponse<OrgOkazuDiaryFeedEntry.Main>,
-  profileRes?: profileHook.HookResponse,
 ): React.ReactNode {
-  const userName = profileRes?.state.value?.displayName;
-  const datetime = entryRes?.state.value?.datetime;
+  const profileQuery = useProfileQuery(did);
+  const entryQuery = useRecordQuery(
+    did,
+    'org.okazu-diary.feed.entry',
+    rkey,
+    OrgOkazuDiaryFeedEntry.validateMain,
+  );
 
-  const entryRecord = entryRes?.state.value;
+  const userName = profileQuery?.data?.displayName;
+  const datetime = entryQuery?.data?.value.datetime;
+
+  const entryRecord = entryQuery?.data?.value;
 
   return (
     <>
@@ -117,7 +85,7 @@ function EntryPageView(
       <header className={homeStyles.header}>
         <Profile
           did={did}
-          profileRes={profileRes}
+          profileQuery={profileQuery}
           handle={handle}
           url={urlId ? `/${urlId}/` : '/'}
         />

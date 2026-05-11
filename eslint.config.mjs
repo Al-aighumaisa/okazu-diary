@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import query from '@tanstack/eslint-plugin-query';
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import prettier from 'eslint-config-prettier/flat';
@@ -95,6 +96,7 @@ const config = defineConfig([
     extends: [
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
+      query.configs['flat/recommended-strict'],
     ],
     rules: {
       '@typescript-eslint/only-throw-error': [

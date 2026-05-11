@@ -8,8 +8,7 @@ import { useId } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { useDelayedInView } from '~/lib/useDelayedInView';
-import { useUriRecord } from '~/state/record';
-import type * as recordHook from '~/state/record';
+import { useRecordQuery, type UseRecordQueryResult } from '~/state/record';
 import styles from './Entry.module.css';
 import { Link } from 'react-router';
 
@@ -147,7 +146,7 @@ function Subject({
     : subject.cid;
   return (
     <SubjectView
-      materialRes={useUriRecord(
+      materialQuery={useRecordQuery(
         subject.uri,
         OrgOkazuDiaryMaterialExternal.validateMain,
         { cid },
@@ -157,21 +156,21 @@ function Subject({
 }
 
 function SubjectView({
-  materialRes,
+  materialQuery,
 }: {
-  materialRes?:
-    | recordHook.HookResponse<OrgOkazuDiaryMaterialExternal.Main>
+  materialQuery?:
+    | UseRecordQueryResult<OrgOkazuDiaryMaterialExternal.Main>
     | undefined;
 }): React.ReactNode {
   const titleId = useId();
 
-  if (materialRes?.state.error) {
+  if (materialQuery?.error) {
     return (
       <div className={styles.errorContainer}>
-        <p className="error">{`${materialRes.state.error}`}</p>
+        <p className="error">{`${materialQuery.error}`}</p>
         <button
-          onClick={materialRes.retry}
-          disabled={materialRes.state.status === 'pending'}
+          onClick={() => void materialQuery.refetch()}
+          disabled={materialQuery.isFetching}
         >
           Retry
         </button>
@@ -179,32 +178,32 @@ function SubjectView({
     );
   } else {
     const content =
-      materialRes?.state.status !== 'resolved' ||
-      materialRes.state.value.thumb ||
-      materialRes.state.value.title ||
-      materialRes.state.value.description ? (
+      !materialQuery?.isSuccess ||
+      materialQuery.data.value.thumb ||
+      materialQuery.data.value.title ||
+      materialQuery.data.value.description ? (
         <figure>
-          {materialRes?.state.value ? (
-            materialRes.state.value.thumb && (
+          {materialQuery?.data?.value ? (
+            materialQuery.data.value.thumb && (
               <img
-                src={materialRes.state.value.thumb.url}
+                src={materialQuery.data.value.thumb.url}
                 className={styles.subjectThumb}
-                aria-labelledby={materialRes.state.value?.title && titleId}
+                aria-labelledby={materialQuery.data.value?.title && titleId}
                 data-nosnippet="true"
               />
             )
           ) : (
             <Skeleton className={styles.subjectThumb} />
           )}
-          {materialRes?.state.value ? (
-            (materialRes.state.value?.title ||
-              materialRes.state.value?.description) && (
+          {materialQuery?.data?.value ? (
+            (materialQuery.data.value.title ||
+              materialQuery.data.value.description) && (
               <figcaption data-nosnippet="true">
-                {materialRes.state.value?.title && (
-                  <cite id={titleId}>{materialRes.state.value?.title}</cite>
+                {materialQuery.data.value?.title && (
+                  <cite id={titleId}>{materialQuery.data.value?.title}</cite>
                 )}
-                {materialRes.state.value?.description && (
-                  <p>{materialRes.state.value?.description}</p>
+                {materialQuery.data.value?.description && (
+                  <p>{materialQuery.data.value?.description}</p>
                 )}
               </figcaption>
             )
@@ -215,12 +214,12 @@ function SubjectView({
           )}
         </figure>
       ) : (
-        materialRes.state.value.uri
+        materialQuery.data.value.uri
       );
 
-    return materialRes?.state.value?.uri ? (
+    return materialQuery?.data?.value.uri ? (
       <a
-        href={materialRes.state.value.uri}
+        href={materialQuery.data.value.uri}
         target="_blank"
         rel="noopener"
         className={styles.subject}
@@ -230,7 +229,7 @@ function SubjectView({
     ) : (
       <div
         className={styles.subject}
-        aria-busy={!materialRes || materialRes.state.status === 'pending'}
+        aria-busy={!materialQuery || materialQuery.isPending}
       >
         {content}
       </div>
