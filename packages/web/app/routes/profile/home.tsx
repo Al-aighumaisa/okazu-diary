@@ -100,7 +100,7 @@ function ProfilePageView(
     case undefined:
       if (!feedQuery?.error) {
         feedContent = (
-          <ul>
+          <ul aria-label="Entries" aria-busy="true">
             {[...Array<void>(3)].map((_, i) => (
               <li key={`skeleton-${i}`} className={styles.feedItem}>
                 <article>
@@ -128,7 +128,7 @@ function ProfilePageView(
       break;
     case 'success':
       feedContent = (
-        <ul>
+        <ul aria-label="Entries">
           {feedQuery.data.items.map(
             (record) =>
               (record.value.visibility === undefined ||

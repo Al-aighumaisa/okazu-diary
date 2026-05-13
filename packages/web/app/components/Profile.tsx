@@ -35,7 +35,7 @@ export default function Profile({
     case undefined:
       if (!profileQuery?.error) {
         return (
-          <>
+          <div aria-busy="true">
             <AvatarAndName
               repo={undefined}
               handle={handle}
@@ -44,14 +44,14 @@ export default function Profile({
             />
             <Skeleton style={{ inlineSize: '40em' }} />
             <Skeleton style={{ inlineSize: '40em' }} />
-          </>
+          </div>
         );
       }
       pending = true;
     // Fall through
     case 'error':
       return (
-        <>
+        <div>
           <p className="error">{String(profileQuery.error)}</p>
           <button
             onClick={() => void profileQuery.refetch()}
@@ -59,12 +59,12 @@ export default function Profile({
           >
             Retry
           </button>
-        </>
+        </div>
       );
     case 'success': {
       const profile = profileQuery.data;
       return (
-        <>
+        <div>
           <AvatarAndName
             repo={did}
             blob={profile?.avatar}
@@ -81,7 +81,7 @@ export default function Profile({
               </a>
             </p>
           )}
-        </>
+        </div>
       );
     }
   }

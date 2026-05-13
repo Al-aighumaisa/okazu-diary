@@ -50,7 +50,7 @@ export default function Entry({
           )}
         </header>
         {tags?.length ? (
-          <ul className={styles.tags}>
+          <ul className={styles.tags} aria-label="Tags">
             {tags.map((tag, i) => {
               const value = tag?.value;
               let count;
@@ -138,7 +138,11 @@ function Subjects({
             <Subject actor={actor_} subject={subject} />
           </li>
         ));
-        content = <ul className={styles.subjectList}>{items}</ul>;
+        content = (
+          <ul className={styles.subjectList} aria-label="Materials">
+            {items}
+          </ul>
+        );
       } else {
         content = <Subject actor={actor_} subject={first} />;
       }
