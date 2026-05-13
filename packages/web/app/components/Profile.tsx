@@ -2,13 +2,16 @@ import type { BlobRef } from '@atproto/api';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';
 
-import type { UseProfileQueryResult } from '~/queries/profile';
+import type { UseDeferredQueryErrorResult } from '~/lib/useDeferredQueryError';
+import type { UseProfileQueryValue } from '~/queries/profile';
 import ProfileAvatar from './ProfileAvatar';
 import styles from './Profile.module.css';
 
 interface ProfileProps {
   did: string | undefined;
-  profileQuery: UseProfileQueryResult | undefined;
+  profileQuery:
+    | UseDeferredQueryErrorResult<UseProfileQueryValue | null>
+    | undefined;
   handle: string | undefined;
   url?: string | undefined;
 }

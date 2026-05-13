@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
+import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useHandle } from '~/queries/handle';
 import { useProfileQuery } from '~/queries/profile';
 import { useRecordQuery } from '~/queries/record';
@@ -52,7 +53,7 @@ function EntryPageView(
   urlId?: string,
   rkey?: string | null,
 ): React.ReactNode {
-  const profileQuery = useProfileQuery(did);
+  const profileQuery = useDeferredQueryError(useProfileQuery(did));
   const entryQuery = useRecordQuery(
     did,
     'org.okazu-diary.feed.entry',

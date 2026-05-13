@@ -7,8 +7,12 @@ import type React from 'react';
 import { useId } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
+import {
+  useDeferredQueryError,
+  type UseDeferredQueryErrorResult,
+} from '~/lib/useDeferredQueryError';
 import { useDelayedInView } from '~/lib/useDelayedInView';
-import { useRecordQuery, type UseRecordQueryResult } from '~/queries/record';
+import { useRecordQuery, type UseRecordQueryValue } from '~/queries/record';
 import styles from './Entry.module.css';
 import { Link } from 'react-router';
 
@@ -146,10 +150,12 @@ function Subject({
     : subject.cid;
   return (
     <SubjectView
-      materialQuery={useRecordQuery(
-        subject.uri,
-        OrgOkazuDiaryMaterialExternal.validateMain,
-        { cid },
+      materialQuery={useDeferredQueryError(
+        useRecordQuery(
+          subject.uri,
+          OrgOkazuDiaryMaterialExternal.validateMain,
+          { cid },
+        ),
       )}
     />
   );
@@ -159,7 +165,9 @@ function SubjectView({
   materialQuery,
 }: {
   materialQuery?:
-    | UseRecordQueryResult<OrgOkazuDiaryMaterialExternal.Main>
+    | UseDeferredQueryErrorResult<
+        UseRecordQueryValue<OrgOkazuDiaryMaterialExternal.Main>
+      >
     | undefined;
 }): React.ReactNode {
   const titleId = useId();

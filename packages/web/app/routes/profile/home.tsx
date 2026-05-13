@@ -5,6 +5,7 @@ import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
 import { allowed_dids, primary_did } from '~/config';
 import { handleResolver } from '~/lib/identity';
+import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useActorFeedQuery } from '~/queries/actorFeed';
 import { useHandle } from '~/queries/handle';
 import { useProfileQuery } from '~/queries/profile';
@@ -76,8 +77,10 @@ function ProfilePageView(
   cursor?: string | null,
   reverse?: boolean,
 ): React.ReactNode {
-  const profileQuery = useProfileQuery(did);
-  const feedQuery = useActorFeedQuery(did, cursor, reverse);
+  const profileQuery = useDeferredQueryError(useProfileQuery(did));
+  const feedQuery = useDeferredQueryError(
+    useActorFeedQuery(did, cursor, reverse),
+  );
 
   const { session } = useOAuthContext();
   const isAuthenticated = did && session?.sub === did;
