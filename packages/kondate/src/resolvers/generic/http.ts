@@ -1,4 +1,4 @@
-import contentDisposition from 'content-disposition';
+import * as contentDisposition from 'content-disposition';
 import Link from 'http-link-header';
 
 import type { Metadata, ResolveOptions, ResolveResult } from '../../index.js';

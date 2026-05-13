@@ -1,4 +1,4 @@
-import type { Client, DidString } from '@atproto/lex';
+import type { Client, DidString } from '@atproto/lex-client';
 import { createContext, useContext } from 'react';
 
 export type AuthenticatedClient = Client & { did: DidString };

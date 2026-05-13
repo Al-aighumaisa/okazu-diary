@@ -1,4 +1,4 @@
-import { Client } from '@atproto/lex';
+import { Client } from '@atproto/lex-client';
 import { useMemo } from 'react';
 import type React from 'react';
 

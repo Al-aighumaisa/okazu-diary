@@ -15,6 +15,7 @@ import {
 } from '@atproto/identity';
 import { cidForLex, type LexValue } from '@atproto/lex-cbor';
 import { deepEqual } from 'fast-equals';
+import * as v from 'valibot';
 
 import * as config from '~/config';
 import coalesce, { state as coalescerState } from './coalescer';
@@ -101,12 +102,12 @@ class DidResolver extends BaseDidResolver {
           ).toString();
           for (i++; i < ops.length; i++) {
             // Legacy `create` op is impossible here since this is not the genesis op.
-            const result = defs.operationOrTombstone.try(ops[i]);
-            if (!result.ok) {
+            const result = v.safeParse(defs.operationOrTombstone, ops[i]);
+            if (!result.success) {
               console.warn(`Invalid op for ${did}:`, ops[i]);
               return null;
             }
-            const op = result.value;
+            const op = result.output;
 
             if (op.prev !== prev) {
               console.warn(`Misordered op for ${did}`);

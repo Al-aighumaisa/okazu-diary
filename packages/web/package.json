@@ -11,12 +11,12 @@
     "typecheck": "react-router typegen && tsc --build --noEmit"
   },
   "dependencies": {
-    "@atcute/did-plc": "^0.3.2",
+    "@atcute/did-plc": "^1",
     "@atproto/api": "^0.19.8",
     "@atproto/did": "^0.3.0",
     "@atproto/identity": "^0.4.12",
-    "@atproto/lex": "^0.0.25",
     "@atproto/lex-cbor": "^0.0.16",
+    "@atproto/lex-client": "^0.0.21",
     "@atproto/lexicon": "^0.6.2",
     "@atproto/oauth-client-browser": "^0.3.42",
     "@atproto/xrpc": "^0.7.7",
@@ -32,7 +32,8 @@
     "react-dom": "^19.2.5",
     "react-intersection-observer": "^10.0.3",
     "react-loading-skeleton": "^3.5.0",
-    "react-router": "^7.14.0"
+    "react-router": "^7.14.0",
+    "valibot": "^1.4.0"
   },
   "devDependencies": {
     "@atproto/common-web": "^0.4.20",
