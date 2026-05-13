@@ -1,6 +1,12 @@
 import storage_ from 'local-storage-fallback';
-import type React from 'react';
-import { useEffect, useId, useRef, useState } from 'react';
+import {
+  type default as React,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from 'react';
+
 import styles from './AgeGate.module.css';
 
 // XXX: The `Storage` object is exported as `storage.storage` rather than being default-exported

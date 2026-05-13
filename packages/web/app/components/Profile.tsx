@@ -1,4 +1,5 @@
 import type { BlobRef } from '@atproto/api';
+import type React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';
 
@@ -16,10 +17,10 @@ interface ProfileProps {
   url?: string | undefined;
 }
 
+export default function Profile(props: ProfileProps): React.ReactNode;
 export default function Profile(props: {
   [P in keyof ProfileProps]: undefined;
 }): React.ReactNode;
-export default function Profile(props: ProfileProps): React.ReactNode;
 export default function Profile({
   did,
   profileQuery,
@@ -51,7 +52,7 @@ export default function Profile({
     case 'error':
       return (
         <>
-          <p className="error">{`${profileQuery.error}`}</p>
+          <p className="error">{String(profileQuery.error)}</p>
           <button
             onClick={() => void profileQuery.refetch()}
             disabled={pending}

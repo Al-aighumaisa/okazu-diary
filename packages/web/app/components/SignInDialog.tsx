@@ -37,7 +37,7 @@ export default function SignInDialog({
       current.addEventListener('close', listener);
       return () => current.removeEventListener('close', listener);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // `setOpen` should not change like any other set functions.
   }, [dialogRef]);
 
   return (
@@ -80,7 +80,10 @@ export default function SignInDialog({
         </label>
         <input type="submit" value="Continue" disabled={isLoading} />
       </form>
-      {!error || <p className="error">{String(error)}</p>}
+      {!error || (
+        // eslint-disable-next-line @typescript-eslint/no-base-to-string
+        <p className="error">{String(error)}</p>
+      )}
     </dialog>
   );
 }

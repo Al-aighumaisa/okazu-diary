@@ -1,4 +1,5 @@
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
+import type React from 'react';
 import { useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';

@@ -16,7 +16,7 @@ export const clientMetadata = clientMetadata_ as OAuthClientMetadataInput;
 // Dynamically import the module because the import fails if the UA blocks Indexed DB access in CSR,
 // and imported constructor always fails in SSR.
 let oauthClientBrowser;
-if ('indexedDB' in globalThis && !import.meta.SSR) {
+if ('indexedDB' in globalThis && !import.meta.env.SSR) {
   try {
     oauthClientBrowser = await import('@atproto/oauth-client-browser');
   } catch (e) {

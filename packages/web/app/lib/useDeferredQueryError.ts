@@ -42,7 +42,7 @@ export function useDeferredQueryError<TData = unknown, TError = Error>(
     } else if (query.isSuccess) {
       setError(undefined);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // `query.{isError,isSuccess}` is derived from `query.status`.
   }, [query.status, query.error]);
 
   if (query.isPending) {

@@ -1,4 +1,6 @@
 import { spawn } from 'node:child_process';
+import console from 'node:console';
+import process from 'node:process';
 
 import { TID } from '@atproto/common-web';
 import { Secp256k1Keypair } from '@atproto/crypto';
@@ -82,7 +84,7 @@ async function main() {
           },
         },
         ...(await (async () => {
-          /** @type {OrgOkazuDiaryMaterialExternal.Main} */
+          /** @satisfies {OrgOkazuDiaryMaterialExternal.Main} */
           const material = {
             $type: 'org.okazu-diary.material.external',
             uri: 'https://example.com/',
@@ -139,7 +141,21 @@ async function main() {
     `Created test account: ${did}\n`,
   );
 
-  const child = spawn(cmd, args, { stdio: 'inherit' });
+  const allowed_dids =
+    process.env.VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS?.trim().split(' ') ?? [];
+  if (!allowed_dids.includes(did)) {
+    allowed_dids.push(did);
+  }
+
+  const child = spawn(cmd, args, {
+    stdio: 'inherit',
+    env: {
+      ...process.env,
+      VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS: allowed_dids.join(' '),
+      VITE_OKAZU_DIARY_WEB_PLC:
+        process.env.VITE_OKAZU_DIARY_WEB_PLC?.trim() || network.plc.url,
+    },
+  });
 
   /** @type {void} */
   const _ = await new Promise((resolve, reject) => {
@@ -213,7 +229,7 @@ async function setupNetwork() {
 
   await plcClient.updateData(did, keypair, (prev) => ({
     ...prev,
-    .../** @type {any} */ (data),
+    .../** @type {plc.UnsignedOperation} */ (data),
     rotationKeys: [
       ...new Set([...genesis.rotationKeys, ...(data.rotationKeys ?? [])]),
     ],

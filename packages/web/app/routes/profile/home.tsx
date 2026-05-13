@@ -116,7 +116,7 @@ function ProfilePageView(
     case 'error':
       feedContent ??= (
         <>
-          <p className="error">{`${feedQuery.error}`}</p>
+          <p className="error">{String(feedQuery.error)}</p>
           <button
             onClick={() => void feedQuery.refetch()}
             disabled={feedQuery.isFetching}

@@ -134,7 +134,8 @@ export function ErrorBoundary({
 function Footer(): React.ReactNode {
   const { isLoading, isSignedIn, signIn, signOut } = useOAuthContext();
 
-  const [signInDialogOpened, setSignInDialogOpened] = useState<boolean>(false);
+  const openState = useState<boolean>(false);
+  const [_, setSignInDialogOpened] = openState;
 
   return (
     <>
@@ -196,7 +197,7 @@ function Footer(): React.ReactNode {
       </footer>
       <SignInDialog
         id="sign-in-dialog"
-        openState={[signInDialogOpened, setSignInDialogOpened]}
+        openState={openState}
         isLoading={isLoading}
         signIn={signIn}
       />

@@ -27,11 +27,9 @@ if (did !== undefined && !rest.length) {
 
 export const plc =
   // Meant to ignore empty strings as well.
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   import.meta.env.VITE_OKAZU_DIARY_WEB_PLC || 'https://plc.directory';
 
 export const bsky_cdn =
-  // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
   import.meta.env.VITE_OKAZU_DIARY_WEB_BSKY_CDN || 'https://cdn.bsky.app';
 
 export const prefetchedDids = new Map<

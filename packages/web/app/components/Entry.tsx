@@ -3,9 +3,9 @@ import {
   OrgOkazuDiaryMaterialExternal,
   type OrgOkazuDiaryFeedEntry,
 } from '@okazu-diary/api';
-import type React from 'react';
-import { useId } from 'react';
+import { type default as React, useId } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import { Link } from 'react-router';
 
 import {
   useDeferredQueryError,
@@ -14,28 +14,27 @@ import {
 import { useDelayedInView } from '~/lib/useDelayedInView';
 import { useRecordQuery, type UseRecordQueryValue } from '~/queries/record';
 import styles from './Entry.module.css';
-import { Link } from 'react-router';
 
-interface ActorFeedProps {
+interface EntryProps {
   actor: string;
   record: OrgOkazuDiaryFeedEntry.Main;
   url: string;
 }
 
-export default function Entry(props: ActorFeedProps): React.ReactNode;
+export default function Entry(props: EntryProps): React.ReactNode;
 export default function Entry(): React.ReactNode;
 export default function Entry({
   actor,
   record,
   url,
-}: Partial<ActorFeedProps> &
-  React.HTMLAttributes<Element> = {}): React.ReactNode {
+}: Partial<EntryProps> = {}): React.ReactNode {
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
 
   const visibility = record?.visibility;
   const unlisted = visibility && visibility !== 'public';
 
+  const tagCounter = new Map<string, number>();
   return (
     <>
       {unlisted && <meta name="robots" content="noindex" />}
@@ -52,19 +51,31 @@ export default function Entry({
         </header>
         {tags?.length ? (
           <ul className={styles.tags}>
-            {tags.map((tag, i) => (
-              <li
-                key={tag === undefined ? `skeleton-${i}` : `${i}-${tag.value}`}
-              >
-                {tag === undefined ? (
-                  <Skeleton style={{ inlineSize: '5em' }} />
-                ) : (
-                  // Add extra `<div>` (`display: block`) in attempt to limit the span of the
-                  // triple-click selection behavior.
-                  <div data-nosnippet="true">{tag.value}</div>
-                )}
-              </li>
-            ))}
+            {tags.map((tag, i) => {
+              const value = tag?.value;
+              let count;
+              if (value !== undefined) {
+                count = tagCounter.get(value) ?? 0;
+                tagCounter.set(value, count + 1);
+              }
+              return (
+                // Items are basically keyed by the tag name, but with the number of appearance of
+                // the tag as well, in case the user puts a same tag multiple times.
+                <li
+                  key={
+                    value === undefined ? `skeleton-${i}` : `${count}-${value}`
+                  }
+                >
+                  {value === undefined ? (
+                    <Skeleton style={{ inlineSize: '5em' }} />
+                  ) : (
+                    // Add extra `<div>` (`display: block`) in attempt to limit the span of the
+                    // triple-click selection behavior.
+                    <div data-nosnippet="true">{value}</div>
+                  )}
+                </li>
+              );
+            })}
           </ul>
         ) : null}
         {record ? (
@@ -104,11 +115,13 @@ function Subjects({
   skeleton?: boolean;
 }): React.ReactNode {
   let ref, inView;
+  /* eslint-disable react-hooks/rules-of-hooks */
   if (!import.meta.env.SSR) {
     ({ ref, inView } = useDelayedInView({
       rootMargin: '200px',
     }));
   }
+  /* eslint-enable */
 
   if (!subjects) {
     return skeleton && <SubjectView />;
@@ -175,7 +188,7 @@ function SubjectView({
   if (materialQuery?.error) {
     return (
       <div className={styles.errorContainer}>
-        <p className="error">{`${materialQuery.error}`}</p>
+        <p className="error">{String(materialQuery.error)}</p>
         <button
           onClick={() => void materialQuery.refetch()}
           disabled={materialQuery.isFetching}

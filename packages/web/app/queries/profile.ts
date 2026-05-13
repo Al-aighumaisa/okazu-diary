@@ -114,6 +114,8 @@ export function useProfileQuery(
   if (odQuery.data) {
     return odQuery;
   } else if (odQuery.data === null) {
+    // Using rest destructuring to keep the type consistent with the other branches.
+    // eslint-disable-next-line @tanstack/query/no-rest-destructuring
     const { data, ...rest } = bskyQuery;
     const ret: typeof rest & { data?: UseProfileQueryValue | null } = rest;
     if (data !== undefined) {

@@ -4,19 +4,19 @@ import Skeleton from 'react-loading-skeleton';
 
 import * as config from '~/config';
 
-export interface UserAvatarProps extends React.AriaAttributes {
+export interface ProfileAvatarProps extends React.AriaAttributes {
   repo: string | undefined;
   blob?: BlobRef | undefined;
   size: number;
   className?: string;
 }
 
-export default function UserAvatar({
+export default function ProfileAvatar({
   repo,
   blob,
   size,
   ...rest
-}: UserAvatarProps): React.ReactNode {
+}: ProfileAvatarProps): React.ReactNode {
   if (repo) {
     if (blob) {
       return (

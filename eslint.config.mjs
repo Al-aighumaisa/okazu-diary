@@ -107,6 +107,26 @@ const config = defineConfig([
           ],
         },
       ],
+      'react-refresh/only-export-components': [
+        'warn',
+        {
+          // React Router handles these exports to work with Fast Refresh.
+          // https://github.com/remix-run/react-router/discussions/10856#discussioncomment-12642926
+          allowExportNames: [
+            'loader',
+            'clientLoader',
+            'action',
+            'clientAction',
+            'ErrorBoundary',
+            'HydrateFallback',
+            'headers',
+            'handle',
+            'links',
+            'meta',
+            'shouldRevalidate',
+          ],
+        },
+      ],
     },
     languageOptions: {
       ecmaVersion: 2020,

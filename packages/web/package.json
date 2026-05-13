@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "pnpm run prebuild && react-router build",
-    "dev": "OKAZU_DIARY_WEB_BASE_URL=http://localhost:5173 pnpm run prebuild && VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS='did:plc:txc5gws7latzcjmgpnqcogu3' VITE_OKAZU_DIARY_WEB_PLC='http://localhost:2587' node ./scripts/dev-env.mjs react-router dev --mode=development",
+    "dev": "OKAZU_DIARY_WEB_BASE_URL=http://[::1]:5173 pnpm run prebuild && node ./scripts/dev-env.mjs react-router dev --mode=development --host=::1 --port=:5173",
     "prebuild": "node ./scripts/generate-metadata.mjs",
     "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc --build --noEmit"
