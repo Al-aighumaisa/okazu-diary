@@ -1,12 +1,15 @@
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
-import type React from 'react';
+import { type default as React, useContext } from 'react';
 import { useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
+import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
+import {
+  PrimaryProfileContext,
+  type PrimaryProfileContextValue,
+} from '~/contexts/PrimaryProfileContext';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
-import { useHandle } from '~/queries/handle';
-import { useProfileQuery } from '~/queries/profile';
 import { useRecordQuery } from '~/queries/record';
 import type { Route } from './+types/entry';
 import {
@@ -34,27 +37,31 @@ export default function EntryPage({
   const [search] = useSearchParams();
   const rkey = search.get('id');
 
-  return EntryPageView(did, useHandle(did, prefetchedHandle).data, urlId, rkey);
+  return (
+    <PrimaryProfileProvider did={did} prefetchedHandle={prefetchedHandle}>
+      <EntryPageView urlId={urlId} rkey={rkey} />
+    </PrimaryProfileProvider>
+  );
 }
 
-export function HydrateFallback(): React.ReactNode {
-  return EntryPageView();
+export const HydrateFallback = EntryPageView;
+
+interface EntryPageViewProps {
+  urlId: string | undefined;
+  rkey: string | null;
 }
 
-function EntryPageView(
-  did: string,
-  handle: string | undefined,
-  urlId: string | undefined,
-  rkey: string | null,
-): React.ReactNode;
+function EntryPageView(props: EntryPageViewProps): React.ReactNode;
 function EntryPageView(): React.ReactNode;
-function EntryPageView(
-  did?: string,
-  handle?: string,
-  urlId?: string,
-  rkey?: string | null,
-): React.ReactNode {
-  const profileQuery = useDeferredQueryError(useProfileQuery(did));
+function EntryPageView({
+  urlId,
+  rkey,
+}: Partial<EntryPageViewProps> = {}): React.ReactNode {
+  const profileCtx: Partial<PrimaryProfileContextValue> =
+    useContext(PrimaryProfileContext) ?? {};
+  const did = profileCtx.did;
+  const profileQuery = useDeferredQueryError(profileCtx.query);
+  const handle = profileCtx.handleQuery?.data;
   const entryQuery = useRecordQuery(
     did,
     'org.okazu-diary.feed.entry',

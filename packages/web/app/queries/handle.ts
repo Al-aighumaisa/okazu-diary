@@ -8,10 +8,12 @@ import {
   type UseQueryResult,
 } from '@tanstack/react-query';
 
-export function useHandle(
+export type UseHandleQueryResult = UseQueryResult<string>;
+
+export function useHandleQuery(
   did: string,
   prefetched?: string,
-): UseQueryResult<string> {
+): UseHandleQueryResult {
   const didQuery = useDidQuery(did);
 
   let initialData;

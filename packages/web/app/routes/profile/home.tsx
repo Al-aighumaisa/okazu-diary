@@ -1,17 +1,20 @@
-import type React from 'react';
+import { type default as React, useContext } from 'react';
 import { Link, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
+import { useOAuthContext } from '~/contexts/OAuthContext';
+import {
+  PrimaryProfileContext,
+  type PrimaryProfileContextValue,
+} from '~/contexts/PrimaryProfileContext';
+import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
 import { allowed_dids, primary_did } from '~/config';
 import { handleResolver } from '~/lib/identity';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useActorFeedQuery } from '~/queries/actorFeed';
-import { useHandle } from '~/queries/handle';
-import { useProfileQuery } from '~/queries/profile';
 import type { Route } from './+types/home';
 import styles from './home.module.css';
-import { useOAuthContext } from '~/contexts/OAuthContext';
 
 export interface LoaderData {
   did: string;
@@ -52,32 +55,34 @@ export default function ProfilePage({
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
 
-  return ProfilePageView(
-    did,
-    useHandle(did, prefetchedHandle).data,
-    search.get('cursor'),
-    search.get('reverse') === '1',
+  return (
+    <PrimaryProfileProvider did={did} prefetchedHandle={prefetchedHandle}>
+      <ProfilePageView
+        cursor={search.get('cursor')}
+        reverse={search.get('reverse') === '1'}
+      />
+    </PrimaryProfileProvider>
   );
 }
 
-export function HydrateFallback(): React.ReactNode {
-  return ProfilePageView();
+export const HydrateFallback = ProfilePageView;
+
+interface ProfilePageViewProps {
+  cursor: string | null;
+  reverse: boolean;
 }
 
+function ProfilePageView(props: ProfilePageViewProps): React.ReactNode;
 function ProfilePageView(): React.ReactNode;
-function ProfilePageView(
-  did: string,
-  handle: string | undefined,
-  cursor: string | null,
-  reverse: boolean,
-): React.ReactNode;
-function ProfilePageView(
-  did?: string,
-  handle?: string,
-  cursor?: string | null,
-  reverse?: boolean,
-): React.ReactNode {
-  const profileQuery = useDeferredQueryError(useProfileQuery(did));
+function ProfilePageView({
+  cursor,
+  reverse,
+}: Partial<ProfilePageViewProps> = {}): React.ReactNode {
+  const profileCtx: Partial<PrimaryProfileContextValue> =
+    useContext(PrimaryProfileContext) ?? {};
+  const did = profileCtx.did;
+  const profileQuery = useDeferredQueryError(profileCtx.query);
+  const handle = profileCtx.handleQuery?.data;
   const feedQuery = useDeferredQueryError(
     useActorFeedQuery(did, cursor, reverse),
   );

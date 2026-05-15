@@ -27,26 +27,39 @@ const useDeferredQueryErrorResultBrand = Symbol();
 /**
  * Caches a `query.error` value while refetching the query, so that it can be kept displayed to
  * prevent layout shift, for example.
- *
- * This will destructively update the `error` property of the input, so it is unsafe to touch the
- * passed value afterwards. Preferably, this function is called right after a `useQuery` invocation,
- * like `UseDeferredQueryError(useQuery({ ... }))`.
  */
 export function useDeferredQueryError<TData = unknown, TError = Error>(
   query: UseQueryResult<TData, TError>,
-): UseDeferredQueryErrorResult<TData, TError> {
+): UseDeferredQueryErrorResult<TData, TError>;
+export function useDeferredQueryError(query?: undefined): undefined;
+export function useDeferredQueryError<TData = unknown, TError = Error>(
+  query?: UseQueryResult<TData, TError>,
+): UseDeferredQueryErrorResult<TData, TError> | undefined;
+export function useDeferredQueryError<TData = unknown, TError = Error>(
+  query?: UseQueryResult<TData, TError>,
+): UseDeferredQueryErrorResult<TData, TError> | undefined {
   const [error, setError] = useState<TError | undefined>();
+
+  const queryIsUndefined = !query;
   useEffect(() => {
+    if (queryIsUndefined) {
+      return;
+    }
     if (query.isError) {
       setError(query.error);
     } else if (query.isSuccess) {
       setError(undefined);
     }
     // `query.{isError,isSuccess}` is derived from `query.status`.
-  }, [query.status, query.error]);
+  }, [queryIsUndefined, query?.status, query?.error]);
+
+  if (queryIsUndefined) {
+    return;
+  }
 
   if (query.isPending) {
-    const ret: Omit<typeof query, 'error'> & { error: TError | null } = query;
+    const { ...ret }: Omit<typeof query, 'error'> & { error: TError | null } =
+      query;
     if (error) {
       ret.error = error;
     }

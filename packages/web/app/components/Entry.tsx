@@ -3,10 +3,14 @@ import {
   OrgOkazuDiaryMaterialExternal,
   type OrgOkazuDiaryFeedEntry,
 } from '@okazu-diary/api';
-import { type default as React, useId } from 'react';
+import { type default as React, useId, useContext } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';
 
+import {
+  PrimaryProfileContext,
+  type PrimaryProfileContextValue,
+} from '~/contexts/PrimaryProfileContext';
 import {
   useDeferredQueryError,
   type UseDeferredQueryErrorResult,
@@ -28,13 +32,16 @@ export default function Entry({
   record,
   url,
 }: Partial<EntryProps> = {}): React.ReactNode {
+  const profileCtx: Partial<PrimaryProfileContextValue> =
+    useContext(PrimaryProfileContext) ?? {};
+
   const datetime = record?.datetime;
   const tags = record ? record.tags : [...Array<void>(3)];
 
   const visibility = record?.visibility;
   const unlisted = visibility && visibility !== 'public';
 
-  const entryLang = record?.lang ?? '';
+  const entryLang = record?.lang ?? profileCtx.query?.data?.lang ?? '';
 
   const tagCounter = new Map<string, number>();
   const tagList = tags?.length ? (
@@ -99,25 +106,19 @@ export default function Entry({
   );
 }
 
-function Subjects({
-  actor,
-  subjects,
-  skeleton,
-}: {
+interface SubjectsProps {
   actor: string | undefined;
   subjects: ComAtprotoRepoStrongRef.Main[] | undefined;
-  skeleton?: false;
-}): React.ReactNode;
-function Subjects(_props: { skeleton: true }): React.ReactNode;
+  skeleton?: boolean;
+}
+
+function Subjects(props: SubjectsProps & { skeleton?: false }): React.ReactNode;
+function Subjects(props: { skeleton: true }): React.ReactNode;
 function Subjects({
   actor,
   subjects,
   skeleton,
-}: {
-  actor?: string | undefined;
-  subjects?: ComAtprotoRepoStrongRef.Main[] | undefined;
-  skeleton?: boolean;
-}): React.ReactNode {
+}: Partial<SubjectsProps>): React.ReactNode {
   let ref, inView;
   /* eslint-disable react-hooks/rules-of-hooks */
   if (!import.meta.env.SSR) {
@@ -191,6 +192,11 @@ function SubjectView({
       >
     | undefined;
 }): React.ReactNode {
+  const profileCtx: Partial<PrimaryProfileContextValue> =
+    useContext(PrimaryProfileContext) ?? {};
+  const lang =
+    materialQuery?.data?.value.lang ?? profileCtx.query?.data?.lang ?? '';
+
   const titleId = useId();
 
   if (materialQuery?.error) {
@@ -211,7 +217,7 @@ function SubjectView({
       materialQuery.data.value.thumb ||
       materialQuery.data.value.title ||
       materialQuery.data.value.description ? (
-        <figure lang={materialQuery?.data?.value.lang ?? ''}>
+        <figure lang={lang}>
           {materialQuery?.data?.value ? (
             materialQuery.data.value.thumb && (
               <img
