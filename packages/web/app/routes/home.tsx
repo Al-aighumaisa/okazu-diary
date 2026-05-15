@@ -20,7 +20,7 @@ const actors = await Promise.all(
 const items = actors.map((actor) => {
   const link =
     'handle' in actor ? (
-      <Link lang="und" to={`/@${actor.handle}`}>
+      <Link lang="" to={`/@${actor.handle}`}>
         @{actor.handle}
       </Link>
     ) : (

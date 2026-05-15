@@ -34,7 +34,39 @@ export default function Entry({
   const visibility = record?.visibility;
   const unlisted = visibility && visibility !== 'public';
 
+  const entryLang = record?.lang ?? '';
+
   const tagCounter = new Map<string, number>();
+  const tagList = tags?.length ? (
+    <ul className={styles.tags} aria-label="Tags">
+      {tags.map((tag, i) => {
+        if (tag) {
+          // Items are basically keyed by the tag name (plus lang), but with the number of
+          // appearance of the tag as well, in case the user puts a same tag multiple times.
+          const lang = tag.lang ?? entryLang;
+          const keyStem = `${lang}-${tag.value}`;
+          const count = tagCounter.get(keyStem) ?? 0;
+          tagCounter.set(keyStem, count + 1);
+          return (
+            <li key={`${count}-${keyStem}`}>
+              {/* Add extra `<div>` (`display: block`) in attempt to limit the span of the
+               * triple-click selection behavior. */}
+              <div data-nosnippet="true" lang={lang}>
+                {tag.value}
+              </div>
+            </li>
+          );
+        } else {
+          return (
+            <li key={`skeleton-${i}`}>
+              <Skeleton style={{ inlineSize: '5em' }} />
+            </li>
+          );
+        }
+      })}
+    </ul>
+  ) : null;
+
   return (
     <>
       {unlisted && <meta name="robots" content="noindex" />}
@@ -49,47 +81,19 @@ export default function Entry({
             <Skeleton style={{ inlineSize: '13em' }} />
           )}
         </header>
-        {tags?.length ? (
-          <ul className={styles.tags} aria-label="Tags">
-            {tags.map((tag, i) => {
-              const value = tag?.value;
-              let count;
-              if (value !== undefined) {
-                count = tagCounter.get(value) ?? 0;
-                tagCounter.set(value, count + 1);
-              }
-              return (
-                // Items are basically keyed by the tag name, but with the number of appearance of
-                // the tag as well, in case the user puts a same tag multiple times.
-                <li
-                  key={
-                    value === undefined ? `skeleton-${i}` : `${count}-${value}`
-                  }
-                >
-                  {value === undefined ? (
-                    <Skeleton style={{ inlineSize: '5em' }} />
-                  ) : (
-                    // Add extra `<div>` (`display: block`) in attempt to limit the span of the
-                    // triple-click selection behavior.
-                    <div data-nosnippet="true">{value}</div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        ) : null}
+        {tagList}
         {record ? (
           <Subjects actor={actor} subjects={record.subjects} />
         ) : (
           <Subjects skeleton={true} />
         )}
-        <p>
-          {record ? (
-            <span className={styles.note}>{record.note}</span>
-          ) : (
-            <Skeleton style={{ inlineSize: '30em' }} />
-          )}
-        </p>
+        {record ? (
+          <p className={styles.note} lang={entryLang}>
+            {record.note}
+          </p>
+        ) : (
+          <Skeleton style={{ inlineSize: '30em' }} />
+        )}
       </div>
     </>
   );
@@ -207,7 +211,7 @@ function SubjectView({
       materialQuery.data.value.thumb ||
       materialQuery.data.value.title ||
       materialQuery.data.value.description ? (
-        <figure>
+        <figure lang={materialQuery?.data?.value.lang ?? ''}>
           {materialQuery?.data?.value ? (
             materialQuery.data.value.thumb && (
               <img

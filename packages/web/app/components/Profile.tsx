@@ -36,12 +36,7 @@ export default function Profile({
       if (!profileQuery?.error) {
         return (
           <div aria-busy="true">
-            <AvatarAndName
-              repo={undefined}
-              handle={handle}
-              name={undefined}
-              url={url}
-            />
+            <AvatarAndName handle={handle} url={url} />
             <Skeleton style={{ inlineSize: '40em' }} />
             <Skeleton style={{ inlineSize: '40em' }} />
           </div>
@@ -63,6 +58,7 @@ export default function Profile({
       );
     case 'success': {
       const profile = profileQuery.data;
+      const lang = profile?.lang ?? '';
       return (
         <div>
           <AvatarAndName
@@ -70,9 +66,12 @@ export default function Profile({
             blob={profile?.avatar}
             handle={handle}
             name={profile?.displayName ?? null}
+            lang={lang}
             url={url}
           />
-          {profile?.description !== undefined && <p>{profile.description}</p>}
+          {profile?.description !== undefined && (
+            <p lang={lang}>{profile.description}</p>
+          )}
           {profile?.website && (
             <p className={styles.website}>
               <link rel="me" href={profile.website} />
@@ -92,21 +91,39 @@ function AvatarAndName({
   blob,
   handle,
   name,
+  lang,
   url,
 }: {
-  repo: string | undefined;
+  repo?: string | undefined;
   blob?: BlobRef | null | undefined;
-  handle?: string | undefined;
-  name: string | null | undefined;
-  url?: string | undefined;
+  handle: string | undefined;
+  name?: string | null;
+  lang?: string;
+  url: string | undefined;
 }): React.ReactNode {
+  let avatarLabelledBy;
+  let avatarAlt;
+  let avatarLang;
+  if (name) {
+    avatarLabelledBy = 'profile-name';
+    avatarLang = lang;
+  } else if (handle && handle !== 'handle.invalid') {
+    avatarLabelledBy = 'profile-handle';
+    avatarLang = '';
+  } else {
+    avatarAlt = 'Avatar';
+    avatarLang = 'en';
+  }
+
   const content = (
     <>
       <ProfileAvatar
         repo={repo}
         blob={blob}
         size={80}
-        aria-labelledby={(name && 'profile-name') || undefined}
+        lang={avatarLang}
+        aria-labelledby={avatarLabelledBy}
+        alt={avatarAlt}
       />
       <div>
         {name === undefined ? (
@@ -115,17 +132,17 @@ function AvatarAndName({
             style={{ inlineSize: '20em' }}
           />
         ) : (
-          name !== null && (
-            <h1 id="profile-name" className={styles.profileName}>
+          name && (
+            <h1 id="profile-name" lang={lang} className={styles.profileName}>
               {name}
             </h1>
           )
         )}
-        <p className={styles.profileHandle}>
+        <p id="profile-handle" className={styles.profileHandle}>
           {handle === 'handle.invalid' ? (
             '(Invalid handle!)'
           ) : handle ? (
-            `@${handle}`
+            <span lang="">{`@${handle}`}</span>
           ) : (
             <Skeleton />
           )}

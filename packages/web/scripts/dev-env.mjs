@@ -41,6 +41,7 @@ async function main() {
             displayName: 'bobby',
             description: 'hi im bob',
             website: 'https://bob.test',
+            lang: 'en',
             createdAt: new Date(mockTime).toISOString(),
           },
         },
@@ -83,6 +84,67 @@ async function main() {
             visibility: 'public',
           },
         },
+        ...(await (async () => {
+          /** @satisfies {OrgOkazuDiaryMaterialExternal.Main} */
+          const material = {
+            $type: 'org.okazu-diary.material.external',
+            uri: 'https://en.example.com/',
+            title: 'English Porn',
+            thumb: {
+              url: 'http://localhost:5173/favicon.ico',
+            },
+            lang: 'en',
+          };
+          const materialCid = await cidForRecord(material);
+          const rkey = nextTID();
+          return /** @type {ComAtprotoRepoApplyWrites.Create[]} */ ([
+            {
+              $type: 'com.atproto.repo.applyWrites#create',
+              collection: material.$type,
+              rkey,
+              value: material,
+            },
+            {
+              $type: /** @type {const} */ (
+                'com.atproto.repo.applyWrites#create'
+              ),
+              collection: 'org.okazu-diary.feed.entry',
+              rkey,
+              /** @type {OrgOkazuDiaryFeedEntry.Main} */
+              value: {
+                $type: 'org.okazu-diary.feed.entry',
+                datetime: new Date(mockTime).toISOString(),
+                subjects: [
+                  {
+                    uri: `at://${did}/${material.$type}/${rkey}`,
+                    cid: materialCid.toString(),
+                  },
+                ],
+                tags: [
+                  {
+                    value: '日本語タグ',
+                    lang: 'ja',
+                  },
+                  {
+                    value: '言語未指定タグ',
+                  },
+                  {
+                    value: 'english-tag-in-ja-entry',
+                    lang: 'en',
+                  },
+                ],
+                note: '日本語のエントリ',
+                labels: {
+                  $type: 'com.atproto.label.defs#selfLabels',
+                  values: [{ val: 'sexual' }],
+                },
+                lang: 'ja',
+                hadHiatus: false,
+                visibility: 'public',
+              },
+            },
+          ]);
+        })()),
         ...(await (async () => {
           /** @satisfies {OrgOkazuDiaryMaterialExternal.Main} */
           const material = {

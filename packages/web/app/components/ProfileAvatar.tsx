@@ -4,17 +4,22 @@ import Skeleton from 'react-loading-skeleton';
 
 import * as config from '~/config';
 
-export interface ProfileAvatarProps extends React.AriaAttributes {
+type ImageAttributes = React.HTMLAttributes<HTMLImageElement> &
+  React.SVGAttributes<SVGElement>;
+
+export interface ProfileAvatarProps
+  extends React.AriaAttributes, ImageAttributes {
   repo: string | undefined;
   blob?: BlobRef | null | undefined;
   size: number;
-  className?: string;
+  alt: string | undefined;
 }
 
 export default function ProfileAvatar({
   repo,
   blob,
   size,
+  alt,
   ...rest
 }: ProfileAvatarProps): React.ReactNode {
   if (repo) {
@@ -23,6 +28,7 @@ export default function ProfileAvatar({
         <img
           {...rest}
           src={`${config.bsky_cdn}/img/avatar/plain/${repo}/${blob.ref}`}
+          alt={alt}
           width={size}
           height={size}
         />
@@ -32,6 +38,8 @@ export default function ProfileAvatar({
       return (
         <svg
           {...rest}
+          role="img"
+          aria-label={alt}
           width={size}
           height={size}
           viewBox="0 0 24 24"
