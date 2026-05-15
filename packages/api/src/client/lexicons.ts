@@ -615,10 +615,18 @@ export const schemaDict = {
       main: {
         type: 'record',
         description:
-          'A declaration of an Okazu-Diary.org profile. If the repository has an `app.bsky.actor.profile` record, the application can substitute omitted properties of this record with the counterpart properties from that record, except for the `createdAt` and `labels` properties.',
+          'A declaration of an Okazu-Diary.org profile. If the repository has an `app.bsky.actor.profile` record, the application may substitute omitted properties of this record with the counterpart properties from that record, except for those not defined in the bsky Lexicon and the `createdAt` and `labels` properties. An empty string or `null` does not count as "omitted".',
         key: 'literal:self',
         record: {
           type: 'object',
+          nullable: [
+            'displayName',
+            'description',
+            'website',
+            'avatar',
+            'labels',
+            'createdAt',
+          ],
           properties: {
             displayName: {
               type: 'string',
@@ -638,7 +646,7 @@ export const schemaDict = {
             avatar: {
               type: 'blob',
               description:
-                "Small image to be displayed on the profile. AKA, 'profile picture'.",
+                "Small image to be displayed on the profile. AKA, 'profile picture'. Even though the Okazu-Diary.org applications are primarily intended for sharing sensitive materials, the profile picture must be safe for general audience.",
               accept: ['image/png', 'image/jpeg'],
               maxSize: 1000000,
             },
@@ -647,6 +655,21 @@ export const schemaDict = {
               description:
                 'Self-label values, specific to the Okazu-Diary.org application, on the overall account.',
               refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            lang: {
+              type: 'string',
+              format: 'language',
+              description:
+                "Indicates the user's primary human language, used in the profile and entries.",
+            },
+            alsoKnownAs: {
+              type: 'array',
+              description:
+                'List of references to profile records from external Lexicons to link from this profile, such as Bluesky profile. These links are intended to be displayed separately from the `website` link as "trusted" links, so the application should only display links to profiles that can be verified to be controlled by the same actor as the owner of this record. Typically, those are records that belong to the same repository as this record.',
+              items: {
+                type: 'string',
+                format: 'at-uri',
+              },
             },
             createdAt: {
               type: 'string',
@@ -704,6 +727,12 @@ export const schemaDict = {
               description:
                 'Self-label values for this post. Effectively content warnings for the note and tags.',
               refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            lang: {
+              type: 'string',
+              format: 'language',
+              description:
+                "Indicates the human language of the entry's primary text content and default language for entry tags, overriding the `lang` property from the actor profile record.",
             },
             hadHiatus: {
               type: 'boolean',
@@ -834,6 +863,12 @@ export const schemaDict = {
               maxLength: 5000,
               maxGraphemes: 500,
             },
+            lang: {
+              type: 'string',
+              format: 'language',
+              description:
+                "Indicates the human language of the collection item's primary text content, overriding the `lang` property from the actor profile record.",
+            },
             via: {
               type: 'ref',
               ref: 'lex:com.atproto.repo.strongRef',
@@ -861,6 +896,11 @@ export const schemaDict = {
             type: 'string',
             minLength: 1,
             maxLength: 256,
+            description: 'The primary text content of the tag.',
+          },
+          lang: {
+            type: 'string',
+            format: 'language',
           },
         },
       },
@@ -925,6 +965,12 @@ export const schemaDict = {
               description:
                 'General-purpose self-label values primarily for consumption by generic AT clients who may not expect the sensitive nature of this Lexicon. Publishers of this record are strongly recommended to always include at least one of the protocol-global label values; namely, `porn`, `sexual`, `graphic-media`, and `nudity`, unless the material and tags are all known to be safe by themselves. It is the safest to unconditionally include the `sexual` value, which has the `adultOnly` semantics, but it is acceptable to use a stronger (`porn`/`graphic-media`) or more moderate (`nudity`) value instead if the user decides so.',
               refs: ['lex:com.atproto.label.defs#selfLabels'],
+            },
+            lang: {
+              type: 'string',
+              format: 'language',
+              description:
+                "Indicates the human language of the material's primary text content and default language for material tags, overriding the `lang` property from the actor profile record.",
             },
             via: {
               type: 'ref',

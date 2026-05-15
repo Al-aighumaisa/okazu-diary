@@ -18,15 +18,18 @@ import { useDidQuery } from './did';
 export type UseProfileQueryResult = UseQueryResult<UseProfileQueryValue | null>;
 
 export interface UseProfileQueryValue {
-  displayName?: string | undefined;
-  description?: string | undefined;
-  website?: string | undefined;
-  avatar?: BlobRef | undefined;
+  displayName?: string | null | undefined;
+  description?: string | null | undefined;
+  website?: string | null | undefined;
+  avatar?: BlobRef | null | undefined;
   labels?:
     | $Typed<ComAtprotoLabelDefs.SelfLabels>
     | { $type: string }
+    | null
     | undefined;
-  createdAt?: string | undefined;
+  lang?: string | undefined;
+  alsoKnownAs?: string[] | undefined;
+  createdAt?: string | null | undefined;
 }
 
 export function useProfileQuery(

@@ -23,6 +23,8 @@ export interface Main {
   subjects: string[]
   /** Remarks on the collection item. */
   note?: string
+  /** Indicates the human language of the collection item's primary text content, overriding the `lang` property from the actor profile record. */
+  lang?: string
   via?: ComAtprotoRepoStrongRef.Main
   createdAt: string
   [k: string]: unknown

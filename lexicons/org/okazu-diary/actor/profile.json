@@ -4,10 +4,11 @@
   "defs": {
     "main": {
       "type": "record",
-      "description": "A declaration of an Okazu-Diary.org profile. If the repository has an `app.bsky.actor.profile` record, the application can substitute omitted properties of this record with the counterpart properties from that record, except for the `createdAt` and `labels` properties.",
+      "description": "A declaration of an Okazu-Diary.org profile. If the repository has an `app.bsky.actor.profile` record, the application may substitute omitted properties of this record with the counterpart properties from that record, except for those not defined in the bsky Lexicon and the `createdAt` and `labels` properties. An empty string or `null` does not count as \"omitted\".",
       "key": "literal:self",
       "record": {
         "type": "object",
+        "nullable": ["displayName", "description", "website", "avatar", "labels", "createdAt"],
         "properties": {
           "displayName": {
             "type": "string",
@@ -23,7 +24,7 @@
           "website": { "type": "string", "format": "uri" },
           "avatar": {
             "type": "blob",
-            "description": "Small image to be displayed on the profile. AKA, 'profile picture'.",
+            "description": "Small image to be displayed on the profile. AKA, 'profile picture'. Even though the Okazu-Diary.org applications are primarily intended for sharing sensitive materials, the profile picture must be safe for general audience.",
             "accept": ["image/png", "image/jpeg"],
             "maxSize": 1000000
           },
@@ -31,6 +32,19 @@
             "type": "union",
             "description": "Self-label values, specific to the Okazu-Diary.org application, on the overall account.",
             "refs": ["com.atproto.label.defs#selfLabels"]
+          },
+          "lang": {
+            "type": "string",
+            "format": "language",
+            "description": "Indicates the user's primary human language, used in the profile and entries."
+          },
+          "alsoKnownAs": {
+            "type": "array",
+            "description": "List of references to profile records from external Lexicons to link from this profile, such as Bluesky profile. These links are intended to be displayed separately from the `website` link as \"trusted\" links, so the application should only display links to profiles that can be verified to be controlled by the same actor as the owner of this record. Typically, those are records that belong to the same repository as this record.",
+            "items": {
+              "type": "string",
+              "format": "at-uri"
+            }
           },
           "createdAt": { "type": "string", "format": "datetime" }
         }

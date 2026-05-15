@@ -28,6 +28,8 @@ export interface Main {
   /** Remarks on the activity. */
   note?: string
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
+  /** Indicates the human language of the entry's primary text content and default language for entry tags, overriding the `lang` property from the actor profile record. */
+  lang?: string
   /** If `true`, indicates that there may have been unrecorded activities since the last entry, so that the data in the meantime are not reliable for statistical purposes. */
   hadHiatus: boolean
   /** Indicates the intended audience of the entry. A `public` entry (default) is fully public. An `unlisted` entry should not be listed in public profile feeds. */

@@ -31,6 +31,8 @@ export interface Main {
   tags?: OrgOkazuDiaryMaterialDefs.Tag[]
   labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
   genericLabels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
+  /** Indicates the human language of the material's primary text content and default language for material tags, overriding the `lang` property from the actor profile record. */
+  lang?: string
   via?: ComAtprotoRepoStrongRef.Main
   [k: string]: unknown
 }

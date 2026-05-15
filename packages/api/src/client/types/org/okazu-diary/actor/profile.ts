@@ -17,14 +17,18 @@ const id = 'org.okazu-diary.actor.profile'
 
 export interface Main {
   $type: 'org.okazu-diary.actor.profile'
-  displayName?: string
+  displayName?: string | null
   /** Free-form profile description text. */
-  description?: string
-  website?: string
-  /** Small image to be displayed on the profile. AKA, 'profile picture'. */
-  avatar?: BlobRef
-  labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string }
-  createdAt?: string
+  description?: string | null
+  website?: string | null
+  /** Small image to be displayed on the profile. AKA, 'profile picture'. Even though the Okazu-Diary.org applications are primarily intended for sharing sensitive materials, the profile picture must be safe for general audience. */
+  avatar?: BlobRef | null
+  labels?: $Typed<ComAtprotoLabelDefs.SelfLabels> | { $type: string } | null
+  /** Indicates the user's primary human language, used in the profile and entries. */
+  lang?: string
+  /** List of references to profile records from external Lexicons to link from this profile, such as Bluesky profile. These links are intended to be displayed separately from the `website` link as "trusted" links, so the application should only display links to profiles that can be verified to be controlled by the same actor as the owner of this record. Typically, those are records that belong to the same repository as this record. */
+  alsoKnownAs?: string[]
+  createdAt?: string | null
   [k: string]: unknown
 }
 

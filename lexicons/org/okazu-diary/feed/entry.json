@@ -43,6 +43,11 @@
             "description": "Self-label values for this post. Effectively content warnings for the note and tags.",
             "refs": ["com.atproto.label.defs#selfLabels"]
           },
+          "lang": {
+            "type": "string",
+            "format": "language",
+            "description": "Indicates the human language of the entry's primary text content and default language for entry tags, overriding the `lang` property from the actor profile record."
+          },
           "hadHiatus": {
             "type": "boolean",
             "default": false,

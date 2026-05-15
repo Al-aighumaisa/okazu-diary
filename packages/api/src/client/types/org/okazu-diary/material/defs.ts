@@ -16,7 +16,9 @@ const id = 'org.okazu-diary.material.defs'
 
 export interface Tag {
   $type?: 'org.okazu-diary.material.defs#tag'
+  /** The primary text content of the tag. */
   value: string
+  lang?: string
 }
 
 const hashTag = 'tag'

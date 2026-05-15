@@ -95,7 +95,7 @@ function AvatarAndName({
   url,
 }: {
   repo: string | undefined;
-  blob?: BlobRef | undefined;
+  blob?: BlobRef | null | undefined;
   handle?: string | undefined;
   name: string | null | undefined;
   url?: string | undefined;

@@ -9,7 +9,12 @@
         "value": {
           "type": "string",
           "minLength": 1,
-          "maxLength": 256
+          "maxLength": 256,
+          "description": "The primary text content of the tag."
+        },
+        "lang": {
+          "type": "string",
+          "format": "language"
         }
       }
     }

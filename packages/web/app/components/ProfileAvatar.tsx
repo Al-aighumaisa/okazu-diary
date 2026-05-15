@@ -6,7 +6,7 @@ import * as config from '~/config';
 
 export interface ProfileAvatarProps extends React.AriaAttributes {
   repo: string | undefined;
-  blob?: BlobRef | undefined;
+  blob?: BlobRef | null | undefined;
   size: number;
   className?: string;
 }
