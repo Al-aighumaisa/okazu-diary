@@ -93,6 +93,19 @@ async function main() {
             thumb: {
               url: 'http://localhost:5173/favicon.ico',
             },
+            tags: [
+              {
+                value: '日本語タグ',
+                lang: 'ja',
+              },
+              {
+                value: 'tag-without-lang',
+              },
+              {
+                value: 'english-tag',
+                lang: 'en',
+              },
+            ],
             lang: 'en',
           };
           const materialCid = await cidForRecord(material);

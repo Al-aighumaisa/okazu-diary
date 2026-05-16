@@ -48,6 +48,12 @@
   content: '#';
 }
 
+.subjectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .subjectList {
   display: flex;
   flex-direction: column;

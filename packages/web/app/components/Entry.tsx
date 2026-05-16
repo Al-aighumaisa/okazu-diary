@@ -1,5 +1,6 @@
 import type { ComAtprotoRepoStrongRef } from '@atproto/api';
 import {
+  OrgOkazuDiaryMaterialDefs,
   OrgOkazuDiaryMaterialExternal,
   type OrgOkazuDiaryFeedEntry,
 } from '@okazu-diary/api';
@@ -36,43 +37,11 @@ export default function Entry({
     useContext(PrimaryProfileContext) ?? {};
 
   const datetime = record?.datetime;
-  const tags = record ? record.tags : [...Array<void>(3)];
 
   const visibility = record?.visibility;
   const unlisted = visibility && visibility !== 'public';
 
-  const entryLang = record?.lang ?? profileCtx.query?.data?.lang ?? '';
-
-  const tagCounter = new Map<string, number>();
-  const tagList = tags?.length ? (
-    <ul className={styles.tags} aria-label="Tags">
-      {tags.map((tag, i) => {
-        if (tag) {
-          // Items are basically keyed by the tag name (plus lang), but with the number of
-          // appearance of the tag as well, in case the user puts a same tag multiple times.
-          const lang = tag.lang ?? entryLang;
-          const keyStem = `${lang}-${tag.value}`;
-          const count = tagCounter.get(keyStem) ?? 0;
-          tagCounter.set(keyStem, count + 1);
-          return (
-            <li key={`${count}-${keyStem}`}>
-              {/* Add extra `<div>` (`display: block`) in attempt to limit the span of the
-               * triple-click selection behavior. */}
-              <div data-nosnippet="true" lang={lang}>
-                {tag.value}
-              </div>
-            </li>
-          );
-        } else {
-          return (
-            <li key={`skeleton-${i}`}>
-              <Skeleton style={{ inlineSize: '5em' }} />
-            </li>
-          );
-        }
-      })}
-    </ul>
-  ) : null;
+  const lang = record?.lang ?? profileCtx.query?.data?.lang ?? '';
 
   return (
     <>
@@ -88,14 +57,22 @@ export default function Entry({
             <Skeleton style={{ inlineSize: '13em' }} />
           )}
         </header>
-        {tagList}
+        {record?.tags?.length ? (
+          // FIXME: The list is not very distinguishable from material tags. One idea is to mix the
+          // entry tags and material tags in a single list and give the items different styling
+          // (e.g. different colors or `::before` content) based on their kind, but how should we
+          // handle multiple subjects then?
+          <ul className={styles.tags} aria-label="Tags">
+            {tagList(record.tags, lang)}
+          </ul>
+        ) : null}
         {record ? (
           <Subjects actor={actor} subjects={record.subjects} />
         ) : (
           <Subjects skeleton={true} />
         )}
         {record ? (
-          <p className={styles.note} lang={entryLang}>
+          <p className={styles.note} lang={lang}>
             {record.note}
           </p>
         ) : (
@@ -154,7 +131,11 @@ function Subjects({
     } else {
       content = <SubjectView />;
     }
-    return <div ref={ref}>{content}</div>;
+    return (
+      <div className={styles.subjectContainer} ref={ref}>
+        {content}
+      </div>
+    );
   } else {
     return <p className={styles.subject}>No materials used</p>;
   }
@@ -194,6 +175,11 @@ function SubjectView({
 }): React.ReactNode {
   const profileCtx: Partial<PrimaryProfileContextValue> =
     useContext(PrimaryProfileContext) ?? {};
+
+  const tags = materialQuery?.data
+    ? materialQuery.data.value.tags
+    : [...Array<void>(3)];
+
   const lang =
     materialQuery?.data?.value.lang ?? profileCtx.query?.data?.lang ?? '';
 
@@ -252,7 +238,7 @@ function SubjectView({
         materialQuery.data.value.uri
       );
 
-    return materialQuery?.data?.value.uri ? (
+    const container = materialQuery?.data?.value.uri ? (
       <a
         href={materialQuery.data.value.uri}
         target="_blank"
@@ -269,5 +255,48 @@ function SubjectView({
         {content}
       </div>
     );
+
+    return (
+      <>
+        {container}
+        {tags?.length ? (
+          <ul className={styles.tags} aria-label="Tags">
+            {tagList(tags, lang)}
+          </ul>
+        ) : null}
+      </>
+    );
   }
+}
+
+function tagList(
+  tags: OrgOkazuDiaryMaterialDefs.Tag[] | void[],
+  entryLang: string,
+): React.ReactNode[] {
+  const counter = new Map<string, number>();
+  return tags.map((tag, i) => {
+    if (tag) {
+      // Items are basically keyed by the tag name (plus lang), but with the number of
+      // appearance of the tag as well, in case the user puts a same tag multiple times.
+      const lang = tag.lang ?? entryLang;
+      const keyStem = `${lang}-${tag.value}`;
+      const count = counter.get(keyStem) ?? 0;
+      counter.set(keyStem, count + 1);
+      return (
+        <li key={`${count}-${keyStem}`}>
+          {/* Add extra `<div>` (`display: block`) in attempt to limit the span of the triple-click
+            selection behavior. */}
+          <div data-nosnippet="true" lang={lang}>
+            {tag.value}
+          </div>
+        </li>
+      );
+    } else {
+      return (
+        <li key={`skeleton-${i}`}>
+          <Skeleton style={{ inlineSize: '5em' }} />
+        </li>
+      );
+    }
+  });
 }
