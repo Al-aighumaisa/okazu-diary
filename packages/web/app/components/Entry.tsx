@@ -71,11 +71,11 @@ export default function Entry({
         ) : (
           <Subjects skeleton={true} />
         )}
-        {record ? (
+        {record?.note ? (
           <p className={styles.note} lang={lang}>
             {record.note}
           </p>
-        ) : (
+        ) : record ? null : (
           <Skeleton style={{ inlineSize: '30em' }} />
         )}
       </div>
