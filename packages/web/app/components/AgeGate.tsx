@@ -21,6 +21,7 @@ export default function AgeGate({
   children,
 }: React.PropsWithChildren): React.ReactNode {
   const [init, setInit] = useState<true | undefined>();
+  const [open, setOpen] = useState(false);
   const [dismissed, setDismissed] = useState<boolean>();
 
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -37,14 +38,16 @@ export default function AgeGate({
       navigator.userAgent.startsWith('Mozilla/')
     ) {
       dialogRef.current?.showModal();
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setOpen(true);
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setInit(true);
   }, []);
 
   function confirmAge(): void {
     storage.setItem('adult', '1');
     dialogRef.current?.close();
+    setOpen(false);
   }
 
   const headingId = useId();
@@ -60,9 +63,6 @@ export default function AgeGate({
         aria-modal="true"
         aria-labelledby={headingId}
         aria-describedby={descId}
-        // Indicate whether the initial `useEffect` has completed so that the content can be styled
-        // to be hidden until the dialog is initialized, just to be sure.
-        data-init={init}
       >
         {dismissed ? (
           <>
@@ -95,7 +95,14 @@ export default function AgeGate({
           </>
         )}
       </dialog>
-      {children}
+      <div
+        className={styles.ageGated}
+        inert={open}
+        // Completely hide the content until the initial `useEffect` completes, just to be sure.
+        hidden={!init}
+      >
+        {children}
+      </div>
     </>
   );
 }

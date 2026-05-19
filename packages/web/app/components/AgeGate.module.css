@@ -10,10 +10,7 @@
 }
 
 .ageGate::backdrop {
-  /* Make the blur relative to the viewport because the size of material images scales propotional
-   * to the viewport. Otherwise, the blur could be made arbitralily small relative to the image as
-   * the user zooms out the viewport, effectively making the image clearer. */
-  backdrop-filter: blur(min(3vw, 3vh)) brightness(0.5);
+  backdrop-filter: brightness(0.5);
 }
 
 .ageGate > div {
@@ -27,6 +24,19 @@
   max-width: 30em;
 }
 
-.ageGate:not([data-init]) ~ * {
-  visibility: hidden;
+.ageGated[inert] {
+  /* Using `filter` instead of `backdrop-filter` for `blur()` because:
+   * - `backdrop-filter` is still a new feature (Baseline 2024), and
+   * - Desktop Safari has a quirk with `backdrop-filter` that drops the filter in the tab preview in
+   *   the tab list view.
+   * But we are using `backdrop-filter` for `brightness()` because `filter` won't apply the
+   * brightness throughout the subtree. */
+  /* Make the blur relative to the viewport because the size of material images scales propotional
+   * to the viewport. Otherwise, the blur could be made arbitralily small relative to the image as
+   * the user zooms out the viewport, effectively making the image clearer. */
+  filter: blur(min(3vw, 3vh));
+  /** Capture the scroll behavior of `<body>`, so that the backdrop of the dialog won't scroll while
+   * it's open. */
+  block-size: 100vb;
+  overflow: auto;
 }
