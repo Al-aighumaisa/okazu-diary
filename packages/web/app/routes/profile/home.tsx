@@ -1,5 +1,5 @@
 import { type default as React, useContext } from 'react';
-import { Link, useSearchParams } from 'react-router';
+import { Link, useParams, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
@@ -9,55 +9,45 @@ import {
   type PrimaryProfileContextValue,
 } from '~/contexts/PrimaryProfileContext';
 import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
-import { allowed_dids, primary_did } from '~/config';
+import { isAllowedDid } from '~/config';
 import { handleResolver } from '~/lib/identity';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useActorFeedQuery } from '~/queries/actorFeed';
 import type { Route } from './+types/home';
+import { parseParams } from './common';
 import styles from './home.module.css';
 
 export interface LoaderData {
   did: string;
-  prefetchedHandle: string | undefined;
+  paramHandle: string | undefined;
 }
 
 export async function clientLoader({
-  params: { id },
+  params: unparsedParams,
 }: Pick<Route.LoaderArgs, 'params'>): Promise<LoaderData> {
-  let did, prefetchedHandle;
-
-  if (id) {
-    if (id.startsWith('@')) {
-      prefetchedHandle = id.slice(1);
-      did = await handleResolver.resolve(prefetchedHandle);
-      if (!did) {
-        throw new Response(null, { status: 404 });
-      }
-    } else if (/^did(?::|%3A)/i.test(id)) {
-      did = decodeURIComponent(id);
-    } else {
+  const params = parseParams(unparsedParams);
+  let did;
+  if (!params) {
+    throw new Response(null, { status: 404 });
+  } else if (!(did = params.did)) {
+    did = await handleResolver.resolve(params.handle);
+    if (!did || !isAllowedDid(did)) {
       throw new Response(null, { status: 404 });
     }
-
-    if (allowed_dids.length && !allowed_dids.includes(did)) {
-      throw new Response(null, { status: 404 });
-    }
-  } else {
-    // TODO: Use a prefetched handle for this case.
-    did = primary_did!;
   }
 
-  return { did, prefetchedHandle };
+  return { did, paramHandle: params.handle };
 }
 
 export default function ProfilePage({
-  loaderData: { did, prefetchedHandle },
+  loaderData: { did, paramHandle },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
 
   return (
-    <PrimaryProfileProvider did={did} prefetchedHandle={prefetchedHandle}>
+    <PrimaryProfileProvider did={did} prefetchedHandle={paramHandle}>
       <ProfilePageView
+        did={did}
         cursor={search.get('cursor')}
         reverse={search.get('reverse') === '1'}
       />
@@ -65,22 +55,35 @@ export default function ProfilePage({
   );
 }
 
-export const HydrateFallback = ProfilePageView;
+export function HydrateFallback(): React.ReactNode {
+  const params = parseParams(useParams());
+  const [search] = useSearchParams();
 
-interface ProfilePageViewProps {
-  cursor: string | null;
-  reverse: boolean;
+  // Basically the same as the main component, except skipping the handle resolution.
+  // It might be neat if we could overthrow the loader and resolve the handle in the main component
+  // itself, but it's better to keep the loader around as we want to determine if the ID is `404`.
+  return (
+    <ProfilePageView
+      did={params?.did}
+      cursor={search.get('cursor')}
+      reverse={search.get('reverse') === '1'}
+    />
+  );
 }
 
-function ProfilePageView(props: ProfilePageViewProps): React.ReactNode;
-function ProfilePageView(): React.ReactNode;
+interface ProfilePageViewProps {
+  did: string | undefined;
+  cursor?: string | null;
+  reverse?: boolean;
+}
+
 function ProfilePageView({
+  did,
   cursor,
   reverse,
-}: Partial<ProfilePageViewProps> = {}): React.ReactNode {
+}: ProfilePageViewProps): React.ReactNode {
   const profileCtx: Partial<PrimaryProfileContextValue> =
     useContext(PrimaryProfileContext) ?? {};
-  const did = profileCtx.did;
   const profileQuery = useDeferredQueryError(profileCtx.query);
   const handle = profileCtx.handleQuery?.data;
   const feedQuery = useDeferredQueryError(

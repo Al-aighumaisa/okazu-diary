@@ -1,6 +1,6 @@
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import { type default as React, useContext } from 'react';
-import { useSearchParams } from 'react-router';
+import { useParams, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
@@ -12,6 +12,7 @@ import {
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useRecordQuery } from '~/queries/record';
 import type { Route } from './+types/entry';
+import { parseParams } from './common';
 import {
   clientLoader as homeClientLoader,
   type LoaderData as HomeLoaderData,
@@ -32,34 +33,44 @@ export async function clientLoader(
 }
 
 export default function EntryPage({
-  loaderData: { did, prefetchedHandle, urlId },
+  loaderData: { did, paramHandle: prefetchedHandle, urlId },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
-  const rkey = search.get('id');
 
   return (
     <PrimaryProfileProvider did={did} prefetchedHandle={prefetchedHandle}>
-      <EntryPageView urlId={urlId} rkey={rkey} />
+      <EntryPageView did={did} urlId={urlId} rkey={search.get('id')} />
     </PrimaryProfileProvider>
   );
 }
 
-export const HydrateFallback = EntryPageView;
+export function HydrateFallback(): React.ReactNode {
+  const unparsedParams = useParams();
+  const params = parseParams(unparsedParams);
+  const [search] = useSearchParams();
+
+  return (
+    <EntryPageView
+      did={params?.did}
+      urlId={unparsedParams.id}
+      rkey={search.get('id')}
+    />
+  );
+}
 
 interface EntryPageViewProps {
+  did: string | undefined;
   urlId: string | undefined;
   rkey: string | null;
 }
 
-function EntryPageView(props: EntryPageViewProps): React.ReactNode;
-function EntryPageView(): React.ReactNode;
 function EntryPageView({
+  did,
   urlId,
   rkey,
-}: Partial<EntryPageViewProps> = {}): React.ReactNode {
+}: EntryPageViewProps): React.ReactNode {
   const profileCtx: Partial<PrimaryProfileContextValue> =
     useContext(PrimaryProfileContext) ?? {};
-  const did = profileCtx.did;
   const profileQuery = useDeferredQueryError(profileCtx.query);
   const handle = profileCtx.handleQuery?.data;
   const entryQuery = useRecordQuery(

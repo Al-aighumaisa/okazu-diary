@@ -14,19 +14,26 @@ if (!vite_okazu_diary_web_allowed_dids) {
 const vite_okazu_diary_web_allowed_dids_array =
   vite_okazu_diary_web_allowed_dids.split(/\s+/);
 
-export const allowed_dids: readonly string[] =
-  vite_okazu_diary_web_allowed_dids_array.includes('*')
-    ? []
-    : vite_okazu_diary_web_allowed_dids_array;
+export let allowed_dids: readonly `did:${string}`[];
+if (vite_okazu_diary_web_allowed_dids_array.includes('*')) {
+  allowed_dids = [];
+} else if (
+  vite_okazu_diary_web_allowed_dids_array.every((s) => s.startsWith('did:'))
+) {
+  allowed_dids = vite_okazu_diary_web_allowed_dids_array as `did:${string}`[];
+} else {
+  throw new Error(
+    'VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS environment variable must be a list of valid DIDs',
+  );
+}
 
-export let primary_did: string | undefined;
+export let primary_did: `did:${string}` | undefined;
 const [did, ...rest] = allowed_dids;
 if (did !== undefined && !rest.length) {
   primary_did = did;
 }
 
 export const plc =
-  // Meant to ignore empty strings as well.
   import.meta.env.VITE_OKAZU_DIARY_WEB_PLC || 'https://plc.directory';
 
 export const bsky_cdn =
@@ -36,3 +43,8 @@ export const prefetchedDids = new Map<
   string,
   DidDocument | CompatibleOperation
 >(Object.entries(prefetchedDidsJson));
+
+export function isAllowedDid(did: string): boolean {
+  const a: readonly string[] = allowed_dids;
+  return !a.length || a.includes(did);
+}
