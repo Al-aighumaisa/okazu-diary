@@ -7,6 +7,7 @@
   overflow-block: scroll;
   flex-direction: column;
   gap: 12px;
+  overscroll-behavior: contain;
 }
 
 .signIn[open] {
