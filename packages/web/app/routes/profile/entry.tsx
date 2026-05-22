@@ -4,7 +4,6 @@ import { useParams, useSearchParams } from 'react-router';
 
 import Entry from '~/components/Entry';
 import Profile from '~/components/Profile';
-import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
 import {
   PrimaryProfileContext,
   type PrimaryProfileContextValue,
@@ -12,63 +11,18 @@ import {
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useRecordQuery } from '~/queries/record';
 import type { Route } from './+types/entry';
-import { parseParams } from './common';
-import {
-  clientLoader as homeClientLoader,
-  type LoaderData as HomeLoaderData,
-} from './home';
+import { parseProfileParams } from './common';
 import homeStyles from './home.module.css';
 
-interface LoaderData extends HomeLoaderData {
-  urlId: string | undefined;
-}
-
-export async function clientLoader(
-  args: Route.LoaderArgs,
-): Promise<LoaderData> {
-  return {
-    ...(await homeClientLoader(args)),
-    urlId: args.params.id,
-  };
-}
-
 export default function EntryPage({
-  loaderData: { did, paramHandle: prefetchedHandle, urlId },
-}: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
+  params: { id: urlId },
+}: Pick<Route.ComponentProps, 'params'>): React.ReactNode {
+  const params = parseProfileParams(useParams());
+  const did = params?.did;
+
   const [search] = useSearchParams();
+  const rkey = search.get('id');
 
-  return (
-    <PrimaryProfileProvider did={did} prefetchedHandle={prefetchedHandle}>
-      <EntryPageView did={did} urlId={urlId} rkey={search.get('id')} />
-    </PrimaryProfileProvider>
-  );
-}
-
-export function HydrateFallback(): React.ReactNode {
-  const unparsedParams = useParams();
-  const params = parseParams(unparsedParams);
-  const [search] = useSearchParams();
-
-  return (
-    <EntryPageView
-      did={params?.did}
-      urlId={unparsedParams.id}
-      rkey={search.get('id')}
-    />
-  );
-}
-
-interface EntryPageViewProps {
-  did: string | undefined;
-  urlId: string | undefined;
-  rkey: string | null;
-}
-
-function EntryPageView({
-  did,
-  urlId,
-  rkey,
-}: EntryPageViewProps): React.ReactNode {
   const profileCtx: Partial<PrimaryProfileContextValue> =
     useContext(PrimaryProfileContext) ?? {};
   const profileQuery = useDeferredQueryError(profileCtx.query);

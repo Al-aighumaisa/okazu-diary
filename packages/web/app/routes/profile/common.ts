@@ -1,13 +1,13 @@
 import { isAllowedDid, primary_did } from '~/config';
-import type { Route as HomeRoute } from './+types/home';
+import type { Route } from '../+types/profile';
 
 export type ParsedParams =
   | { did: `did:${string}`; handle?: string | undefined }
   | { did?: undefined; handle: string };
 
-export function parseParams({
+export function parseProfileParams({
   id,
-}: Partial<HomeRoute.LoaderArgs['params']>): ParsedParams | undefined {
+}: Partial<Route.LoaderArgs['params']>): ParsedParams | undefined {
   if (id) {
     if (id.startsWith('did:')) {
       if (isAllowedDid(id)) {

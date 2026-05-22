@@ -8,80 +8,19 @@ import {
   PrimaryProfileContext,
   type PrimaryProfileContextValue,
 } from '~/contexts/PrimaryProfileContext';
-import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
-import { isAllowedDid } from '~/config';
-import { handleResolver } from '~/lib/identity';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useActorFeedQuery } from '~/queries/actorFeed';
-import type { Route } from './+types/home';
-import { parseParams } from './common';
+import { parseProfileParams } from './common';
 import styles from './home.module.css';
 
-export interface LoaderData {
-  did: string;
-  paramHandle: string | undefined;
-}
+export default function ProfileHome(): React.ReactNode {
+  const params = parseProfileParams(useParams());
+  const did = params?.did;
 
-export async function clientLoader({
-  params: unparsedParams,
-}: Pick<Route.LoaderArgs, 'params'>): Promise<LoaderData> {
-  const params = parseParams(unparsedParams);
-  let did;
-  if (!params) {
-    throw new Response(null, { status: 404 });
-  } else if (!(did = params.did)) {
-    did = await handleResolver.resolve(params.handle);
-    if (!did || !isAllowedDid(did)) {
-      throw new Response(null, { status: 404 });
-    }
-  }
-
-  return { did, paramHandle: params.handle };
-}
-
-export default function ProfilePage({
-  loaderData: { did, paramHandle },
-}: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   const [search] = useSearchParams();
+  const cursor = search.get('cursor');
+  const reverse = search.get('reverse') === '1';
 
-  return (
-    <PrimaryProfileProvider did={did} prefetchedHandle={paramHandle}>
-      <ProfilePageView
-        did={did}
-        cursor={search.get('cursor')}
-        reverse={search.get('reverse') === '1'}
-      />
-    </PrimaryProfileProvider>
-  );
-}
-
-export function HydrateFallback(): React.ReactNode {
-  const params = parseParams(useParams());
-  const [search] = useSearchParams();
-
-  // Basically the same as the main component, except skipping the handle resolution.
-  // It might be neat if we could overthrow the loader and resolve the handle in the main component
-  // itself, but it's better to keep the loader around as we want to determine if the ID is `404`.
-  return (
-    <ProfilePageView
-      did={params?.did}
-      cursor={search.get('cursor')}
-      reverse={search.get('reverse') === '1'}
-    />
-  );
-}
-
-interface ProfilePageViewProps {
-  did: string | undefined;
-  cursor?: string | null;
-  reverse?: boolean;
-}
-
-function ProfilePageView({
-  did,
-  cursor,
-  reverse,
-}: ProfilePageViewProps): React.ReactNode {
   const profileCtx: Partial<PrimaryProfileContextValue> =
     useContext(PrimaryProfileContext) ?? {};
   const profileQuery = useDeferredQueryError(profileCtx.query);

@@ -22,11 +22,7 @@ import styles from './root.module.css';
 
 const queryClient = new QueryClient();
 
-export function Layout({
-  children,
-}: {
-  children: React.ReactNode;
-}): React.ReactNode {
+export function Layout({ children }: React.PropsWithChildren): React.ReactNode {
   return (
     <html lang="en">
       <head>
