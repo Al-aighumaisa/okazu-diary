@@ -167,6 +167,10 @@ function Footer(): React.ReactNode {
                     aria-controls="sign-in-dialog"
                     aria-haspopup="dialog"
                     onClick={() => setSignInDialogOpened(true)}
+                    // TODO: Remove this when the JSX typedef learns the Invoker Commands API.
+                    // @ts-expect-error
+                    commandfor="sign-in-dialog"
+                    command="show-modal"
                   >
                     Sign in
                   </button>

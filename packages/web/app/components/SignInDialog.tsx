@@ -23,6 +23,14 @@ export default function SignInDialog({
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
+    const current = dialogRef.current;
+    if (current) {
+      setOpen(current.open);
+    }
+    // It is the caller's responsibility to keep `setOpen` static just like any other set functions.
+  }, []);
+
+  useEffect(() => {
     if (open) {
       dialogRef.current?.showModal();
     } else {
@@ -37,7 +45,6 @@ export default function SignInDialog({
       current.addEventListener('close', listener);
       return () => current.removeEventListener('close', listener);
     }
-    // `setOpen` should not change like any other set functions.
   }, [dialogRef]);
 
   return (
@@ -54,6 +61,9 @@ export default function SignInDialog({
           className="appearance-none"
           aria-label="Close"
           onClick={() => setOpen(false)}
+          // @ts-expect-error
+          commandfor={id}
+          command="close"
         >
           ×
         </button>
