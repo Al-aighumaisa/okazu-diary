@@ -1,3 +1,5 @@
+/* See also `noscript.css` for `<noscript>` only rules. */
+
 * {
   box-sizing: border-box;
 }
@@ -27,6 +29,18 @@ button.appearance-none {
 a {
   color: inherit;
   text-decoration: inherit;
+}
+
+dialog[aria-modal='true'] {
+  z-index: 1;
+  /* Replicates the suggested default rendering for `dialog:modal`
+   * https://html.spec.whatwg.org/#flow-content-3 */
+  position: fixed;
+  overflow: auto;
+  visibility: visible;
+  inset-block: 0;
+  max-width: calc(100% - 6px - 2em);
+  max-height: calc(100% - 6px - 2em);
 }
 
 ol,

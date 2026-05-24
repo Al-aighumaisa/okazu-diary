@@ -18,6 +18,7 @@ import SignInDialog from '~/components/SignInDialog';
 import GitIcon from '~/icon/Git-Icon-Black.svg?react';
 import type { Route } from './+types/root';
 import './app.css';
+import noscriptCssUrl from './noscript.css?url';
 import styles from './root.module.css';
 
 const queryClient = new QueryClient();
@@ -79,7 +80,12 @@ export function Layout({ children }: React.PropsWithChildren): React.ReactNode {
           <QueryClientProvider client={queryClient}>
             <AuthenticatedClientProvider>
               <div className={styles.container}>
-                <div className={styles.content}>{children}</div>
+                <div className={styles.content}>
+                  <div className="no-noscript">{children}</div>
+                  <noscript>
+                    <p>This page requires JavaScript.</p>
+                  </noscript>
+                </div>
                 <Footer />
               </div>
             </AuthenticatedClientProvider>
@@ -87,6 +93,9 @@ export function Layout({ children }: React.PropsWithChildren): React.ReactNode {
         </AgeGate>
         <ScrollRestoration />
         <Scripts />
+        <noscript>
+          <link rel="stylesheet" href={noscriptCssUrl} />
+        </noscript>
       </body>
     </html>
   );

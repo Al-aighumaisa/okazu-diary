@@ -1,30 +1,41 @@
 .ageGate {
+  position: absolute;
   margin: auto;
+}
+
+.dialogBackdrop {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: brightness(0.5);
+}
+
+.dialogContent {
+  display: flex;
+  background-color: Canvas;
   padding: 1em;
   flex-direction: column;
   gap: 0.5em;
 }
 
-.ageGate[open] {
-  display: flex;
-}
-
-.ageGate::backdrop {
-  backdrop-filter: brightness(0.5);
-}
-
-.ageGate > div {
+.buttonsContainer {
   display: flex;
   justify-content: center;
   gap: 1em;
 }
 
-.ageGate > div > button {
+.buttonsContainer > button {
   flex: 1;
   max-width: 30em;
 }
 
-.ageGated[inert] {
+.ageGate[open] ~ .ageGated {
+  /* Let's hope that this CSS Basic User Interface Module Level 4 feature will be on Baseline soon.
+   * Until then, this is only relevant for noscript environments since we reopen the dialog as modal
+   * if JS is available, so I guess it's acceptable. */
+  interactivity: inert;
   /* Using `filter` instead of `backdrop-filter` for `blur()` because:
    * - `backdrop-filter` is still a new feature (Baseline 2024), and
    * - Desktop Safari has a quirk with `backdrop-filter` that drops the filter in the tab preview in

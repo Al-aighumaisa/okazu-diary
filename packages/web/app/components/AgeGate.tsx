@@ -1,11 +1,5 @@
 import storage_ from 'local-storage-fallback';
-import {
-  type default as React,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react';
+import { type default as React, useEffect, useRef, useState } from 'react';
 
 import styles from './AgeGate.module.css';
 
@@ -20,8 +14,7 @@ const storage =
 export default function AgeGate({
   children,
 }: React.PropsWithChildren): React.ReactNode {
-  const [init, setInit] = useState<true | undefined>();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>();
   const [dismissed, setDismissed] = useState<boolean>();
 
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -37,11 +30,16 @@ export default function AgeGate({
       // non-browser as a non-browser.
       navigator.userAgent.startsWith('Mozilla/')
     ) {
+      // The dialog is open by default for noscript compat, but that's forced to be non-modal.
+      // So re-open it as modal if JS is available.
+      // It shouldn't cause flashing because the dialog is hidden until `open` is initialized.
+      dialogRef.current?.close();
       dialogRef.current?.showModal();
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setOpen(true);
+    } else {
+      setOpen(false);
     }
-    setInit(true);
   }, []);
 
   function confirmAge(): void {
@@ -50,59 +48,69 @@ export default function AgeGate({
     setOpen(false);
   }
 
-  const headingId = useId();
-  const descId = useId();
+  const id = 'age-gate';
+  const headingId = 'age-gate-heading';
+  const descId = 'age-gate-description';
 
   return (
     <>
       <meta name="rating" content="adult" />
       <dialog
+        id={id}
         ref={dialogRef}
-        className={styles.ageGate}
+        className={`${styles.ageGate} noscript-force`}
         closedby="none"
         aria-modal="true"
         aria-labelledby={headingId}
         aria-describedby={descId}
+        // Open by default for noscript compat, but hidden until initialized if JS is available to
+        // avoid flashing. The `.noscript-force` rule overrides the `hidden` attr in noscript mode.
+        open={open !== false}
+        hidden={open === undefined}
       >
-        {dismissed ? (
-          <>
-            <h1 id={headingId}>Sorry</h1>
-            <p id={descId}>
-              This site is for adult only. Come back when you are OK with mature
-              content.
-            </p>
-            <div>
-              <button onClick={() => setDismissed(false)}>Go back</button>
-            </div>
-          </>
-        ) : (
-          <>
-            <h1 id={headingId}>Age Verification</h1>
-            <p id={descId}>
-              This website contains age-restricted materials. By entering, you
-              affirm that you are over the age of 18 years or over the age of
-              majority in your jurisdiction, and consent to viewing sexually
-              explicit content.
-            </p>
-            <div>
-              <button onClick={() => setDismissed(true)}>
-                No, I am under 18 years old
-              </button>
-              <button onClick={confirmAge}>
-                I am over 18 years old - Enter
-              </button>
-            </div>
-          </>
-        )}
+        {/* Polyfill `::backdrop` here because we cannot use real one in noscript mode. (Well,
+          precisely speaking, we *could* with Invoker Commands, but that needs a user interaction
+          while we want to display the dialog by default. */}
+        <div className={styles.dialogBackdrop} />
+        <div className={styles.dialogContent}>
+          {dismissed ? (
+            <>
+              <h1 id={headingId}>Sorry</h1>
+              <p id={descId}>
+                This site is for adult only. Come back when you are OK with
+                mature content.
+              </p>
+              <div className={styles.buttonsContainer}>
+                <button onClick={() => setDismissed(false)}>Go back</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <h1 id={headingId}>Age Verification</h1>
+              <p id={descId}>
+                This website contains age-restricted materials. By entering, you
+                affirm that you are over the age of 18 years or over the age of
+                majority in your jurisdiction, and consent to viewing sexually
+                explicit content.
+              </p>
+              <form
+                className={styles.buttonsContainer}
+                method="dialog"
+                onSubmit={confirmAge}
+              >
+                <button
+                  className="no-noscript"
+                  onClick={() => setDismissed(true)}
+                >
+                  No, I am under 18 years old
+                </button>
+                <button type="submit">I am over 18 years old - Enter</button>
+              </form>
+            </>
+          )}
+        </div>
       </dialog>
-      <div
-        className={styles.ageGated}
-        inert={open}
-        // Completely hide the content until the initial `useEffect` completes, just to be sure.
-        hidden={!init}
-      >
-        {children}
-      </div>
+      <div className={styles.ageGated}>{children}</div>
     </>
   );
 }

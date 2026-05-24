@@ -1,0 +1,7 @@
+.no-noscript {
+  display: none;
+}
+
+.noscript-force[hidden] {
+  display: revert;
+}
