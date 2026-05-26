@@ -1,3 +1,4 @@
+import { getPds } from '@atproto/identity';
 import { type default as React, useContext } from 'react';
 import { Link, useParams, useSearchParams } from 'react-router';
 
@@ -8,6 +9,7 @@ import {
   PrimaryProfileContext,
   type PrimaryProfileContextValue,
 } from '~/contexts/PrimaryProfileContext';
+import { getPrefetchedDid } from '~/lib/identity';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useActorFeedQuery } from '~/queries/actorFeed';
 import { parseProfileParams } from './common';
@@ -31,6 +33,9 @@ export default function ProfileHome(): React.ReactNode {
 
   const { session } = useOAuthContext();
   const isAuthenticated = did && session?.sub === did;
+
+  const prefetchedDidDoc = did && getPrefetchedDid(did);
+  const preloadPds = prefetchedDidDoc && getPds(prefetchedDidDoc);
 
   let prevPage, nextPage;
   if (cursor) {
@@ -111,6 +116,19 @@ export default function ProfileHome(): React.ReactNode {
             ? `@${handle} — Okazu Diary`
             : 'Okazu Diary'}
       </title>
+      {preloadPds && (
+        <link
+          rel="preload"
+          as="fetch"
+          crossOrigin=""
+          href={
+            new URL(
+              `/xrpc/com.atproto.repo.listRecords?repo=${did}&collection=org.okazu-diary.feed.entry${cursor ? `&cursor=${cursor}` : ''}${reverse ? '&reverse=1' : ''}`,
+              preloadPds,
+            ).href
+          }
+        />
+      )}
       {did && (
         <link
           rel="alternate"

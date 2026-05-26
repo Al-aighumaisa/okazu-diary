@@ -1,3 +1,4 @@
+import { getPds } from '@atproto/identity';
 import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
 import { type default as React, useContext } from 'react';
 import { useParams, useSearchParams } from 'react-router';
@@ -8,6 +9,7 @@ import {
   PrimaryProfileContext,
   type PrimaryProfileContextValue,
 } from '~/contexts/PrimaryProfileContext';
+import { getPrefetchedDid } from '~/lib/identity';
 import { useDeferredQueryError } from '~/lib/useDeferredQueryError';
 import { useRecordQuery } from '~/queries/record';
 import type { Route } from './+types/entry';
@@ -34,6 +36,9 @@ export default function EntryPage({
     OrgOkazuDiaryFeedEntry.validateMain,
   );
 
+  const prefetchedDidDoc = did && getPrefetchedDid(did);
+  const preloadPds = prefetchedDidDoc && getPds(prefetchedDidDoc);
+
   const userName = profileQuery?.data?.displayName;
   const datetime = entryQuery?.data?.value.datetime;
 
@@ -50,6 +55,19 @@ export default function EntryPage({
             ? `Entry at ${datetime} — Okazu Diary`
             : `Entry — Okazu Diary`}
       </title>
+      {preloadPds && (
+        <link
+          rel="preload"
+          as="fetch"
+          crossOrigin=""
+          href={
+            new URL(
+              `/xrpc/com.atproto.repo.getRecord?repo=${did}&collection=org.okazu-diary.feed.entry&rkey=${rkey}`,
+              preloadPds,
+            ).href
+          }
+        />
+      )}
       {did && rkey && (
         <link
           rel="alternate"

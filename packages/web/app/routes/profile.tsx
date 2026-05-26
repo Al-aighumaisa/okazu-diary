@@ -1,9 +1,10 @@
+import { getPds } from '@atproto/identity';
 import type React from 'react';
-import { Outlet } from 'react-router';
+import { Outlet, useParams } from 'react-router';
 
 import { isAllowedDid } from '~/config';
 import { PrimaryProfileProvider } from '~/contexts/PrimaryProfileProvider';
-import { handleResolver } from '~/lib/identity';
+import { getPrefetchedDid, handleResolver } from '~/lib/identity';
 import type { Route } from './+types/profile';
 import { parseProfileParams } from './profile/common';
 
@@ -33,9 +34,12 @@ export default function ProfilePage({
   loaderData: { did, paramHandle },
 }: Pick<Route.ComponentProps, 'loaderData'>): React.ReactNode {
   return (
-    <PrimaryProfileProvider did={did} prefetchedHandle={paramHandle}>
-      <Outlet />
-    </PrimaryProfileProvider>
+    <>
+      <PreloadLinks />
+      <PrimaryProfileProvider did={did} prefetchedHandle={paramHandle}>
+        <Outlet />
+      </PrimaryProfileProvider>
+    </>
   );
 }
 
@@ -43,5 +47,33 @@ export function HydrateFallback(): React.ReactNode {
   // Basically the same as the main component, except skipping the handle resolution.
   // It might be neat if we could overthrow the loader and resolve the handle in the main component
   // itself, but it's better to keep the loader around as we want to determine if the ID is `404`.
-  return <Outlet />;
+  return (
+    <>
+      <PreloadLinks />
+      <Outlet />
+    </>
+  );
+}
+
+function PreloadLinks(): React.ReactNode {
+  const params = parseProfileParams(useParams());
+  const did = params?.did;
+  const prefetchedDidDoc = did && getPrefetchedDid(did);
+  const preloadPds = prefetchedDidDoc && getPds(prefetchedDidDoc);
+
+  return (
+    preloadPds && (
+      <link
+        rel="preload"
+        as="fetch"
+        crossOrigin=""
+        href={
+          new URL(
+            `/xrpc/com.atproto.repo.getRecord?repo=${did}&collection=org.okazu-diary.actor.profile&rkey=self`,
+            preloadPds,
+          ).href
+        }
+      />
+    )
+  );
 }
