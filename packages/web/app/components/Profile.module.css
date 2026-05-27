@@ -24,8 +24,3 @@
   content: '🔗';
   margin-inline-end: 4px;
 }
-
-.website a {
-  color: revert;
-  text-decoration: revert;
-}

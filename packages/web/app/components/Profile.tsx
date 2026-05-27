@@ -75,7 +75,7 @@ export default function Profile({
           {profile?.website && (
             <p className={styles.website}>
               <link rel="me" href={profile.website} />
-              <a rel="me" href={profile.website}>
+              <a className="anchor" rel="me" href={profile.website}>
                 {profile.website}
               </a>
             </p>

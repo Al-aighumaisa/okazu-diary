@@ -31,6 +31,19 @@ a {
   text-decoration: inherit;
 }
 
+.anchor {
+  color: #f3e;
+  text-decoration: underline;
+}
+
+.anchor:visited {
+  color: #a2b;
+}
+
+.anchor:disabled {
+  color: #f9f;
+}
+
 dialog[aria-modal='true'] {
   z-index: 1;
   /* Replicates the suggested default rendering for `dialog:modal`

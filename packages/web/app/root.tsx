@@ -158,12 +158,14 @@ function Footer(): React.ReactNode {
           <nav>
             <ul>
               <li>
-                <Link to="/">Home</Link>
+                <Link className="anchor" to="/">
+                  Home
+                </Link>
               </li>
               <li>
                 {isSignedIn ? (
                   <button
-                    className="appearance-none"
+                    className="anchor appearance-none"
                     disabled={isLoading}
                     onClick={() => void signOut()}
                   >
@@ -171,7 +173,7 @@ function Footer(): React.ReactNode {
                   </button>
                 ) : (
                   <button
-                    className="appearance-none"
+                    className="anchor appearance-none"
                     disabled={isLoading}
                     aria-controls="sign-in-dialog"
                     aria-haspopup="dialog"
