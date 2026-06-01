@@ -140,7 +140,7 @@ function AvatarAndName({
         )}
         <p id="profile-handle" className={styles.profileHandle}>
           {handle === 'handle.invalid' ? (
-            '(Invalid handle!)'
+            <span lang="zxx">{repo}</span>
           ) : handle ? (
             <span lang="">{`@${handle}`}</span>
           ) : (
