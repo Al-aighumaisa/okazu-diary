@@ -934,6 +934,10 @@ export const schemaDict = {
               description:
                 "Title of the material, typically taken from the material's HTML `<title>` element.",
             },
+            author: {
+              type: 'ref',
+              ref: 'lex:org.okazu-diary.material.external#profile',
+            },
             description: {
               type: 'string',
               description:
@@ -978,6 +982,28 @@ export const schemaDict = {
               description:
                 'Reference to an `org.okazu-diary.feed.material` record from another repository from which this collection item is derived. Clients can use this property to offer the user to update this record if the original record have updated from the referenced version.',
             },
+          },
+        },
+      },
+      profile: {
+        type: 'object',
+        description: 'Link to an external profile of a person or an entity.',
+        required: ['name'],
+        properties: {
+          name: {
+            type: 'string',
+            description: 'Name of the person.',
+          },
+          uri: {
+            type: 'string',
+            format: 'uri',
+            description:
+              'URI of the person, typically an HTTP(S) URL of a profile page.',
+          },
+          avatar: {
+            type: 'ref',
+            ref: 'lex:org.okazu-diary.material.external#thumb',
+            description: 'Link to the profile image of the person.',
           },
         },
       },
