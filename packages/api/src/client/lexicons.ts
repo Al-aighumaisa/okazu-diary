@@ -988,7 +988,7 @@ export const schemaDict = {
       profile: {
         type: 'object',
         description: 'Link to an external profile of a person or an entity.',
-        required: ['name'],
+        required: ['uri'],
         properties: {
           name: {
             type: 'string',
@@ -1000,10 +1000,30 @@ export const schemaDict = {
             description:
               'URI of the person, typically an HTTP(S) URL of a profile page.',
           },
+          record: {
+            type: 'ref',
+            ref: 'lex:com.atproto.repo.strongRef',
+            description:
+              'Reference to a record representing the profile, such as a Bluesky profile.',
+          },
           avatar: {
             type: 'ref',
-            ref: 'lex:org.okazu-diary.material.external#thumb',
+            ref: 'lex:org.okazu-diary.material.external#avatar',
             description: 'Link to the profile image of the person.',
+          },
+        },
+      },
+      avatar: {
+        type: 'object',
+        required: ['image'],
+        properties: {
+          image: {
+            type: 'ref',
+            ref: 'lex:org.okazu-diary.material.external#thumb',
+          },
+          style: {
+            type: 'string',
+            knownValues: ['rounded'],
           },
         },
       },

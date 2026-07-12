@@ -24,6 +24,7 @@ export interface Main {
   record?: ComAtprotoRepoStrongRef.Main
   /** Title of the material, typically taken from the material's HTML `<title>` element. */
   title?: string
+  author?: Profile
   /** Description of the material, typically taken from the material's HTML metadata. */
   description?: string
   thumb?: Thumb
@@ -51,6 +52,43 @@ export {
   type Main as Record,
   isMain as isRecord,
   validateMain as validateRecord,
+}
+
+/** Link to an external profile of a person or an entity. */
+export interface Profile {
+  $type?: 'org.okazu-diary.material.external#profile'
+  /** Name of the person. */
+  name?: string
+  /** URI of the person, typically an HTTP(S) URL of a profile page. */
+  uri: string
+  record?: ComAtprotoRepoStrongRef.Main
+  avatar?: Avatar
+}
+
+const hashProfile = 'profile'
+
+export function isProfile<V>(v: V) {
+  return is$typed(v, id, hashProfile)
+}
+
+export function validateProfile<V>(v: V) {
+  return validate<Profile & V>(v, id, hashProfile)
+}
+
+export interface Avatar {
+  $type?: 'org.okazu-diary.material.external#avatar'
+  image: Thumb
+  style?: 'rounded' | (string & {})
+}
+
+const hashAvatar = 'avatar'
+
+export function isAvatar<V>(v: V) {
+  return is$typed(v, id, hashAvatar)
+}
+
+export function validateAvatar<V>(v: V) {
+  return validate<Avatar & V>(v, id, hashAvatar)
 }
 
 export interface Thumb {

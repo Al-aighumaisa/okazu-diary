@@ -183,6 +183,7 @@ function SubjectView({
   const lang =
     materialQuery?.data?.value.lang ?? profileCtx.query?.data?.lang ?? '';
 
+  const authorNameId = useId();
   const titleId = useId();
 
   if (materialQuery?.error) {
@@ -205,33 +206,60 @@ function SubjectView({
       materialQuery.data.value.description ? (
         <figure lang={lang}>
           {materialQuery?.data?.value ? (
-            materialQuery.data.value.thumb && (
-              <img
-                src={materialQuery.data.value.thumb.url}
-                className={styles.subjectThumb}
-                aria-labelledby={materialQuery.data.value?.title && titleId}
-                data-nosnippet="true"
-              />
-            )
+            <>
+              {materialQuery.data.value.thumb && (
+                <img
+                  src={materialQuery.data.value.thumb.url}
+                  className={styles.subjectThumb}
+                  aria-labelledby={materialQuery.data.value.title && titleId}
+                  data-nosnippet="true"
+                />
+              )}
+              {(materialQuery.data.value.author ||
+                materialQuery.data.value.title ||
+                materialQuery.data.value.description) && (
+                <figcaption data-nosnippet="true">
+                  {materialQuery.data.value.author && (
+                    <a
+                      href={materialQuery.data.value.author.uri}
+                      className={styles.subjectAuthorName}
+                    >
+                      {materialQuery.data.value.author.avatar && (
+                        <img
+                          src={materialQuery.data.value.author.avatar.image.url}
+                          className={styles.subjectAuthorAvatar}
+                          aria-labelledby={
+                            materialQuery.data.value.author.name && authorNameId
+                          }
+                        />
+                      )}
+                      {materialQuery.data.value.author.name && (
+                        <bdi>
+                          <strong id={authorNameId}>
+                            {materialQuery.data.value.author.name}
+                          </strong>
+                        </bdi>
+                      )}
+                    </a>
+                  )}
+                  {materialQuery.data.value.title && (
+                    <h2>
+                      <cite id={titleId}>{materialQuery.data.value.title}</cite>
+                    </h2>
+                  )}
+                  {materialQuery.data.value.description && (
+                    <p>{materialQuery.data.value?.description}</p>
+                  )}
+                </figcaption>
+              )}
+            </>
           ) : (
-            <Skeleton className={styles.subjectThumb} />
-          )}
-          {materialQuery?.data?.value ? (
-            (materialQuery.data.value.title ||
-              materialQuery.data.value.description) && (
-              <figcaption data-nosnippet="true">
-                {materialQuery.data.value?.title && (
-                  <cite id={titleId}>{materialQuery.data.value?.title}</cite>
-                )}
-                {materialQuery.data.value?.description && (
-                  <p>{materialQuery.data.value?.description}</p>
-                )}
-              </figcaption>
-            )
-          ) : (
-            <div style={{ flex: 1 }}>
-              <Skeleton count={3} />
-            </div>
+            <>
+              <Skeleton className={styles.subjectThumb} />
+              <div style={{ flex: 1 }}>
+                <Skeleton count={3} />
+              </div>
+            </>
           )}
         </figure>
       ) : (

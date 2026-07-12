@@ -163,6 +163,15 @@ async function main() {
           const material = {
             $type: 'org.okazu-diary.material.external',
             uri: 'https://example.com/',
+            author: {
+              uri: 'https://example.com/#author',
+              name: 'Alice',
+              avatar: {
+                image: {
+                  url: 'http://localhost:5173/favicon.ico',
+                },
+              },
+            },
             title: 'Test material',
             description: 'This is a test material',
             thumb: {

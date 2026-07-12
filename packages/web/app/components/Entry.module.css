@@ -92,6 +92,15 @@
   --max-height: 25vh;
 }
 
+.subjectAuthorName:hover {
+  text-decoration: underline;
+}
+
+.subjectAuthorAvatar {
+  max-width: 1.5em;
+  max-height: 1.5em;
+}
+
 .subject figure > figcaption > cite {
   font-weight: bold;
 }
