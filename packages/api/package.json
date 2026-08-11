@@ -26,10 +26,10 @@
     "prebuild": "pnpm run codegen"
   },
   "dependencies": {
-    "@atproto/lex-schema": "^0.2.5",
+    "@atproto/lex-schema": "^0.2",
     "@atproto/lexicon": "^0.7"
   },
   "devDependencies": {
-    "@atproto/lex": "^0.3.5"
+    "@atproto/lex": "^0.3"
   }
 }
