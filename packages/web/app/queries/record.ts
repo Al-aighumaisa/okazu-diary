@@ -1,9 +1,17 @@
 import {
-  AtpBaseClient,
+  Client,
+  type RecordSchema,
+  type GetOutput,
+  type Main,
+  type XrpcRequestParams,
+} from '@atproto/lex-client';
+import { getMain } from '@atproto/lex-schema';
+import {
   AtUri,
-  type ComAtprotoRepoGetRecord,
-} from '@atproto/api';
-import type { ValidationResult } from '@atproto/lexicon';
+  type AtIdentifierString,
+  type AtUriString,
+} from '@atproto/syntax';
+import { comAtproto } from '@okazu-diary/api';
 import {
   queryOptions,
   useQuery,
@@ -12,69 +20,62 @@ import {
 
 import { useDidQuery } from './did';
 
-export type UseRecordQueryResult<T> = UseQueryResult<UseRecordQueryValue<T>>;
+export type UseRecordQueryResult<T extends RecordSchema> = UseQueryResult<
+  UseRecordQueryValue<T>
+>;
 
-export interface UseRecordQueryValue<T> {
-  value: T;
-  cid: string | undefined;
-}
+export type UseRecordQueryValue<T extends RecordSchema> = GetOutput<T>;
 
 export interface UseRecordOptions {
   cid?: string | undefined;
 }
 
-export function useRecordQuery<T>(
-  uri: string | null | undefined,
-  validate: (v: Record<string, unknown>) => ValidationResult<T>,
+export function useRecordQuery<const T extends RecordSchema>(
+  ns: Main<T>,
+  uri: AtUriString | null | undefined,
   opts?: UseRecordOptions,
 ): UseRecordQueryResult<T>;
-export function useRecordQuery<T>(
-  repo: string | null | undefined,
-  collection: string | null | undefined,
-  rkey: string | null | undefined,
-  validate: (v: Record<string, unknown>) => ValidationResult<T>,
+export function useRecordQuery<const T extends RecordSchema>(
+  ns: Main<T>,
+  repo: AtIdentifierString | null | undefined,
+  rkey: string | null,
   opts?: UseRecordOptions,
 ): UseRecordQueryResult<T>;
-export function useRecordQuery<T>(
-  repoOrUri: string | null | undefined,
-  collectionOrValidate:
-    | string
-    | null
-    | undefined
-    | ((v: Record<string, unknown>) => ValidationResult<T>),
-  rkeyOrOpts: string | null | undefined | UseRecordOptions | void,
-  maybeValidate: ((v: Record<string, unknown>) => ValidationResult<T>) | void,
-  opts?: UseRecordOptions | void,
+export function useRecordQuery<const T extends RecordSchema>(
+  ns: Main<T>,
+  repoOrUri: AtUriString | AtIdentifierString | null | undefined,
+  rkeyOrOpts?: string | null | UseRecordOptions,
+  opts?: UseRecordOptions,
 ): UseRecordQueryResult<T> {
-  let repo: string | null | undefined,
-    collection: string | null | undefined,
+  const schema = getMain(ns);
+
+  let repo: AtIdentifierString | null | undefined,
     rkey: string | null | undefined,
-    validate,
     uriStr,
     uri: AtUri | undefined,
     error: unknown;
-  if (maybeValidate) {
-    repo = repoOrUri;
-    collection = collectionOrValidate as typeof collectionOrValidate & string;
-    rkey = rkeyOrOpts as typeof rkeyOrOpts & string;
-    validate = maybeValidate!;
-    uriStr = `at://${repo}/${collection}/${rkey}`;
+  if (rkeyOrOpts === null || typeof rkeyOrOpts === 'string') {
+    repo = repoOrUri as Exclude<typeof repoOrUri, AtUriString>;
+    rkey = rkeyOrOpts;
+    uriStr = `at://${repo}/${schema.$type}/${rkey}`;
   } else {
     uriStr = repoOrUri;
     if (uriStr) {
       try {
         uri = new AtUri(uriStr);
-        repo = uri.host;
-        collection = uri.collection;
-        rkey = uri.rkey;
+        if (uri.collection !== schema.$type) {
+          error = new Error(
+            `Expected a ${schema.$type} URI, got ${uri.collection || 'no collection'}`,
+          );
+        } else {
+          repo = uri.host;
+          rkey = uri.rkey;
+        }
       } catch (e) {
         error = e;
       }
     }
-    validate = collectionOrValidate as NonNullable<
-      typeof collectionOrValidate & typeof maybeValidate
-    >;
-    opts = rkeyOrOpts as typeof rkeyOrOpts & object;
+    opts = rkey as typeof rkey & object;
   }
   const cid = opts?.cid;
 
@@ -84,9 +85,9 @@ export function useRecordQuery<T>(
     // `uriStr` corresponds to `[repo, collection, rkey, error]`.
     // eslint-disable-next-line @tanstack/query/exhaustive-deps
     queryOptions({
-      enabled: !!(didQuery.data && ((collection && rkey) || uriStr)),
-      queryKey: [uriStr, cid, validate, didQuery.data?.pds] as const,
-      queryFn: async ({ queryKey: [_uri, cid, validate, pds_], signal }) => {
+      enabled: !!(didQuery.data && (rkey || uriStr)),
+      queryKey: [uriStr, cid, didQuery.data?.pds] as const,
+      queryFn: async ({ queryKey: [_uri, cid, pds_], signal }) => {
         const pds = pds_!;
 
         if (error !== undefined) {
@@ -97,27 +98,25 @@ export function useRecordQuery<T>(
         // uninit is failure of `AtUri` ctor, in which case `error` is initialized (unless the ctor
         // were so silly to throw `undefined`).
 
-        const client = new AtpBaseClient({ service: pds });
+        const client = new Client({ service: pds });
 
-        const params: ComAtprotoRepoGetRecord.QueryParams = {
-          repo: repo!,
-          collection: collection!,
-          rkey: rkey!,
-        };
+        schema.keySchema.validate(rkey);
+        const params: XrpcRequestParams<typeof comAtproto.repo.getRecord.main> =
+          {
+            repo: repo!,
+            collection: schema.$type,
+            rkey: rkey!,
+          };
         if (cid) {
           params.cid = cid;
         }
-        const res = await client.com.atproto.repo.getRecord(params, { signal });
 
-        const result = validate(res.data.value);
-        if (!result.success) {
-          throw result.error;
-        }
-
-        return {
-          value: result.value,
-          cid: res.data.cid,
-        };
+        const response = await client.xrpc(comAtproto.repo.getRecord, {
+          params,
+          signal,
+        });
+        const value = schema.validate(response.body.value);
+        return { ...response.body, value };
       },
     }),
   );

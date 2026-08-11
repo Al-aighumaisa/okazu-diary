@@ -1,4 +1,4 @@
-import type { BlobRef } from '@atproto/api';
+import type { BlobRef } from '@atproto/lex-data';
 import type React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';

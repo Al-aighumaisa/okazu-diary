@@ -16,19 +16,20 @@
     "url": "https://github.com/Al-aighumaisa/okazu-diary.git",
     "directory": "packages/api"
   },
+  "type": "module",
   "main": "./dist/index.js",
   "exports": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "tsc --build tsconfig.json",
-    "codegen": "find ../../lexicons -mindepth 4 -name '*.json' -exec lex gen-api --yes src/client {} +"
+    "build": "pnpm run prebuild && tsc --build tsconfig.json",
+    "codegen": "lex build --lib '@atproto/lex-schema' --lexicons ../../lexicons --clear && find src/lexicons -name '*.defs.ts' -exec sh -c 'f=\"$(sed -E \"s|export \\* from (.*)|&\\nexport type * from \\1|\" \"${1%.defs.ts}.ts\")\" && printf %s \"$f\" > \"${1%.defs.ts}.ts\"' - {} \\;",
+    "prebuild": "pnpm run codegen"
   },
   "dependencies": {
-    "@atproto/lexicon": "^0.6.0",
-    "@atproto/xrpc": "^0.7.5",
-    "multiformats": "9.9.0"
+    "@atproto/lex-schema": "^0.2.5",
+    "@atproto/lexicon": "^0.7"
   },
   "devDependencies": {
-    "@atproto/lex-cli": "^0.9.6"
+    "@atproto/lex": "^0.3.5"
   }
 }

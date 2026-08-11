@@ -1,4 +1,4 @@
-import type { BlobRef } from '@atproto/api';
+import { getBlobCidString, type BlobRef } from '@atproto/lex-data';
 import type React from 'react';
 import Skeleton from 'react-loading-skeleton';
 
@@ -27,7 +27,7 @@ export default function ProfileAvatar({
       return (
         <img
           {...rest}
-          src={`${config.bsky_cdn}/img/avatar/plain/${repo}/${blob.ref}`}
+          src={`${config.bsky_cdn}/img/avatar/plain/${repo}/${getBlobCidString(blob)}`}
           alt={alt}
           width={size}
           height={size}

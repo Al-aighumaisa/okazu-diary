@@ -1,5 +1,6 @@
 import type { CompatibleOperation } from '@atcute/did-plc';
 import type { DidDocument } from '@atproto/identity';
+import { isValidDid, type DidString } from '@atproto/syntax';
 
 import prefetchedDidsJson from './prefetched-dids.json';
 
@@ -14,20 +15,20 @@ if (!vite_okazu_diary_web_allowed_dids) {
 const vite_okazu_diary_web_allowed_dids_array =
   vite_okazu_diary_web_allowed_dids.split(/\s+/);
 
-export let allowed_dids: readonly `did:${string}`[];
+export let allowed_dids: readonly DidString[];
 if (vite_okazu_diary_web_allowed_dids_array.includes('*')) {
   allowed_dids = [];
 } else if (
-  vite_okazu_diary_web_allowed_dids_array.every((s) => s.startsWith('did:'))
+  vite_okazu_diary_web_allowed_dids_array.every((s) => isValidDid(s))
 ) {
-  allowed_dids = vite_okazu_diary_web_allowed_dids_array as `did:${string}`[];
+  allowed_dids = vite_okazu_diary_web_allowed_dids_array;
 } else {
   throw new Error(
     'VITE_OKAZU_DIARY_WEB_ALLOWED_DIDS environment variable must be a list of valid DIDs',
   );
 }
 
-export let primary_did: `did:${string}` | undefined;
+export let primary_did: DidString | undefined;
 const [did, ...rest] = allowed_dids;
 if (did !== undefined && !rest.length) {
   primary_did = did;
@@ -44,7 +45,6 @@ export const prefetchedDids = new Map<
   DidDocument | CompatibleOperation
 >(Object.entries(prefetchedDidsJson));
 
-export function isAllowedDid(did: string): boolean {
-  const a: readonly string[] = allowed_dids;
-  return !a.length || a.includes(did);
+export function isAllowedDid(did: DidString): boolean {
+  return !allowed_dids.length || allowed_dids.includes(did);
 }

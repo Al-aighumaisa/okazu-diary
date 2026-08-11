@@ -1,10 +1,13 @@
 import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 
-import { AtpBaseClient } from '@atproto/api';
-import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
+import { assertAtprotoDid } from '@atproto/did';
+import { Client } from '@atproto/lex-client';
+import { comAtproto, type orgOkazuDiary } from '@okazu-diary/api';
 
 const [did, service, jwtPath] = process.argv.slice(2);
+
+assertAtprotoDid(did);
 
 const usedMaterials = new Set();
 for (const dirEnt of await fsPromises.readdir(
@@ -22,7 +25,7 @@ for (const dirEnt of await fsPromises.readdir(
     'utf8',
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entry: OrgOkazuDiaryFeedEntry.Main = JSON.parse(text);
+  const entry: orgOkazuDiary.feed.entry.Main = JSON.parse(text);
 
   if (entry.subjects) {
     for (const s of entry.subjects) {
@@ -58,27 +61,25 @@ for (const dirEnt of await fsPromises.readdir(materialsDir, {
 }
 
 if (toBeDeleted.length) {
-  const client = new AtpBaseClient({ service });
+  const client = new Client({ service });
 
   const jwt = await fsPromises.readFile(jwtPath, 'utf8');
 
   console.log(`Deleting ${toBeDeleted.length} materials`);
 
-  const res = await client.com.atproto.repo.applyWrites(
-    {
+  const res = await client.xrpc(comAtproto.repo.applyWrites, {
+    headers: {
+      authorization: `Bearer ${jwt}`,
+    },
+    body: {
       repo: did,
       writes: toBeDeleted.map((rkey) => ({
-        $type: 'com.atproto.repo.applyWrites#delete',
-        collection: 'org.okazu-diary.material.external',
+        $type: 'com.atproto.repo.applyWrites#delete' as const,
+        collection: 'org.okazu-diary.material.external' as const,
         rkey,
       })),
     },
-    {
-      headers: {
-        authorization: `Bearer ${jwt}`,
-      },
-    },
-  );
+  });
 
   console.log(res);
 

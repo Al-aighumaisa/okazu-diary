@@ -1,9 +1,4 @@
-import type { ComAtprotoRepoStrongRef } from '@atproto/api';
-import {
-  OrgOkazuDiaryMaterialDefs,
-  OrgOkazuDiaryMaterialExternal,
-  type OrgOkazuDiaryFeedEntry,
-} from '@okazu-diary/api';
+import { type comAtproto, orgOkazuDiary } from '@okazu-diary/api';
 import { type default as React, useId, useContext } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { Link } from 'react-router';
@@ -22,7 +17,7 @@ import styles from './Entry.module.css';
 
 interface EntryProps {
   actor: string;
-  record: OrgOkazuDiaryFeedEntry.Main;
+  record: orgOkazuDiary.feed.entry.Main;
   url: string;
 }
 
@@ -85,7 +80,7 @@ export default function Entry({
 
 interface SubjectsProps {
   actor: string | undefined;
-  subjects: ComAtprotoRepoStrongRef.Main[] | undefined;
+  subjects: comAtproto.repo.strongRef.Main[] | undefined;
   skeleton?: boolean;
 }
 
@@ -146,7 +141,7 @@ function Subject({
   subject,
 }: {
   actor: string;
-  subject: ComAtprotoRepoStrongRef.Main;
+  subject: comAtproto.repo.strongRef.Main;
 }): React.ReactNode {
   const cid = subject.uri.startsWith(`at://${actor}/`)
     ? undefined
@@ -154,11 +149,7 @@ function Subject({
   return (
     <SubjectView
       materialQuery={useDeferredQueryError(
-        useRecordQuery(
-          subject.uri,
-          OrgOkazuDiaryMaterialExternal.validateMain,
-          { cid },
-        ),
+        useRecordQuery(orgOkazuDiary.material.external, subject.uri, { cid }),
       )}
     />
   );
@@ -169,7 +160,7 @@ function SubjectView({
 }: {
   materialQuery?:
     | UseDeferredQueryErrorResult<
-        UseRecordQueryValue<OrgOkazuDiaryMaterialExternal.Main>
+        UseRecordQueryValue<typeof orgOkazuDiary.material.external.main>
       >
     | undefined;
 }): React.ReactNode {
@@ -298,7 +289,7 @@ function SubjectView({
 }
 
 function tagList(
-  tags: OrgOkazuDiaryMaterialDefs.Tag[] | void[],
+  tags: orgOkazuDiary.material.defs.Tag[] | void[],
   entryLang: string,
 ): React.ReactNode[] {
   const counter = new Map<string, number>();

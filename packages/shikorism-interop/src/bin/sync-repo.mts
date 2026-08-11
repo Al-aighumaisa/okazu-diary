@@ -6,12 +6,16 @@ import fsPromises from 'node:fs/promises';
 import path from 'node:path';
 import readline from 'node:readline/promises';
 
-import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
-import { AtpBaseClient, AtUri, ComAtprotoRepoApplyWrites } from '@atproto/api';
+import { assertAtprotoDid } from '@atproto/did';
+import { Client } from '@atproto/lex-client';
+import { AtUri } from '@atproto/syntax';
+import { comAtproto, type orgOkazuDiary } from '@okazu-diary/api';
 
 import { FsExportMaterialStore } from './common.js';
 
 const [did, service, jwtPath] = process.argv.slice(2);
+
+assertAtprotoDid(did);
 
 const materials = await FsExportMaterialStore.create(
   path.join(did, 'materials'),
@@ -53,8 +57,8 @@ const [
 );
 
 const writes: ((
-  | ComAtprotoRepoApplyWrites.Create
-  | ComAtprotoRepoApplyWrites.Update
+  | comAtproto.repo.applyWrites.Create
+  | comAtproto.repo.applyWrites.Update
 ) & {
   $type: string;
   collection:
@@ -83,7 +87,7 @@ outer: for (const dirEntry of await fsPromises.readdir(entryDir, {
     'utf8',
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const entry: OrgOkazuDiaryFeedEntry.Main = JSON.parse(text);
+  const entry: orgOkazuDiary.feed.entry.Main = JSON.parse(text);
 
   for (const subject of entry.subjects ?? []) {
     const atUri = new AtUri(subject.uri);
@@ -155,7 +159,7 @@ outer: for (const dirEntry of await fsPromises.readdir(entryDir, {
   }
 }
 
-const client = new AtpBaseClient({ service });
+const client = new Client({ service });
 
 const jwt = await fsPromises.readFile(jwtPath, 'utf8');
 
@@ -194,17 +198,15 @@ if (writes.length) {
   }
 
   try {
-    const res = await client.com.atproto.repo.applyWrites(
-      {
+    const res = await client.xrpc(comAtproto.repo.applyWrites, {
+      headers: {
+        authorization: `Bearer ${jwt}`,
+      },
+      body: {
         repo: did,
         writes,
       },
-      {
-        headers: {
-          authorization: `Bearer ${jwt}`,
-        },
-      },
-    );
+    });
 
     console.log(res);
   } catch (e) {

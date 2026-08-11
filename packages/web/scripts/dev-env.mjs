@@ -8,9 +8,7 @@ import { TestNetworkNoAppView } from '@atproto/dev-env';
 import { cidForRecord } from '@atproto/repo';
 import { createServiceAuthHeaders } from '@atproto/xrpc-server';
 import * as plc from '@did-plc/lib';
-
-/** @import { ComAtprotoLabelDefs, ComAtprotoRepoApplyWrites } from '@atproto/api' */
-/** @import { OrgOkazuDiaryActorProfile, OrgOkazuDiaryFeedEntry, OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api' */
+import { comAtproto, orgOkazuDiary } from '@okazu-diary/api';
 
 async function main() {
   const [cmd, ...args] = process.argv.slice(2);
@@ -19,7 +17,7 @@ async function main() {
   }
 
   const { network, did, accessJwt } = await setupNetwork();
-  const agent = network.pds.getAgent();
+  const client = network.pds.getClient();
 
   let mockTime = Date.parse('2025-01-01T00:00:00Z');
   function nextTID() {
@@ -27,36 +25,40 @@ async function main() {
     return TID.fromTime(mockTime * 1000, 1).toString();
   }
 
-  await agent.com.atproto.repo.applyWrites(
-    {
+  // XXX: Cannot use `client.applyWrites` because of the `await` in array initialization.
+  await client.xrpc(comAtproto.repo.applyWrites, {
+    headers: { authorization: `Bearer ${accessJwt}` },
+    body: {
       repo: did,
       writes: [
         {
           $type: 'com.atproto.repo.applyWrites#create',
-          collection: 'org.okazu-diary.actor.profile',
+          collection: orgOkazuDiary.actor.profile.$type,
           rkey: 'self',
-          /** @type {OrgOkazuDiaryActorProfile.Main} */
+          /** @type {orgOkazuDiary.actor.profile.Main} */
           value: {
-            $type: 'org.okazu-diary.actor.profile',
+            $type: orgOkazuDiary.actor.profile.$type,
             displayName: 'bobby',
             description: 'hi im bob',
             website: 'https://bob.test',
             lang: 'en',
-            createdAt: new Date(mockTime).toISOString(),
+            createdAt: /** @type {import('@atproto/syntax').DatetimeString} */ (
+              new Date(mockTime).toISOString()
+            ),
           },
         },
         ...Array(100)
           .fill(null)
           .map((_, i) => ({
             $type: /** @type {const} */ ('com.atproto.repo.applyWrites#create'),
-            collection: 'org.okazu-diary.feed.entry',
+            collection: orgOkazuDiary.feed.entry.$type,
             rkey: nextTID(),
-            /** @type {OrgOkazuDiaryFeedEntry.Main} */
+            /** @type {orgOkazuDiary.feed.entry.Main} */
             value: {
-              $type: 'org.okazu-diary.feed.entry',
+              $type: orgOkazuDiary.feed.entry.$type,
               datetime: new Date(mockTime).toISOString(),
               note: `Placeholder to trigger pagination (${i})`,
-              /** @type {ComAtprotoLabelDefs.SelfLabels} */
+              /** @type {comAtproto.label.defs.SelfLabels} */
               labels: {
                 $type: 'com.atproto.label.defs#selfLabels',
                 values: [{ val: 'sexual' }],
@@ -67,15 +69,15 @@ async function main() {
           })),
         {
           $type: 'com.atproto.repo.applyWrites#create',
-          collection: 'org.okazu-diary.feed.entry',
+          collection: orgOkazuDiary.feed.entry.$type,
           rkey: nextTID(),
-          /** @type {OrgOkazuDiaryFeedEntry.Main} */
+          /** @type {orgOkazuDiary.feed.entry.Main} */
           value: {
-            $type: 'org.okazu-diary.feed.entry',
+            $type: orgOkazuDiary.feed.entry.$type,
             datetime: new Date(mockTime).toISOString(),
             subjects: [],
             note: 'Entry with no subjects.',
-            /** @type {ComAtprotoLabelDefs.SelfLabels} */
+            /** @type {comAtproto.label.defs.SelfLabels} */
             labels: {
               $type: 'com.atproto.label.defs#selfLabels',
               values: [{ val: 'sexual' }],
@@ -85,9 +87,9 @@ async function main() {
           },
         },
         ...(await (async () => {
-          /** @satisfies {OrgOkazuDiaryMaterialExternal.Main} */
+          /** @satisfies {orgOkazuDiary.material.external.Main} */
           const material = {
-            $type: 'org.okazu-diary.material.external',
+            $type: orgOkazuDiary.material.external.$type,
             uri: 'https://en.example.com/',
             title: 'English Porn',
             thumb: {
@@ -110,7 +112,7 @@ async function main() {
           };
           const materialCid = await cidForRecord(material);
           const rkey = nextTID();
-          return /** @type {ComAtprotoRepoApplyWrites.Create[]} */ ([
+          return /** @type {comAtproto.repo.applyWrites.Create[]} */ ([
             {
               $type: 'com.atproto.repo.applyWrites#create',
               collection: material.$type,
@@ -123,9 +125,9 @@ async function main() {
               ),
               collection: 'org.okazu-diary.feed.entry',
               rkey,
-              /** @type {OrgOkazuDiaryFeedEntry.Main} */
+              /** @type {orgOkazuDiary.feed.entry.Main} */
               value: {
-                $type: 'org.okazu-diary.feed.entry',
+                $type: orgOkazuDiary.feed.entry.$type,
                 datetime: new Date(mockTime).toISOString(),
                 subjects: [
                   {
@@ -159,9 +161,9 @@ async function main() {
           ]);
         })()),
         ...(await (async () => {
-          /** @satisfies {OrgOkazuDiaryMaterialExternal.Main} */
+          /** @satisfies {orgOkazuDiary.material.external.Main} */
           const material = {
-            $type: 'org.okazu-diary.material.external',
+            $type: orgOkazuDiary.material.external.$type,
             uri: 'https://example.com/',
             author: {
               uri: 'https://example.com/#author',
@@ -180,7 +182,7 @@ async function main() {
           };
           const materialCid = await cidForRecord(material);
           const rkey = nextTID();
-          return /** @type {ComAtprotoRepoApplyWrites.Create[]} */ ([
+          return /** @type {comAtproto.repo.applyWrites.Create[]} */ ([
             {
               $type: 'com.atproto.repo.applyWrites#create',
               collection: material.$type,
@@ -189,9 +191,9 @@ async function main() {
             },
             {
               $type: 'com.atproto.repo.applyWrites#create',
-              collection: 'org.okazu-diary.feed.entry',
+              collection: orgOkazuDiary.feed.entry.$type,
               rkey,
-              /** @type {OrgOkazuDiaryFeedEntry.Main} */
+              /** @type {orgOkazuDiary.feed.entry.Main} */
               value: {
                 $type: 'org.okazu-diary.feed.entry',
                 datetime: new Date(mockTime).toISOString(),
@@ -203,7 +205,7 @@ async function main() {
                 ],
                 tags: [{ value: 'tag-1' }, { value: 'tag-2' }],
                 note: 'Hello',
-                /** @type {ComAtprotoLabelDefs.SelfLabels} */
+                /** @type {comAtproto.label.defs.SelfLabels} */
                 labels: {
                   $type: 'com.atproto.label.defs#selfLabels',
                   values: [{ val: 'sexual' }],
@@ -216,8 +218,7 @@ async function main() {
         })()),
       ],
     },
-    { headers: { authorization: `Bearer ${accessJwt}` } },
-  );
+  });
 
   console.log(
     `Test PLC server: ${network.plc.url}\n`,

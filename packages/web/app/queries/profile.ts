@@ -1,12 +1,9 @@
-import {
-  AppBskyActorProfile,
-  AtpBaseClient,
-  type BlobRef,
-  type ComAtprotoLabelDefs,
-  type $Typed,
-} from '@atproto/api';
+import { Client } from '@atproto/lex-client';
+import type { BlobRef } from '@atproto/lex-data';
+import type { $Typed } from '@atproto/lex-schema';
+import type { AtIdentifierString } from '@atproto/syntax';
 import { XRPCError } from '@atproto/xrpc';
-import { OrgOkazuDiaryActorProfile } from '@okazu-diary/api';
+import { appBsky, comAtproto, orgOkazuDiary } from '@okazu-diary/api';
 import {
   queryOptions,
   useQuery,
@@ -23,7 +20,7 @@ export interface UseProfileQueryValue {
   website?: string | null | undefined;
   avatar?: BlobRef | null | undefined;
   labels?:
-    | $Typed<ComAtprotoLabelDefs.SelfLabels>
+    | $Typed<comAtproto.label.defs.SelfLabels>
     | { $type: string }
     | null
     | undefined;
@@ -33,14 +30,14 @@ export interface UseProfileQueryValue {
 }
 
 export function useProfileQuery(
-  did: string | undefined,
+  did: AtIdentifierString | undefined,
 ): UseProfileQueryResult {
   const didQuery = useDidQuery(did);
 
   const pds = didQuery.data?.pds;
-  let client: AtpBaseClient | undefined;
+  let client: Client | undefined;
   if (pds) {
-    client = new AtpBaseClient({ service: pds });
+    client = new Client({ service: pds });
   }
 
   const odQuery = useQuery(
@@ -54,14 +51,10 @@ export function useProfileQuery(
 
         let res;
         try {
-          res = await client!.com.atproto.repo.getRecord(
-            {
-              repo: did,
-              collection: 'org.okazu-diary.actor.profile',
-              rkey: 'self',
-            },
-            { signal },
-          );
+          res = await client!.get(orgOkazuDiary.actor.profile, {
+            repo: did,
+            signal,
+          });
         } catch (e) {
           if (e instanceof XRPCError && e.error === 'RecordNotFound') {
             return null;
@@ -69,12 +62,7 @@ export function useProfileQuery(
           throw e;
         }
 
-        const result = OrgOkazuDiaryActorProfile.validateMain(res.data.value);
-        if (!result.success) {
-          throw result.error;
-        }
-
-        return result.value;
+        return res.value;
       },
     }),
   );
@@ -89,14 +77,10 @@ export function useProfileQuery(
 
         let res;
         try {
-          res = await client!.com.atproto.repo.getRecord(
-            {
-              repo: did,
-              collection: 'app.bsky.actor.profile',
-              rkey: 'self',
-            },
-            { signal },
-          );
+          res = await client!.get(appBsky.actor.profile, {
+            repo: did,
+            signal,
+          });
         } catch (e) {
           if (e instanceof XRPCError && e.error === 'RecordNotFound') {
             return null;
@@ -104,12 +88,7 @@ export function useProfileQuery(
           throw e;
         }
 
-        const result = AppBskyActorProfile.validateMain(res.data.value);
-        if (!result.success) {
-          throw result.error;
-        }
-
-        return result.value;
+        return res.value;
       },
     }),
   );
@@ -131,7 +110,7 @@ export function useProfileQuery(
 }
 
 function profileFromBsky(
-  profile: AppBskyActorProfile.Main,
+  profile: appBsky.actor.profile.Main,
 ): UseProfileQueryValue {
   return {
     displayName: profile.displayName,

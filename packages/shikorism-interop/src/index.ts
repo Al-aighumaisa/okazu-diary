@@ -1,24 +1,22 @@
-import {
-  AtpBaseClient,
-  AtUri,
-  ComAtprotoLabelDefs,
-  ComAtprotoRepoStrongRef,
-} from '@atproto/api';
-import { cidForCbor } from '@atproto/common';
 import { TID } from '@atproto/common-web';
-import { isDid } from '@atproto/did';
+import { isDid, type Did } from '@atproto/did';
 import {
   DidResolver,
   getPds,
   HandleResolver,
   MemoryCache,
 } from '@atproto/identity';
+import { cidForLex } from '@atproto/lex-cbor';
+import { Client } from '@atproto/lex-client';
 import { cidForRawBytes } from '@atproto/lex-data';
-import { lexToIpld } from '@atproto/lexicon';
 import {
-  OrgOkazuDiaryMaterialExternal,
-  OrgOkazuDiaryFeedEntry,
-} from '@okazu-diary/api';
+  AtUri,
+  isValidUri,
+  type AtIdentifierString,
+  type AtUriString,
+  type UriString,
+} from '@atproto/syntax';
+import { comAtproto, orgOkazuDiary } from '@okazu-diary/api';
 import * as kondate from '@okazu-diary/kondate';
 
 import type {
@@ -32,11 +30,12 @@ export * from './material-store.js';
 export interface FromShikorismOptions {
   privateAs?: 'public' | 'unlisted' | undefined;
   resolveLink?: 'error' | 'force' | boolean | undefined;
+  tagLangs?: Map<string, string | undefined> | undefined;
 }
 
 export interface Material {
   rkey: string;
-  record: OrgOkazuDiaryMaterialExternal.Main;
+  record: orgOkazuDiary.material.external.Main;
   kondate?: kondate.Metadata | undefined;
   cid?: string | undefined;
   resolution: ResolutionStatuses | undefined;
@@ -52,7 +51,7 @@ export type ResolutionStatus = 'resolved' | 'error' | undefined;
 
 export interface ImportedRecord {
   rkey: string;
-  record: OrgOkazuDiaryFeedEntry.Main;
+  record: orgOkazuDiary.feed.entry.Main;
 }
 
 export interface FromCSVRowOptions extends FromShikorismOptions {}
@@ -89,14 +88,14 @@ export async function fromCSVRow(
     datetime.replaceAll('/', '-').replaceAll(' ', 'T') + '+09:00';
 
   const rkey = TID.fromTime(Date.parse(isoDatetime) * 1000, 0).toString();
-  const record: OrgOkazuDiaryFeedEntry.Record = {
+  const record: orgOkazuDiary.feed.entry.Main = {
     $type: 'org.okazu-diary.feed.entry',
     datetime: isoDatetime,
     tags: tags.map((value) => ({ value })),
     labels: {
       $type: 'com.atproto.label.defs#selfLabels',
       values: [{ val: is_too_sensitive ? 'porn' : 'sexual' }],
-    } satisfies ComAtprotoLabelDefs.SelfLabels,
+    } satisfies comAtproto.label.defs.SelfLabels,
     hadHiatus: discardElapsedTime === 'true',
     visibility,
   };
@@ -106,15 +105,19 @@ export async function fromCSVRow(
   }
 
   if (link) {
-    const material = await getOrMakeMaterial(
-      materials,
-      link,
-      rkey,
-      tags,
-      is_too_sensitive,
-      resolveLink,
-    );
-    record.subjects = [await materialToStrongRef(material, actorDid)];
+    if (!isValidUri(link)) {
+      console.warn('Skipping invalid link:', link);
+    } else {
+      const material = await getOrMakeMaterial(
+        materials,
+        link,
+        rkey,
+        tags,
+        is_too_sensitive,
+        resolveLink,
+      );
+      record.subjects = [await materialToStrongRef(material, actorDid)];
+    }
   }
 
   return { rkey, record };
@@ -154,13 +157,13 @@ export async function fromCheckin(
     Date.parse(checkin.checked_in_at) * 1000,
     0,
   ).toString();
-  const record: OrgOkazuDiaryFeedEntry.Record = {
+  const record: orgOkazuDiary.feed.entry.Main = {
     $type: 'org.okazu-diary.feed.entry',
     datetime: checkin.checked_in_at,
     labels: {
       $type: 'com.atproto.label.defs#selfLabels',
       values: [{ val: checkin.is_too_sensitive ? 'porn' : 'sexual' }],
-    } satisfies ComAtprotoLabelDefs.SelfLabels,
+    } satisfies comAtproto.label.defs.SelfLabels,
     hadHiatus: checkin.discard_elapsed_time ?? false,
     visibility,
   };
@@ -170,15 +173,19 @@ export async function fromCheckin(
   }
 
   if (checkin.link) {
-    const material = await getOrMakeMaterial(
-      materials,
-      checkin.link,
-      rkey,
-      checkin.tags,
-      checkin.is_too_sensitive,
-      resolveLink,
-    );
-    record.subjects = [await materialToStrongRef(material, actorDid)];
+    if (!isValidUri(checkin.link)) {
+      console.warn('Skipping invalid link:', checkin.link);
+    } else {
+      const material = await getOrMakeMaterial(
+        materials,
+        checkin.link,
+        rkey,
+        checkin.tags,
+        checkin.is_too_sensitive,
+        resolveLink,
+      );
+      record.subjects = [await materialToStrongRef(material, actorDid)];
+    }
   }
 
   if (checkin.note) {
@@ -200,7 +207,7 @@ export async function fromCheckin(
 }
 
 export async function toCheckin(
-  record: OrgOkazuDiaryFeedEntry.Record,
+  record: orgOkazuDiary.feed.entry.Main,
   materials: ExportMaterialStore,
 ): Promise<Checkin> {
   const ret: Checkin = {
@@ -255,7 +262,9 @@ export async function toCheckin(
 
   const is_too_sensitive = subjects?.some((s) => {
     if (!s.record.labels) return;
-    const result = ComAtprotoLabelDefs.validateSelfLabels(s.record.labels);
+    const result = comAtproto.label.defs.selfLabels.safeValidate(
+      s.record.labels,
+    );
     if (result.success) {
       return result.value.values.some(({ val }) =>
         [
@@ -352,7 +361,7 @@ export async function hydrateMaterial(
     }
 
     const image = meta.image?.[0];
-    if (image) {
+    if (image && isValidUri(image.contentUrl)) {
       material.record.thumb = {
         url: image.contentUrl,
       };
@@ -410,7 +419,7 @@ export async function hydrateMaterial(
 
 async function getOrMakeMaterial(
   materials: ImportMaterialStore,
-  link: string,
+  link: UriString,
   rkey: string,
   tags: string[] | undefined,
   sensitive: boolean | undefined,
@@ -443,7 +452,7 @@ async function getOrMakeMaterial(
       material.record.labels = {
         $type: 'com.atproto.label.defs#selfLabels',
         values: [{ val: 'porn' }],
-      } satisfies ComAtprotoLabelDefs.SelfLabels;
+      } satisfies comAtproto.label.defs.SelfLabels;
     }
 
     if (updated) {
@@ -458,7 +467,7 @@ async function getOrMakeMaterial(
 }
 
 async function materialFromLink(
-  link: string,
+  link: UriString,
   rkey: string,
   tags: string[] | undefined,
   sensitive: boolean | undefined,
@@ -485,13 +494,13 @@ async function materialFromLink(
     ret.record.labels = {
       $type: 'com.atproto.label.defs#selfLabels',
       values: [{ val: 'porn' }],
-    } satisfies ComAtprotoLabelDefs.SelfLabels;
+    } satisfies comAtproto.label.defs.SelfLabels;
   }
 
   ret.record.genericLabels = {
     $type: 'com.atproto.label.defs#selfLabels',
     values: [{ val: 'sexual' }],
-  } satisfies ComAtprotoLabelDefs.SelfLabels;
+  } satisfies comAtproto.label.defs.SelfLabels;
 
   return ret;
 }
@@ -499,11 +508,10 @@ async function materialFromLink(
 async function materialToStrongRef(
   material: Material,
   repo: string,
-): Promise<ComAtprotoRepoStrongRef.Main> {
+): Promise<NonNullable<orgOkazuDiary.feed.entry.Main['subjects']>[number]> {
   return {
-    uri: `at://${repo}/org.okazu-diary.material.external/${material.rkey}`,
-    cid:
-      material.cid ?? (await cidForCbor(lexToIpld(material.record))).toString(),
+    uri: `at://${repo}/org.okazu-diary.material.external/${material.rkey}` as const,
+    cid: material.cid ?? (await cidForLex(material.record)).toString(),
   };
 }
 
@@ -512,7 +520,10 @@ const didResolver = new DidResolver({
 });
 const handleResolver = new HandleResolver();
 
-async function freezeRecordRef(uri: string, material: Material): Promise<void> {
+async function freezeRecordRef(
+  uri: AtUriString,
+  material: Material,
+): Promise<void> {
   material.resolution ??= {
     uri: undefined,
     record: undefined,
@@ -536,7 +547,7 @@ async function freezeRecordRef(uri: string, material: Material): Promise<void> {
     return;
   }
 
-  let id: string = parsed.host;
+  let id: AtIdentifierString = parsed.host;
   if (!isDid(id)) {
     let resolved;
     try {
@@ -549,7 +560,7 @@ async function freezeRecordRef(uri: string, material: Material): Promise<void> {
       material.resolution.record = 'error';
       return;
     }
-    id = resolved;
+    id = resolved as Did;
   }
 
   let didDoc;
@@ -573,19 +584,19 @@ async function freezeRecordRef(uri: string, material: Material): Promise<void> {
     return;
   }
 
-  const client = new AtpBaseClient({
+  const client = new Client({
     service: pds,
   });
 
   let cid;
   try {
-    const res = await client.com.atproto.repo.getRecord({
-      repo: id,
-      collection: parsed.collection,
+    const res = await client.getRecord(
+      parsed.collection as typeof parsed.collection &
+        `${string}.${string}.${string}`,
       rkey,
-    });
-    cid =
-      res.data.cid ?? (await cidForCbor(lexToIpld(res.data.value))).toString();
+      { repo: id },
+    );
+    cid = res.body.cid ?? (await cidForLex(res.body.value)).toString();
   } catch (e) {
     console.error('Error while getting (CID of) record:', e);
     material.resolution.record = 'error';

@@ -1,3 +1,4 @@
+import type { AtIdentifierString } from '@atproto/lex-client';
 import type React from 'react';
 
 import { useHandleQuery } from '~/queries/handle';
@@ -5,7 +6,7 @@ import { useProfileQuery } from '~/queries/profile';
 import { PrimaryProfileContext } from './PrimaryProfileContext';
 
 export interface PrimaryProfileProviderProps {
-  did: string;
+  did: AtIdentifierString;
   prefetchedHandle?: string | undefined;
 }
 

@@ -1,3 +1,4 @@
+import { isAtUriString, type AtUriString } from '@atproto/syntax';
 import * as contentDisposition from 'content-disposition';
 import Link from 'http-link-header';
 
@@ -13,7 +14,7 @@ declare module '../../index.js' {
 }
 
 export interface ATMetadataExt {
-  uri: string;
+  uri: AtUriString;
 }
 
 export async function resolve(
@@ -127,7 +128,7 @@ export async function resolve(
 function getAlternateLink(
   value: string,
   base: string,
-): ['activity-streams' | 'at-uri', string] | undefined {
+): ['activity-streams', string] | ['at-uri', AtUriString] | undefined {
   let parsed;
   try {
     parsed = Link.parse(value);
@@ -140,14 +141,21 @@ function getAlternateLink(
       continue;
     }
 
-    if (ref.uri.startsWith('at://')) {
-      return ['at-uri', ref.uri];
+    const uri = ref.uri;
+
+    if (uri.startsWith('at://')) {
+      if (isAtUriString(uri)) {
+        return ['at-uri', uri];
+      } else {
+        return;
+      }
     }
 
-    if (ref.type) {
-      switch (mediaType.classify(ref.type)) {
+    const type = ref.type;
+    if (type) {
+      switch (mediaType.classify(type)) {
         case mediaType.MediaType.ActivityStreams: {
-          return ['activity-streams', new URL(ref.uri, base).href];
+          return ['activity-streams', new URL(uri, base).href];
         }
       }
     }

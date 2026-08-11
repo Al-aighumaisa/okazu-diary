@@ -14,7 +14,7 @@ const config = defineConfig([
     '**/dist',
     '**/node_modules',
     '**/vendored',
-    'packages/api/src/client',
+    'packages/api/src/lexicons',
   ]),
   {
     name: 'js',

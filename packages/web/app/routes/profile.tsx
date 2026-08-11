@@ -1,4 +1,6 @@
 import { getPds } from '@atproto/identity';
+import type { AtIdentifierString } from '@atproto/lex-client';
+import { isValidDid } from '@atproto/syntax';
 import type React from 'react';
 import { Outlet, useParams } from 'react-router';
 
@@ -9,7 +11,7 @@ import type { Route } from './+types/profile';
 import { parseProfileParams } from './profile/common';
 
 export interface LoaderData {
-  did: string;
+  did: AtIdentifierString;
   paramHandle: string | undefined;
 }
 
@@ -22,7 +24,7 @@ export async function clientLoader({
     throw new Response(null, { status: 404 });
   } else if (!(did = params.did)) {
     did = await handleResolver.resolve(params.handle);
-    if (!did || !isAllowedDid(did)) {
+    if (!did || !isValidDid(did) || !isAllowedDid(did)) {
       throw new Response(null, { status: 404 });
     }
   }

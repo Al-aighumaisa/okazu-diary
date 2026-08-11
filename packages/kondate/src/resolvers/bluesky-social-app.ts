@@ -1,4 +1,8 @@
-import { ensureValidAtIdentifier, isValidTid } from '@atproto/syntax';
+import {
+  ensureValidAtIdentifier,
+  isValidTid,
+  type AtUriString,
+} from '@atproto/syntax';
 
 import type { ResolveOptions, ResolveResult } from '../index.js';
 import { extensions, http } from './generic/index.js';
@@ -51,7 +55,7 @@ export async function resolve(
   return result;
 }
 
-function extractAtUri(url: URL): string | undefined {
+function extractAtUri(url: URL): AtUriString | undefined {
   if (!url.pathname.startsWith('/profile/')) {
     return;
   }

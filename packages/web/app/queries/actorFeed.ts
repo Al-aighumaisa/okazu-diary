@@ -1,5 +1,9 @@
-import { AtpBaseClient, type ComAtprotoRepoListRecords } from '@atproto/api';
-import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
+import {
+  Client,
+  type AtIdentifierString,
+  type ListOptions,
+} from '@atproto/lex-client';
+import { orgOkazuDiary } from '@okazu-diary/api';
 import {
   keepPreviousData,
   queryOptions,
@@ -15,13 +19,13 @@ export interface UseActorFeedQueryValue {
   items: {
     uri: string;
     cid: string;
-    value: OrgOkazuDiaryFeedEntry.Main;
+    value: orgOkazuDiary.feed.entry.Main;
   }[];
   next: string | undefined;
 }
 
 export function useActorFeedQuery(
-  did: string | undefined,
+  did: AtIdentifierString | undefined,
   cursor: string | null | undefined,
   reverse: boolean | undefined,
 ): UseActorFeedQueryResult {
@@ -42,11 +46,11 @@ export function useActorFeedQuery(
         const did = did_!;
         const pds = pds_!;
 
-        const client = new AtpBaseClient({ service: pds });
+        const client = new Client({ service: pds });
 
-        const params: ComAtprotoRepoListRecords.QueryParams = {
+        const params: ListOptions = {
           repo: did,
-          collection: 'org.okazu-diary.feed.entry',
+          signal,
         };
         if (cursor) {
           params.cursor = cursor;
@@ -54,12 +58,10 @@ export function useActorFeedQuery(
         if (reverse) {
           params.reverse = reverse;
         }
-        const res = await client.com.atproto.repo.listRecords(params, {
-          signal,
-        });
+        const res = await client.list(orgOkazuDiary.feed.entry, params);
 
-        const items = res.data.records.map((r) => {
-          const result = OrgOkazuDiaryFeedEntry.validateMain(r.value);
+        const items = res.records.map((r) => {
+          const result = orgOkazuDiary.feed.entry.main.safeValidate(r.value);
           if (!result.success) {
             throw result.error;
           }
@@ -71,7 +73,7 @@ export function useActorFeedQuery(
 
         return {
           items,
-          next: res.data.cursor,
+          next: res.cursor,
         };
       },
     }),

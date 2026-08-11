@@ -1,5 +1,5 @@
 import { getPds } from '@atproto/identity';
-import { OrgOkazuDiaryFeedEntry } from '@okazu-diary/api';
+import { orgOkazuDiary } from '@okazu-diary/api';
 import { type default as React, useContext } from 'react';
 import { useParams, useSearchParams } from 'react-router';
 
@@ -29,12 +29,7 @@ export default function EntryPage({
     useContext(PrimaryProfileContext) ?? {};
   const profileQuery = useDeferredQueryError(profileCtx.query);
   const handle = profileCtx.handleQuery?.data;
-  const entryQuery = useRecordQuery(
-    did,
-    'org.okazu-diary.feed.entry',
-    rkey,
-    OrgOkazuDiaryFeedEntry.validateMain,
-  );
+  const entryQuery = useRecordQuery(orgOkazuDiary.feed.entry, did, rkey);
 
   const prefetchedDidDoc = did && getPrefetchedDid(did);
   const preloadPds = prefetchedDidDoc && getPds(prefetchedDidDoc);

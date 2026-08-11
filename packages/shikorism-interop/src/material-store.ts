@@ -1,13 +1,12 @@
-import { cidForCbor } from '@atproto/common';
-import { lexToIpld } from '@atproto/lexicon';
+import { cidForLex } from '@atproto/lex-cbor';
+import { type Cid, parseCid } from '@atproto/lex-data';
 import type { MST } from '@atproto/repo';
 
 import type { Material } from './index.js';
-import { OrgOkazuDiaryMaterialExternal } from '@okazu-diary/api';
-import { CID } from 'multiformats/cid';
+import { orgOkazuDiary } from '@okazu-diary/api';
 
 export interface MaterialStore {
-  add(material: Material): CID | void | PromiseLike<CID> | PromiseLike<void>;
+  add(material: Material): Cid | void | PromiseLike<Cid> | PromiseLike<void>;
 }
 
 export interface ImportMaterialStore extends MaterialStore {
@@ -136,10 +135,10 @@ export class InMemoryMaterialStore
 export class MSTExportMaterialStore implements ExportMaterialStore {
   constructor(public mst: MST) {}
 
-  async add(material: Material): Promise<CID> {
+  async add(material: Material): Promise<Cid> {
     const cid = material.cid
-      ? CID.parse(material.cid)
-      : await cidForCbor(lexToIpld(material.record));
+      ? parseCid(material.cid)
+      : await cidForLex(material.record);
     this.mst = await this.mst.add(material.rkey, cid);
     return cid;
   }
@@ -150,7 +149,7 @@ export class MSTExportMaterialStore implements ExportMaterialStore {
       return;
     }
     const record = await this.mst.storage.readRecord(cid);
-    const result = OrgOkazuDiaryMaterialExternal.validateMain(record);
+    const result = orgOkazuDiary.material.external.main.safeValidate(record);
     if (result.success) {
       return {
         rkey,
@@ -189,7 +188,7 @@ export class MSTMaterialStore
 
       const key = entry.key;
       const record = await mst.storage.readRecord(entry.value);
-      const result = OrgOkazuDiaryMaterialExternal.validateMain(record);
+      const result = orgOkazuDiary.material.external.main.safeValidate(record);
       if (result.success) {
         const uri = result.value.uri;
         if (uri) {
@@ -207,7 +206,7 @@ export class MSTMaterialStore
     return ret;
   }
 
-  async add(material: Material): Promise<CID> {
+  async add(material: Material): Promise<Cid> {
     const uri = material.record.uri;
     const rkey = material.rkey;
     const cid = await super.add(material);

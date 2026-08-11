@@ -5,7 +5,7 @@
 **/fixtures/
 /packages/*/build/
 /packages/*/dist/
-/packages/api/src/client/
+/packages/api/src/lexicons/
 /packages/kondate/src/consts/package.ts
 /packages/kondate/src/resolvers/generic/json-ld/contexts/*.json
 /packages/web/app/config/oauth-client-metadata.json
