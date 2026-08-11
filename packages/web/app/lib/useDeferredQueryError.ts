@@ -46,6 +46,7 @@ export function useDeferredQueryError<TData = unknown, TError = Error>(
       return;
     }
     if (query.isError) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setError(query.error);
     } else if (query.isSuccess) {
       setError(undefined);

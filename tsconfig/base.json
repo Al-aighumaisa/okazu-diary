@@ -1,6 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "composite": true,
     "checkJs": true,
     "strict": true,
     "exactOptionalPropertyTypes": true,
@@ -8,15 +9,15 @@
     "esModuleInterop": true,
     "isolatedModules": true,
     "lib": [],
-    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
     "types": [],
     "noErrorTruncation": true,
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
     "sourceMap": true,
-    "target": "ES2020"
+    "target": "ES2023"
   },
   "typeAcquisition": {
     "enable": false

@@ -6,5 +6,5 @@
     "lib": ["es2023", "esnext.iterator", "esnext.collection"]
   },
   "include": ["./src"],
-  "exclude": ["./src/bin/*.mts"]
+  "exclude": ["./src/bin"]
 }

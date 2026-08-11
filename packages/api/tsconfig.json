@@ -5,6 +5,5 @@
     "outDir": "./dist",
     "exactOptionalPropertyTypes": false
   },
-  "include": ["./src"],
-  "exclude": ["./src/client"]
+  "include": ["./src"]
 }

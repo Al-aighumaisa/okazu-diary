@@ -1,9 +1,9 @@
 {
   "extends": "../../tsconfig/tests.json",
   "compilerOptions": {
-    "rootDir": ".",
-    "module": "preserve"
+    "rootDir": "."
   },
   "files": ["global.d.ts"],
-  "include": ["./tests"]
+  "include": ["./tests"],
+  "references": [{ "path": "./tsconfig.build.json" }]
 }

@@ -3,9 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "nodenext",
-    "moduleResolution": null,
     "lib": ["es2024", "esnext.iterator", "esnext.collection"]
   },
-  "include": ["./src/bin/*.mts"]
+  "include": ["./src"]
 }

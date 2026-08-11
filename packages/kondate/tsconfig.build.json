@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./dist",
-    "module": "preserve"
+    "module": "node18"
   },
-  "include": ["./src"]
+  "include": ["./src", "src/resolvers/generic/json-ld/contexts/*.json"]
 }
