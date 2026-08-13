@@ -72,7 +72,7 @@ export async function fromCSVRow(
     ...tags
   ] = row;
   const is_too_sensitive = isTooSensitive === 'true';
-  const { privateAs, resolveLink } = options ?? {};
+  const { privateAs, resolveLink, tagLangs } = options ?? {};
 
   let visibility;
   if (isPrivate === 'true') {
@@ -115,6 +115,7 @@ export async function fromCSVRow(
         tags,
         is_too_sensitive,
         resolveLink,
+        tagLangs,
       );
       record.subjects = [await materialToStrongRef(material, actorDid)];
     }
@@ -141,7 +142,7 @@ export async function fromCheckin(
   materials: ImportMaterialStore,
   options?: FromCheckinOptions,
 ): Promise<ImportedRecord | undefined> {
-  const { privateAs, resolveLink } = options ?? {};
+  const { privateAs, resolveLink, tagLangs } = options ?? {};
 
   let visibility;
   if (checkin.is_private) {
@@ -183,6 +184,7 @@ export async function fromCheckin(
         checkin.tags,
         checkin.is_too_sensitive,
         resolveLink,
+        tagLangs,
       );
       record.subjects = [await materialToStrongRef(material, actorDid)];
     }
@@ -424,6 +426,7 @@ async function getOrMakeMaterial(
   tags: string[] | undefined,
   sensitive: boolean | undefined,
   resolveLink: 'error' | 'force' | boolean | undefined,
+  tagLangs: Map<string, string | undefined> | undefined,
 ) {
   let material;
 
@@ -443,7 +446,14 @@ async function getOrMakeMaterial(
     if (unstoredTags.size) {
       updated = true;
       (material.record.tags ??= []).push(
-        ...unstoredTags.values().map((value) => ({ value })),
+        ...unstoredTags.values().map((value) => {
+          const tag: orgOkazuDiary.material.defs.Tag = { value };
+          const lang = tagLangs?.get(value);
+          if (lang) {
+            tag.lang = lang;
+          }
+          return tag;
+        }),
       );
     }
 
@@ -459,7 +469,14 @@ async function getOrMakeMaterial(
       materials.add(material);
     }
   } else {
-    material = await materialFromLink(link, rkey, tags, sensitive, resolveLink);
+    material = await materialFromLink(
+      link,
+      rkey,
+      tags,
+      sensitive,
+      resolveLink,
+      tagLangs,
+    );
     await materials.add(material);
   }
 
@@ -472,6 +489,7 @@ async function materialFromLink(
   tags: string[] | undefined,
   sensitive: boolean | undefined,
   resolveLink: 'error' | 'force' | boolean | undefined,
+  tagLangs: Map<string, string | undefined> | undefined,
 ): Promise<Material> {
   const ret: Material = {
     rkey,
@@ -487,7 +505,14 @@ async function materialFromLink(
   }
 
   if (tags?.length) {
-    ret.record.tags = tags.map((value) => ({ value }));
+    ret.record.tags = tags.map((value) => {
+      const tag: orgOkazuDiary.material.defs.Tag = { value };
+      const lang = tagLangs?.get(value);
+      if (lang) {
+        tag.lang = lang;
+      }
+      return tag;
+    });
   }
 
   if (sensitive) {

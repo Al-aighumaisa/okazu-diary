@@ -13,9 +13,18 @@ import { FsExportMaterialStore } from './common.js';
 
 const [csvPath, did] = process.argv.slice(2);
 
-const materials = await FsExportMaterialStore.create(
-  path.join(did, 'materials'),
-);
+const [materials, tagLangs] = await Promise.all([
+  FsExportMaterialStore.create(path.join(did, 'materials')),
+  fsPromises.readFile(path.join(did, 'tags.tsv'), 'utf8').then(
+    (text) =>
+      new Map(
+        text.split('\n').map((l) => {
+          const [k, v] = l.trimEnd().split('\t');
+          return [k, v || undefined];
+        }),
+      ),
+  ),
+]);
 
 const entryDir = path.join(did, 'org.okazu-diary.feed.entry');
 await fsPromises.mkdir(entryDir, { recursive: true });
@@ -33,6 +42,7 @@ for await (const row of rows) {
   const imported = await tissue.fromCSVRow(row, did, materials, {
     resolveLink: 'error',
     privateAs: 'unlisted',
+    tagLangs,
   });
 
   if (imported) {

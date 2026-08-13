@@ -12,23 +12,31 @@ import { FsExportMaterialStore } from './common.js';
 
 let [did, tokenPath, me] = process.argv.slice(2);
 
-const token = (
-  await fsPromises.readFile(tokenPath, { encoding: 'utf8' })
-).trimEnd();
-const authorization = `Bearer ${token}`;
-
-const cursorDateFile = await fsPromises.open(
-  path.join(did, 'shikorism-cursor.txt'),
-  fsPromises.constants.O_RDWR | fsPromises.constants.O_CREAT,
-);
-const cursorDate = await cursorDateFile.readFile('utf8');
-
-const materials = await FsExportMaterialStore.create(
-  path.join(did, 'materials'),
-);
-
 const entryDir = path.join(did, 'org.okazu-diary.feed.entry');
-await fsPromises.mkdir(entryDir, { recursive: true });
+
+const [authorization, [cursorDateFile, cursorDate], materials, tagLangs] =
+  await Promise.all([
+    fsPromises
+      .readFile(tokenPath, { encoding: 'utf8' })
+      .then((token) => `Bearer ${token.trimEnd()}`),
+    fsPromises
+      .open(
+        path.join(did, 'shikorism-cursor.txt'),
+        fsPromises.constants.O_RDWR | fsPromises.constants.O_CREAT,
+      )
+      .then(async (f) => [f, await f.readFile('utf8')] as const),
+    FsExportMaterialStore.create(path.join(did, 'materials')),
+    fsPromises.readFile(path.join(did, 'tags.tsv'), 'utf8').then(
+      (text) =>
+        new Map(
+          text.split('\n').map((l) => {
+            const [k, v] = l.trimEnd().split('\t');
+            return [k, v || undefined];
+          }),
+        ),
+    ),
+    fsPromises.mkdir(entryDir, { recursive: true }),
+  ]);
 
 if (me === undefined) {
   const res = await fetch('https://shikorism.net/api/v1/me', {
@@ -81,6 +89,7 @@ outer: while (true) {
     const imported = await tissue.fromCheckin(c, did, materials, {
       resolveLink: true,
       privateAs: 'unlisted',
+      tagLangs,
     });
 
     if (imported) {
