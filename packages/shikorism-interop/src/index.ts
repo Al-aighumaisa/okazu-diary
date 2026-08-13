@@ -45,6 +45,7 @@ export interface ResolutionStatuses {
   uri: ResolutionStatus;
   record: ResolutionStatus;
   thumb: ResolutionStatus;
+  authorAvatar: ResolutionStatus;
 }
 
 export type ResolutionStatus = 'resolved' | 'error' | undefined;
@@ -317,6 +318,7 @@ export async function hydrateMaterial(
     uri: undefined,
     record: undefined,
     thumb: undefined,
+    authorAvatar: undefined,
   };
 
   let updated = false;
@@ -377,6 +379,28 @@ export async function hydrateMaterial(
       await freezeRecordRef(atUri, material);
       updated ||= material.resolution.record === 'resolved';
     }
+
+    const creator = meta.creator?.filter(
+      (c): c is typeof c & { url: UriString } => isValidUri(c.url),
+    )[0];
+    if (creator) {
+      const author: orgOkazuDiary.material.external.Profile = {
+        uri: creator.url,
+      };
+      const name = creator.name?.textValue;
+      if (name !== undefined) {
+        author.name = name;
+      }
+      const avatarUrl = creator.image?.contentUrl;
+      if (isValidUri(avatarUrl)) {
+        author.avatar = {
+          image: {
+            url: avatarUrl,
+          },
+        };
+      }
+      material.record.author = author;
+    }
   }
 
   const thumb = material.record.thumb;
@@ -386,32 +410,56 @@ export async function hydrateMaterial(
       resolveLink === 'force' ||
       (resolveLink === 'error' && material.resolution.thumb === 'error'))
   ) {
-    let res;
-    try {
-      res = await util.fetch(thumb.url);
-    } catch (e) {
-      console.error(`Error while fetching thumbnail of ${thumb.url}:`, e);
-      material.resolution.thumb = 'error';
-    }
-    if (res) {
-      if (!res.ok) {
-        console.error(
-          `HTTP status ${res.status} from thumbnail of ${thumb.url}`,
-        );
-        material.resolution.thumb = 'error';
-      } else {
-        let bytes;
-        try {
-          bytes = await res.bytes();
-        } catch (e) {
-          console.error(`Unable to read thumbnail of ${thumb.url}:`, e);
-          material.resolution.thumb = 'error';
-        }
-        if (bytes) {
-          thumb.cid = (await cidForRawBytes(bytes)).toString();
-          material.resolution.thumb = 'resolved';
-          updated = true;
-        }
+    updated =
+      (await hydrateImage('thumb', thumb, material.resolution)) || updated;
+  }
+
+  const avatar = material.record.author?.avatar;
+  if (
+    avatar &&
+    ((resolveLink && !material.resolution.authorAvatar) ||
+      resolveLink === 'force' ||
+      (resolveLink === 'error' && material.resolution.authorAvatar === 'error'))
+  ) {
+    updated =
+      (await hydrateImage('authorAvatar', avatar.image, material.resolution)) ||
+      updated;
+  }
+
+  return updated;
+}
+
+async function hydrateImage(
+  kind: keyof ResolutionStatuses,
+  image: orgOkazuDiary.material.external.Thumb,
+  resolution: ResolutionStatuses,
+): Promise<boolean | undefined> {
+  let updated;
+
+  let res;
+  try {
+    res = await util.fetch(image.url);
+  } catch (e) {
+    console.error(`Error while fetching image ${image.url}:`, e);
+    resolution[kind] = 'error';
+  }
+
+  if (res) {
+    if (!res.ok) {
+      console.error(`HTTP status ${res.status} from image ${image.url}`);
+      resolution[kind] = 'error';
+    } else {
+      let bytes;
+      try {
+        bytes = await res.bytes();
+      } catch (e) {
+        console.error(`Unable to read image ${image.url}:`, e);
+        resolution[kind] = 'error';
+      }
+      if (bytes) {
+        image.cid = (await cidForRawBytes(bytes)).toString();
+        resolution[kind] = 'resolved';
+        updated = true;
       }
     }
   }
@@ -553,6 +601,7 @@ async function freezeRecordRef(
     uri: undefined,
     record: undefined,
     thumb: undefined,
+    authorAvatar: undefined,
   };
 
   let parsed;
