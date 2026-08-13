@@ -81,6 +81,11 @@ export interface ArtworkMetadataExt {
    */
   originalImage: string | undefined;
   /**
+   * The URL of the full size profile image of the author at the original `pximg.net` server rather
+   * than the `pixiv.cat` proxy.
+   */
+  originalProfileImage: string | undefined;
+  /**
    * Known values:
    * - `0`: Published before `2022-10-31T03:00:00+00:00` (`illust_id=102382135`) and has not been
    *   marked as AI-generated.
@@ -416,7 +421,7 @@ async function resolveIllust(
           image:
             profileImage !== undefined
               ? {
-                  contentUrl: profileImage,
+                  contentUrl: formatAsProxyUrl(profileImage),
                   encodingFormat: util.encodingFormatFromFileExt(profileImage),
                 }
               : undefined,
@@ -437,12 +442,19 @@ async function resolveIllust(
           userId: body.userId,
           userAccount: body.userAccount,
           originalImage,
+          originalProfileImage:
+            profileImage &&
+            formatAsProxyUrl(profileImage.replace(/_\d+\.([^./]+)$/, '.$1')),
           aiType: body.aiType ?? undefined,
         },
       },
     },
     response,
   };
+}
+
+function formatAsProxyUrl(url: string): string {
+  return url?.replace(/^[^:]+:\/\/[^/]*/, 'https://i.pixiv.cat');
 }
 
 function formatAsProxyThumbUrl(url: string, page?: number): string {

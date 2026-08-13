@@ -5,7 +5,7 @@ exports[`resolve snapshot html-description (5385135) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -52,6 +52,7 @@ exports[`resolve snapshot html-description (5385135) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": "https://i.pximg.net/img-original/img/2009/07/30/00/10/05/5385135_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 1,
       "sl": 2,
@@ -70,7 +71,7 @@ exports[`resolve snapshot illust-genai (98686026) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2022/06/01/16/43/11/22811538_b6bea160239ea43e7096c31a17ef56c3_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2022/06/01/16/43/11/22811538_b6bea160239ea43e7096c31a17ef56c3_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -162,6 +163,7 @@ exports[`resolve snapshot illust-genai (98686026) 1`] = `
       "aiType": 2,
       "illustType": 0,
       "originalImage": "https://i.pximg.net/img-original/img/2022/05/29/15/55/22/98686026_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2022/06/01/16/43/11/22811538_b6bea160239ea43e7096c31a17ef56c3.jpg",
       "page": undefined,
       "pageCount": 1,
       "sl": 2,
@@ -180,7 +182,7 @@ exports[`resolve snapshot illust-multi-r18 (73814313) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -436,6 +438,7 @@ exports[`resolve snapshot illust-multi-r18 (73814313) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": undefined,
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 34,
       "sl": 6,
@@ -454,7 +457,7 @@ exports[`resolve snapshot illust-multi-sensitive (66086550) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -585,6 +588,7 @@ exports[`resolve snapshot illust-multi-sensitive (66086550) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": undefined,
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 9,
       "sl": 4,
@@ -603,7 +607,7 @@ exports[`resolve snapshot illust-single-sfw (1580459) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -680,6 +684,7 @@ exports[`resolve snapshot illust-single-sfw (1580459) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": "https://i.pximg.net/img-original/img/2008/09/10/17/47/18/1580459_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 1,
       "sl": 2,
@@ -698,7 +703,7 @@ exports[`resolve snapshot illust-updated (34231632) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -755,6 +760,7 @@ exports[`resolve snapshot illust-updated (34231632) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": "https://i.pximg.net/img-original/img/2013/03/14/13/50/26/34231632_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 1,
       "sl": 2,
@@ -773,7 +779,7 @@ exports[`resolve snapshot image-response (60114898) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2019/08/06/15/49/45/16104414_460a455887c4acc49e2bec27cc0c15af_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2019/08/06/15/49/45/16104414_460a455887c4acc49e2bec27cc0c15af_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -962,6 +968,7 @@ exports[`resolve snapshot image-response (60114898) 1`] = `
       "aiType": 0,
       "illustType": 1,
       "originalImage": "https://i.pximg.net/img-original/img/2016/11/26/15/46/02/60114898_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2019/08/06/15/49/45/16104414_460a455887c4acc49e2bec27cc0c15af.jpg",
       "page": undefined,
       "pageCount": 6,
       "sl": 2,
@@ -980,7 +987,7 @@ exports[`resolve snapshot manga (46267137) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -1112,6 +1119,7 @@ exports[`resolve snapshot manga (46267137) 1`] = `
       "aiType": 0,
       "illustType": 1,
       "originalImage": "https://i.pximg.net/img-original/img/2014/09/30/13/09/04/46267137_p0.png",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 4,
       "sl": 2,
@@ -1130,7 +1138,7 @@ exports[`resolve snapshot manga-book (46271807) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -1282,6 +1290,7 @@ exports[`resolve snapshot manga-book (46271807) 1`] = `
       "aiType": 0,
       "illustType": 0,
       "originalImage": "https://i.pximg.net/img-original/img/2014/09/30/20/27/24/46271807_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 20,
       "sl": 2,
@@ -1300,7 +1309,7 @@ exports[`resolve snapshot series (60103962) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2018/01/17/13/27/18/13704279_b44b8e2e9915bcc54f7abd507708428c_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2018/01/17/13/27/18/13704279_b44b8e2e9915bcc54f7abd507708428c_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -1412,6 +1421,7 @@ exports[`resolve snapshot series (60103962) 1`] = `
       "aiType": 0,
       "illustType": 1,
       "originalImage": "https://i.pximg.net/img-original/img/2016/11/25/21/00/02/60103962_p0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2018/01/17/13/27/18/13704279_b44b8e2e9915bcc54f7abd507708428c.jpg",
       "page": undefined,
       "pageCount": 5,
       "sl": 2,
@@ -1430,7 +1440,7 @@ exports[`resolve snapshot ugoira (44298467) 1`] = `
   "creator": [
     {
       "image": {
-        "contentUrl": "https://i.pximg.net/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
+        "contentUrl": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87_50.jpg",
         "encodingFormat": "image/jpeg",
       },
       "name": {
@@ -1497,6 +1507,7 @@ exports[`resolve snapshot ugoira (44298467) 1`] = `
       "aiType": 0,
       "illustType": 2,
       "originalImage": "https://i.pximg.net/img-original/img/2014/06/25/14/30/22/44298467_ugoira0.jpg",
+      "originalProfileImage": "https://i.pixiv.cat/user-profile/img/2025/01/28/14/59/33/26898736_058dfc75acb3b71f4cdce3fdb7a9da87.jpg",
       "page": undefined,
       "pageCount": 1,
       "sl": 2,
