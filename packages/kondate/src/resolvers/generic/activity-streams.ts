@@ -4,6 +4,7 @@ import type {
   DefinedTerm,
   Metadata as GenericMetadata,
   ExtendedMetadataRecord,
+  ImageObject,
   MediaObject,
   Person,
   ResolveOptions,
@@ -105,7 +106,7 @@ export async function extract(
   if (attributedTo !== undefined) {
     actor = attributedTo;
     if (typeof attributedTo === 'object') {
-      creator = personFromActor(attributedTo);
+      creator = await personFromActor(attributedTo, resUrl.origin, options);
     }
   }
 
@@ -169,8 +170,39 @@ export async function extract(
   return ret;
 }
 
-function personFromActor(actor: jsonld.NodeObject): Person & { type: string } {
+async function personFromActor(
+  actor: jsonld.NodeObject,
+  origin: string,
+  options?: Readonly<ResolveOptions>,
+): Promise<Person & { type: string }> {
   const name = firstLangString(actor.nameMap, actor.name)?.value;
+
+  let image: ImageObject | undefined;
+  try {
+    const icon = await hydrateNode(
+      jsonLdUtil.firstOfSet(actor.icon),
+      origin,
+      options,
+    );
+    if (typeof icon === 'object') {
+      const url = parseUrl(icon.url);
+      if (url) {
+        let encodingFormat = url.mediaType;
+        if (!encodingFormat && typeof icon.mediaType === 'string') {
+          // Mastodon inadvertently sets `mediaType` on `Image` instead of `Link`:
+          // https://github.com/mastodon/mastodon/issues/8745#issuecomment-423413696
+          encodingFormat = icon.mediaType;
+        }
+        image = {
+          contentUrl: url.href,
+          encodingFormat,
+        };
+      }
+    }
+  } catch {
+    // noop
+  }
+
   return {
     type: 'Person',
     name: name ? { textValue: name } : undefined,
@@ -178,6 +210,7 @@ function personFromActor(actor: jsonld.NodeObject): Person & { type: string } {
       parseUrl(actor.url)?.href ??
       (typeof actor.id === 'string' ? actor.id : undefined),
     description: firstLangString(actor.summaryMap, actor.summary)?.value,
+    image,
   };
 }
 

@@ -6,6 +6,10 @@ exports[`resolve snapshot mastodon-html-url 1`] = `
   "creator": [
     {
       "description": "<p>A free, open-source decentralised social network to connect with your friends and others, anywhere.</p><p>This is the primary account for the overall Mastodon project.</p><p>For technical software updates, follow <span class="h-card" translate="no"><a href="https://mastodon.social/@MastodonEngineering" class="u-url mention">@<span>MastodonEngineering</span></a></span></p><p>For news and updates on the Mastodon servers we operate (like this one!), follow <span class="h-card" translate="no"><a href="https://mastodon.social/@staff" class="u-url mention">@<span>staff</span></a></span></p>",
+      "image": {
+        "contentUrl": "https://files.mastodon.social/accounts/avatars/000/013/179/original/b4ceb19c9c54ec7e.png",
+        "encodingFormat": "image/png",
+      },
       "name": {
         "textValue": "Mastodon",
       },
@@ -218,6 +222,10 @@ exports[`resolve snapshot mastodon-safe-medium 1`] = `
   "creator": [
     {
       "description": "<p>Executive Strategy &amp; Product Advisor, Founder of <span class="h-card" translate="no"><a href="https://mastodon.social/@Mastodon" class="u-url mention">@<span>Mastodon</span></a></span>. Film photography, prog metal, Dota 2. Likes all things analog.</p>",
+      "image": {
+        "contentUrl": "https://files.mastodon.social/accounts/avatars/000/000/001/original/a0a49d80c3de5f75.png",
+        "encodingFormat": "image/png",
+      },
       "name": {
         "textValue": "Eugen Rochko",
       },
@@ -485,6 +493,10 @@ exports[`resolve snapshot misskey-safe-and-sensitive-media 1`] = `
   "creator": [
     {
       "description": "<p>いくしーでぇっす！</p>",
+      "image": {
+        "contentUrl": "https://media.misskeyusercontent.com/io/4d3bc962-189d-4ea5-8417-f622daa6d5d1.png",
+        "encodingFormat": undefined,
+      },
       "name": {
         "textValue": "Ixy（いくしー）",
       },
