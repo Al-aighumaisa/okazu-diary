@@ -353,11 +353,6 @@ export async function hydrateMaterial(
   if (meta) {
     if (meta.name) {
       material.record.title = meta.name.textValue;
-    } else {
-      const creatorName = meta.creator?.[0].name;
-      if (creatorName) {
-        material.record.title = creatorName.textValue;
-      }
     }
 
     if (meta.description) {
