@@ -7,7 +7,12 @@ exports[`resolve snapshot animation 1`] = `
     {
       "description": "おっぱいや擬人化が好き
 今は大体けもシコ",
-      "image": undefined,
+      "image": {
+        "contentUrl": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+      },
+      "name": {
+        "textValue": "搾り課す",
+      },
       "type": "Person",
       "url": "https://nijie.info/members.php?id=65899",
     },
@@ -152,7 +157,12 @@ exports[`resolve snapshot multiple 1`] = `
     {
       "description": "おっぱいや擬人化が好き
 今は大体けもシコ",
-      "image": undefined,
+      "image": {
+        "contentUrl": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+      },
+      "name": {
+        "textValue": "搾り課す",
+      },
       "type": "Person",
       "url": "https://nijie.info/members.php?id=65899",
     },
@@ -271,7 +281,12 @@ exports[`resolve snapshot page 1`] = `
     {
       "description": "おっぱいや擬人化が好き
 今は大体けもシコ",
-      "image": undefined,
+      "image": {
+        "contentUrl": "https://pic.nijie.net/__s4__/d7b6dfe125f25d358998b2e8a0fce328bc6e44985d129cfb2e50ae135201c2ede640642d04ad060aa1c19c8a3e007fa24dc68f16b5435dfce9fd6c4eb34bd4e7c0b6614bf282047cd0e98c828bda8e482d64fc3fedcfc1eaa2836a67.jpg",
+      },
+      "name": {
+        "textValue": "搾り課す",
+      },
       "type": "Person",
       "url": "https://nijie.info/members.php?id=65899",
     },
@@ -479,7 +494,12 @@ exports[`resolve snapshot single 1`] = `
   "creator": [
     {
       "description": "らくがきとか",
-      "image": undefined,
+      "image": {
+        "contentUrl": "https://pic.nijie.net/__s4__/d7e3d8b577ac5c328fc4b2bef7bdf02bc2295b5df402157f54444a9670646b2736017c9b6cb83ea822f196082dd5dd508c2f5c04ac8ae0d565ba3d95055046f6fb6e2c19004fd7539c634b7e76c8b3467d838a9b38060096f7c37972.gif",
+      },
+      "name": {
+        "textValue": "五月うなぎ",
+      },
       "type": "Person",
       "url": "https://nijie.info/members.php?id=2768",
     },

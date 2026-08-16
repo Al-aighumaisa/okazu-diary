@@ -144,27 +144,36 @@ function extractCreator(
     return;
   }
 
+  let image;
+  for (const i of jsonLdUtil.setAsArray(value.image)) {
+    if ((image = extractMediaObject(i, 'ImageObject'))) {
+      break;
+    }
+  }
+
   return {
     type,
+    name: firstPronounceableText(value.name),
     url:
       firstString(value.url) ??
       (value['@id'] as string) ??
       firstString(value.sameAs),
     description: firstString(value.description),
-    image: jsonLdUtil
-      .setAsArray(value.image)
-      .flatMap((v) => extractMediaObject(v, 'ImageObject') ?? [])[0],
+    image,
   };
 }
 
 function extractMediaObject<T extends string>(
   value: jsonld.NodeObject[string],
   expectedType: T,
-): (MediaObject & { type: T }) | undefined {
-  if (
-    !jsonLdUtil.isNodeObject(value) ||
-    !jsonLdUtil.setAsArray(value['@type']).includes(expectedType)
-  ) {
+): MediaObject | undefined {
+  if (typeof value === 'string') {
+    return {
+      contentUrl: value,
+    };
+  }
+
+  if (!jsonLdUtil.isNodeObject(value)) {
     return;
   }
 
@@ -185,7 +194,6 @@ function extractMediaObject<T extends string>(
   }
 
   return {
-    type: expectedType,
     contentUrl,
     name: firstPronounceableText(value.name),
     encodingFormat: firstString(value.encodingFormat),
